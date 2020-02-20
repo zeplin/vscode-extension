@@ -1,0 +1,219 @@
+{
+    "name": "zeplin",
+    "displayName": "Zeplin",
+    "publisher": "Zeplin",
+    "description": "Zeplin VSCode Extension",
+    "version": "0.3.0",
+    "categories": [
+        "Other"
+    ],
+    "engines": {
+        "vscode": "^1.33.0"
+    },
+    "license": "SEE LICENSE IN LICENSE",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/zeplin/vscode-extension"
+    },
+    "homepage": "https://github.com/zeplin/vscode-extension#readme",
+    "bugs": "https://github.com/zeplin/vscode-extension/issues",
+    "activationEvents": [
+        "*"
+    ],
+    "main": "./dist/extension.js",
+    "contributes": {
+        "commands": [
+            {
+                "command": "zeplin.createConfig",
+                "title": "Create Zeplin Configuration File",
+                "category": "Zeplin"
+            },
+            {
+                "command": "zeplin.openConfig",
+                "title": "Open Zeplin Configuration File",
+                "category": "Zeplin"
+            },
+            {
+                "command": "zeplin.login",
+                "title": "Login to Zeplin",
+                "category": "Zeplin"
+            },
+            {
+                "command": "zeplin.manualLogin",
+                "title": "Authenticate to Zeplin with Token",
+                "category": "Zeplin"
+            },
+            {
+                "command": "zeplin.logout",
+                "title": "Log Out from Zeplin",
+                "category": "Zeplin"
+            },
+            {
+                "command": "zeplin.addProject",
+                "title": "Add Project to Zeplin Configuration",
+                "category": "Zeplin"
+            },
+            {
+                "command": "zeplin.addStyleguide",
+                "title": "Add Styleguide to Zeplin Configuration",
+                "category": "Zeplin"
+            },
+            {
+                "command": "zeplin.addComponent",
+                "title": "Add Component to Zeplin Configuration",
+                "category": "Zeplin"
+            },
+            {
+                "command": "zeplin.addZeplinComponent",
+                "title": "Connect Zeplin Component to Component in Configuration",
+                "category": "Zeplin"
+            },
+            {
+                "command": "zeplin.addGithub",
+                "title": "Add GitHub Repository to Zeplin Configuration",
+                "category": "Zeplin"
+            },
+            {
+                "command": "zeplin.addGitlab",
+                "title": "Add GitLab Repository to Zeplin Configuration",
+                "category": "Zeplin"
+            },
+            {
+                "command": "zeplin.addBitbucket",
+                "title": "Add Bitbucket Repository to Zeplin Configuration",
+                "category": "Zeplin"
+            },
+            {
+                "command": "zeplin.addPlugin",
+                "title": "Add Plugin to Zeplin Configuration",
+                "category": "Zeplin"
+            },
+            {
+                "command": "zeplin.addLink",
+                "title": "Add Custom Link to Zeplin Configuration",
+                "category": "Zeplin"
+            },
+            {
+                "command": "zeplin.saveLogs",
+                "title": "Save Logs",
+                "category": "Zeplin"
+            }
+        ],
+        "configuration": {
+            "title": "Zeplin",
+            "properties": {
+                "zeplin.connectedComponents.ignoredExtensions": {
+                    "type": "array",
+                    "uniqueItems": true,
+                    "default": [
+                        "html",
+                        "css",
+                        "scss",
+                        "less",
+                        "json",
+                        "md",
+                        "txt",
+                        "yml",
+                        "jpg",
+                        "jpeg",
+                        "png",
+                        "gif",
+                        "webp",
+                        "tiff",
+                        "tif",
+                        "psd",
+                        "svg",
+                        "pdf",
+                        "ico",
+                        "ttf",
+                        "woff",
+                        "woff2",
+                        "otf",
+                        "eof"
+                    ],
+                    "items": {
+                        "type": "string"
+                    },
+                    "markdownDescription": "Specifies ignored file extensions for `Add Component to Zeplin Configuration` Command",
+                    "scope": "resource"
+                },
+                "zeplin.connectedComponents.ignoredFiles": {
+                    "type": "array",
+                    "uniqueItems": true,
+                    "default": [],
+                    "items": {
+                        "type": "string"
+                    },
+                    "markdownDescription": "Specifies ignored files with exact relative path for `Add Component to Zeplin Configuration` Command",
+                    "scope": "resource"
+                },
+                "zeplin.connectedComponents.ignoredPathsStartWith": {
+                    "type": "array",
+                    "uniqueItems": true,
+                    "default": [
+                        "node_modules",
+                        "."
+                    ],
+                    "items": {
+                        "type": "string"
+                    },
+                    "markdownDescription": "Specifies ignored files with relative paths that start with one of given strings for `Add Component to Zeplin Configuration` Command",
+                    "scope": "resource"
+                },
+                "zeplin.connectedComponents.ignoredPathsInclude": {
+                    "type": "array",
+                    "uniqueItems": true,
+                    "default": [
+                        "/."
+                    ],
+                    "items": {
+                        "type": "string"
+                    },
+                    "markdownDescription": "Specifies ignored files with relative paths that contain one of given strings for `Add Component to Zeplin Configuration` Command",
+                    "scope": "resource"
+                }
+            }
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "webpack --mode production",
+        "compile": "NODE_ENV=test webpack --mode development",
+        "watch": "NODE_ENV=test webpack --mode development --watch",
+        "test-compile": "tsc -p ./",
+        "pretest": "npm run compile",
+        "test": "node ./out/test/runTest.js",
+        "lint": "eslint --ext .js,.ts ."
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "npm run lint"
+        }
+    },
+    "devDependencies": {
+        "@types/glob": "^7.1.1",
+        "@types/keytar": "^4.4.2",
+        "@types/mocha": "^5.2.6",
+        "@types/node": "^10.17.12",
+        "@types/node-fetch": "^2.5.4",
+        "@types/vscode": "^1.0.0",
+        "@typescript-eslint/eslint-plugin": "^2.13.0",
+        "@typescript-eslint/parser": "^2.13.0",
+        "@zeplin/eslint-config": "^2.2.0",
+        "eslint": "^6.8.0",
+        "eslint-import-resolver-typescript": "^1.1.1",
+        "glob": "^7.1.6",
+        "husky": "^3.1.0",
+        "mocha": "^6.2.2",
+        "node-loader": "^0.6.0",
+        "ts-loader": "^6.2.1",
+        "typescript": "^3.7.4",
+        "vscode-test": "^1.3.0",
+        "webpack": "^4.41.4",
+        "webpack-cli": "^3.3.10"
+    },
+    "dependencies": {
+        "abort-controller": "3.0.0",
+        "image-size": "0.8.3",
+        "node-fetch": "^2.6.0"
+    }
+}
