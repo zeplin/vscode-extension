@@ -3,7 +3,7 @@
     "displayName": "Zeplin",
     "publisher": "Zeplin",
     "description": "Zeplin’s official Visual Studio Code extension to connect your components to their design counterparts",
-    "icon": "resources/docs/icon-zeplin.png",
+    "icon": "resources/icon-zeplin.png",
     "version": "0.3.0",
     "galleryBanner": {
         "color": "#F7F7F7",
