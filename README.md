@@ -4,9 +4,8 @@ Visual Studio Code extension for Zeplin 🔌
 
 ## Installation
 
-Download Zeplin from Visual Studio Code extension marketplace:
-
-☝️ _URL will be added once the extension is published._
+[Download](https://marketplace.visualstudio.com/items?itemName=zeplin.zeplin) Zeplin from Visual
+Studio Code extension marketplace
 
 ## Usage
 
