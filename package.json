@@ -2,10 +2,23 @@
     "name": "zeplin",
     "displayName": "Zeplin",
     "publisher": "Zeplin",
-    "description": "Zeplin VSCode Extension",
+    "description": "Zeplin’s official Visual Studio Code extension to connect your components to their design counterparts",
+    "icon": "resources/docs/icon-zeplin.png",
     "version": "0.3.0",
+    "galleryBanner": {
+        "color": "#F7F7F7",
+        "theme": "light"
+    },
     "categories": [
+        "Snippets",
+        "Formatters",
         "Other"
+    ],
+    "keywords": [
+        "zeplin",
+        "connected components",
+        "design system",
+        "design"
     ],
     "engines": {
         "vscode": "^1.33.0"
