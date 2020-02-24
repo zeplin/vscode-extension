@@ -47,7 +47,6 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for details.
 - [ ] Shorten component paths while adding components
 - [ ] Validate token format during login
 - [ ] Online validation for project ids, styleguide ids, component Zeplin names
-- [ ] Add shortcuts to commands
 
 ### New features
 
