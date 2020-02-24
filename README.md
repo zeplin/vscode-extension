@@ -52,4 +52,3 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for details.
 ### New features
 
 - [ ] Allow selecting multiple components while adding them
-- [ ] Add commands for adding base URLs
