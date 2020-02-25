@@ -9,16 +9,26 @@ type Option = {
 
 type Action = () => void;
 
+/**
+ * Builder for showing VS Code Message.
+ */
 export default class MessageBuilder {
     private type: MessageType = MessageType.Error;
     private options: Option[] = [];
 
     private constructor(private message: string) { }
 
+    /**
+     * Initializes a message builder with a message.
+     * @param message A message to be shown.
+     */
     public static with(message: string): MessageBuilder {
         return new MessageBuilder(message);
     }
 
+    /**
+     * Return VS Code's built-in message function.
+     */
     private getShowMessageFunction(): (message: string, ...items: string[]) => Thenable<string | undefined> {
         switch (this.type) {
             case MessageType.Warning:
@@ -31,6 +41,11 @@ export default class MessageBuilder {
         }
     }
 
+    /**
+     * Adds a button to the message.
+     * @param name A button text.
+     * @param action A button action.
+     */
     public addOption(name: string, action?: Action): MessageBuilder {
         this.options.push({
             name,
@@ -40,11 +55,18 @@ export default class MessageBuilder {
         return this;
     }
 
+    /**
+     * Sets type of message.
+     * @param type Message type.
+     */
     public setType(type: MessageType): MessageBuilder {
         this.type = type;
         return this;
     }
 
+    /**
+     * Shows message with VS Code's built-in message feature.
+     */
     public async show(): Promise<string | undefined> {
         const showMessage = this.getShowMessageFunction();
         const optionNames = this.options.map(option => option.name);

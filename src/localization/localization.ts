@@ -1,6 +1,10 @@
 import BarrelType from "../coco/barrel/model/BarrelType";
 import RepositoryType from "../coco/repository/model/RepositoryType";
 
+/**
+ * Localization object that contains this extension's all user visible texts that may be relative to locale (except
+ * those in package.json).
+ */
 const localization = {
     coco: {
         barrel: {

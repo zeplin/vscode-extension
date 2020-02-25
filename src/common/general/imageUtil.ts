@@ -2,6 +2,10 @@ import fetch from "node-fetch";
 import AbortController from "abort-controller";
 import imageSize from "image-size";
 
+/**
+ * Return width and height of an image by retriving its data until metadata is received.
+ * @param url An image url.
+ */
 async function getImageSize(url: string): Promise<{ width: number; height: number }> {
     const abortController = new AbortController();
     let imageDataBuffer: Buffer | undefined;

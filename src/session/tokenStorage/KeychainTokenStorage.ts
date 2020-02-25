@@ -7,6 +7,9 @@ const ACCOUNT_NAME = "zeplinTokenAccount";
 const SERVICE_NAME_FOR_AVAILABILITY = "zeplinTokenServiceForAvailability";
 const ACCOUNT_NAME_FOR_AVAILABILITY = "zeplinTokenAccountForAvailability";
 
+/**
+ * Native storage for session token.
+ */
 class KeychainTokenStorage implements TokenStorage {
     public get(): Promise<string | null> {
         return keytar!.getPassword(SERVICE_NAME, ACCOUNT_NAME);
@@ -38,6 +41,9 @@ function getKeytar(): Keytar | undefined {
     }
 }
 
+/**
+ * Determines whether native password storage could be used for session token.
+ */
 async function isKeychainTokenStorageAvailable() {
     try {
         // Check if keytar is working

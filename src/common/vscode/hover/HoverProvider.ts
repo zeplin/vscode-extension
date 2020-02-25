@@ -14,11 +14,22 @@ import LinksPropertyHoverData from "../../../coco/link/hover/LinksPropertyHoverD
 
 const DATA_BOUNDARY = '"';
 
+/**
+ * Accumulates Hover creators to provide hovers.
+ */
 class HoverProvider implements vscode.HoverProvider {
+    /**
+     * Returns a selector that defines the documents this provider is applicable to.
+     */
     public getDocumentSelector(): vscode.DocumentSelector {
         return { pattern: `**/${RELATIVE_PATH}` };
     }
 
+    /**
+     * Provides a hover by accummulating Hover creators. None is returned when none of the creators create a hover.
+     * @param document The document in which the command was invoked.
+     * @param position The position at which the command was invoked.
+     */
     public provideHover(document: vscode.TextDocument, position: vscode.Position): Promise<vscode.Hover> | undefined {
         const range = document.getWordRangeAtPosition(position);
         if (!range) {
