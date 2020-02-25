@@ -11,7 +11,7 @@ Studio Code extension marketplace
 
 ### Connected Components
 
-[Connected Components](https://blog.zeplin.io/introducing-connected-components-components-in-design-and-code-in-harmony-aa894ed5bd95) in Zeplin lets you access components in your codebase directly on designs in Zeplin, with links to Storybook, GitHub and any other source of documentation based on your workflow. 🧩
+[Connected Components](https://zpl.io/connected-components) in Zeplin lets you access components in your codebase directly on designs in Zeplin, with links to Storybook, GitHub and any other source of documentation based on your workflow. 🧩
 
 Zeplin's Visual Studio Code extension makes it easier to create the JSON configuration file that connects components in your codebase to their design counterparts in Zeplin.
 
