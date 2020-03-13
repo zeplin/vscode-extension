@@ -2,12 +2,13 @@ import Store from "./Store";
 import BaseError from "../error/BaseError";
 import Result from "./Result";
 import Logger from "../../../log/Logger";
+import CacheHolder from "./CacheHolder";
 
 /**
  * Helper base for getting, refreshing data from a source and extracting useful data from it.
  */
 export default abstract class BasicStore<TResponse, TData, TError extends BaseError = BaseError>
-implements Store<TData, TError> {
+implements Store<TData, TError>, CacheHolder {
     private cache?: Result<TData, TError>;
     private fetchPromise?: Promise<TResponse | BaseError>;
 

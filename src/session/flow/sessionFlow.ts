@@ -11,6 +11,9 @@ import configuration from "../../common/domain/extension/configuration";
 import { showNotLoggedInError } from "../../common/domain/error/errorUi";
 import MessageBuilder from "../../common/vscode/message/MessageBuilder";
 import MessageType from "../../common/vscode/message/MessageType";
+import CacheHolder from "../../common/domain/store/CacheHolder";
+
+const CACHE_HOLDERS: CacheHolder[] = [WorkspacesStore, BarrelsStoreProvider, BarrelDetailsStoreProvider];
 
 function showLoginWarningAfterInstall() {
     MessageBuilder.with(localization.session.askLogin)
@@ -44,7 +47,7 @@ async function tryManualLogin() {
 
 async function completeLogin(token: string) {
     await Session.setToken(token);
-    clearCaches();
+    clearCache();
     ConfigCodeLensProvider.refresh();
     MessageBuilder.with(localization.session.loggedIn).setType(MessageType.Info).show();
 }
@@ -67,15 +70,13 @@ function askLogout() {
 
 async function completeLogout() {
     await Session.removeToken();
-    clearCaches();
+    clearCache();
     ConfigCodeLensProvider.refresh();
     MessageBuilder.with(localization.session.logoutSuccessful).setType(MessageType.Info).show();
 }
 
-function clearCaches() {
-    WorkspacesStore.clearCache();
-    BarrelsStoreProvider.clearCache();
-    BarrelDetailsStoreProvider.clearCache();
+function clearCache() {
+    CACHE_HOLDERS.forEach(cacheHolder => cacheHolder.clearCache());
 }
 
 export {
