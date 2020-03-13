@@ -3,21 +3,38 @@ import ContextProvider from "../common/vscode/extension/ContextProvider";
 import { EXTENSION_NAME } from "../common/vscode/extension/extensionUtil";
 import { normalizePaths } from "../common/general/pathUtil";
 
+/**
+ * Preference holder with lazy loading.
+ */
 class PreferenceHolder<T> {
     private value: T | undefined;
 
+    /**
+     * Constructor for PreferenceHolder.
+     * @param key A preference key.
+     * @param filter A function for filtering user input
+     */
     public constructor(public key: string, private filter: (value: unknown) => T) { }
 
+    /**
+     * Returns preference value with lazy loading.
+     */
     public get(): T {
         return this.value ??
             (this.value = this.filter(vscode.workspace.getConfiguration(EXTENSION_NAME).get(this.key)));
     }
 
+    /**
+     * Clears preference data
+     */
     public clear() {
         this.value = undefined;
     }
 }
 
+/**
+ * Subscribes to configuration changes for loading preferences once when used until they change.
+ */
 function initialize() {
     ContextProvider.get().subscriptions.push(
         vscode.workspace.onDidChangeConfiguration(event => {
@@ -32,6 +49,9 @@ function initialize() {
     );
 }
 
+/**
+ * All preference holders and initialize method for preferences.
+ */
 const Preferences = {
     IgnoredComponentExtensions: new PreferenceHolder("connectedComponents.ignoredExtensions", normalizePaths),
     IgnoredComponentFiles: new PreferenceHolder("connectedComponents.ignoredFiles", normalizePaths),

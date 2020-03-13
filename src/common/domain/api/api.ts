@@ -54,30 +54,58 @@ async function get<T>(path: string, extraHeaders: HeaderContainer = {}): Promise
     }
 }
 
+/**
+ * Fetches user's organizations.
+ */
 function getOrganizations(): ApiResult<OrganizationsResponse> {
     return get("/public/vscodeextension/organizations");
 }
 
+/**
+ * Fetches an organization's projects.
+ * @param organizationId An organization id.
+ */
 function getOrganizationProjects(organizationId: string): ApiResult<ProjectsResponse> {
     return get(`/public/vscodeextension/organizations/${organizationId}/projects`);
 }
 
+/**
+ * Fetches an organization's styleguides.
+ * @param organizationId An organization id.
+ */
 function getOrganizationStyleguides(organizationId: string): ApiResult<StyleguidesResponse> {
     return get(`/public/vscodeextension/organizations/${organizationId}/styleguides`);
 }
 
+/**
+ * Fetches user's personal projects.
+ */
 function getPersonalProjects(): ApiResult<ProjectsResponse> {
     return get(`/public/vscodeextension/projects`);
 }
 
+/**
+ * Fetches user's personal styleguides.
+ */
 function getPersonalStyleguides(): ApiResult<StyleguidesResponse> {
     return get(`/public/vscodeextension/styleguides`);
 }
 
+/**
+ * Fetches a project's details.
+ * @param projectId A project id.
+ */
 function getProjectDetails(projectId: string): ApiResult<ProjectDetailsResponse> {
     return get(`/public/vscodeextension/projects/${projectId}`);
 }
 
+/**
+ * Fetches a styleguide's details.
+ * Note: childId and childType can be provided to get styleguide's details even if the user has not joined it.
+ * @param styleguideId A styleguide id.
+ * @param childId Id of a known child of the styleguide whose details are requested.
+ * @param childType Barrel type of a known child of the styleguide whose details are requested.
+ */
 function getStyleguideDetails(styleguideId: string, childId?: string, childType?: BarrelType):
     ApiResult<StyleguideDetailsResponse> {
     const headers = childId ? {

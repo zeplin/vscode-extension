@@ -1,18 +1,38 @@
 import * as vscode from "vscode";
 import { allIndicesOf } from "../../general/stringUtil";
 
-function toProperty(name: string): string {
-    return `"${name}"`;
+/**
+ * Converts a text to JSON property. i.e wraps the text with quotes.
+ * @param text A text to be converted.
+ */
+function toProperty(text: string): string {
+    return `"${text}"`;
 }
 
-function getPositionsOf(name: string, document: vscode.TextDocument): vscode.Position[] {
-    return allIndicesOf(document.getText(), name).map(document.positionAt);
+/**
+ * Returns positions of a text on a text document.
+ * @param text A text to get positions of.
+ * @param document A text document to search on.
+ */
+function getPositionsOf(text: string, document: vscode.TextDocument): vscode.Position[] {
+    return allIndicesOf(document.getText(), text).map(document.positionAt);
 }
 
+/**
+ * Returns positions of a property on a text document.
+ * @param propertyName Name of a property to get positions of.
+ * @param document A text document to search on.
+ */
 function getPositionsOfProperty(propertyName: string, document: vscode.TextDocument): vscode.Position[] {
     return getPositionsOf(toProperty(propertyName), document);
 }
 
+/**
+ * Returns range of a text on a text document. If changes are provided, the text is searched in given changes only.
+ * @param text A text to get range of.
+ * @param document A text document to search on.
+ * @param changes Text document changes to search on.
+ */
 function getRangeOf(
     text: string,
     document: vscode.TextDocument,
@@ -32,6 +52,13 @@ function getRangeOf(
     return undefined;
 }
 
+/**
+ * Returns range of a property on a text document. If changes are provided, the property is searched in given changes
+ * only.
+ * @param propertyName Name of a property to get range of.
+ * @param document A text document to search on.
+ * @param changes Text document changes to search on.
+ */
 function getRangeOfProperty(
     propertyName: string,
     document: vscode.TextDocument,
@@ -40,19 +67,33 @@ function getRangeOfProperty(
     return getRangeOf(toProperty(propertyName), document, changes);
 }
 
-function getRangesOf(name: string, document: vscode.TextDocument): vscode.Range[] {
-    return getPositionsOf(name, document).map(
+/**
+ * Returns ranges of a text on a text document.
+ * @param text A text to get ranges of.
+ * @param document A text document to search on.
+ */
+function getRangesOf(text: string, document: vscode.TextDocument): vscode.Range[] {
+    return getPositionsOf(text, document).map(
         startPosition => new vscode.Range(
             startPosition,
-            document.positionAt(document.offsetAt(startPosition) + name.length)
+            document.positionAt(document.offsetAt(startPosition) + text.length)
         )
     );
 }
 
+/**
+ * Returns ranges of a property on a text document.
+ * @param propertyName Name of a property to get ranges of.
+ * @param document A text document to search on.
+ */
 function getRangesOfProperty(propertyName: string, document: vscode.TextDocument): vscode.Range[] {
     return getRangesOf(toProperty(propertyName), document);
 }
 
+/**
+ * Narrows a range by one char from both start and end. This works as removing quotes around a JSON property.
+ * @param range A range to narrow.
+ */
 function narrowRangeForProperty(range: vscode.Range | undefined): vscode.Range | undefined {
     return !range ? undefined : new vscode.Range(
         range.start.translate({ characterDelta: 1 }),

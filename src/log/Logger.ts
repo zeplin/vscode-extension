@@ -24,16 +24,27 @@ const MILLISECONDS_LENGTH = 3;
 const DATE_ITEM_PAD_FILLER = "0";
 
 class Logger {
+    /**
+     * Prints a message to console if console logs are enabled.
+     * @param message A message to log.
+     */
     public toConsole(message: string) {
         if (configuration.consoleLogsEnabled) {
             console.log(message);
         }
     }
 
+    /**
+     * Returns most recent logs.
+     */
     private getLogs(): string[] {
         return ContextProvider.get().globalState.get(KEY_STATE) || [];
     }
 
+    /**
+     * Logs a message to state. Has an LRU cache limited by maximum size.
+     * @param message A message to log.
+     */
     private toState(message: string) {
         const logs = this.getLogs();
         logs.unshift(message);
@@ -43,10 +54,19 @@ class Logger {
         ContextProvider.get().globalState.update(KEY_STATE, logs);
     }
 
+    /**
+     * Adds padding to a number to be used as a date item.
+     * @param number A number to be padded.
+     * @param maxLength Max length of a number.
+     */
     private padDateItem(number: number, maxLength = DEFAULT_DATE_ITEM_LENGTH): string {
         return number.toString().padStart(maxLength, DATE_ITEM_PAD_FILLER);
     }
 
+    /**
+     * Logs a message to state. Also prints a message to console if enabled.
+     * @param message A message to log.
+     */
     public log(message: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
         const date = new Date();
         const day = this.padDateItem(date.getDate());
@@ -61,10 +81,18 @@ class Logger {
         this.toState(toLog);
     }
 
+    /**
+     * Logs error data to state. Also prints a message to console if enabled.
+     * @param message A message to log.
+     * @param error Error data to log.
+     */
     public error(message: string, error: Error) {
         this.log(`${message}: ${error.stack}`);
     }
 
+    /**
+     * Saves logs to file.
+     */
     public saveToFile() {
         const storagePath = ContextProvider.get().globalStoragePath;
         if (!fs.existsSync(storagePath)) {

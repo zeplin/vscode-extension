@@ -4,6 +4,10 @@ import { wrapWithLogs } from "../../../log/util/logUtil";
 import { flatten, isFirstOccurence } from "../../general/arrayUtil";
 import Logger from "../../../log/Logger";
 
+/**
+ * A code lens provider adds commands to source text. The commands will be shown as dedicated horizontal lines in
+ * between the source text.
+ */
 export default abstract class CodeLensProvider implements vscode.CodeLensProvider {
     private eventEmitter = new vscode.EventEmitter<void>();
 
@@ -11,14 +15,27 @@ export default abstract class CodeLensProvider implements vscode.CodeLensProvide
         return this.eventEmitter.event;
     }
 
+    /**
+     * Re-provides code lenses.
+     */
     public refresh() {
         this.eventEmitter.fire();
     }
 
+    /**
+     * Returns a selector that defines the documents this provider is applicable to.
+     */
     public abstract getDocumentSelector(): vscode.DocumentSelector;
 
+    /**
+     * Returns Code Lens creators that this provider provides.
+     */
     protected abstract getCodeLensCreators(): CodeLensCreator[];
 
+    /**
+     * Returns Code Lenses that are this provider create via its Code Lens creators.
+     * @param document A text document to create Code Lenses on.
+     */
     public provideCodeLenses(document: vscode.TextDocument): vscode.CodeLens[] {
         const codeLensArrays: vscode.CodeLens[][] = this.getCodeLensCreators().map(
             creator => wrapWithLogs(

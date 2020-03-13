@@ -4,6 +4,9 @@ import ContextProvider from "../../common/vscode/extension/ContextProvider";
 
 const KEY_TOKEN = "zeplinToken";
 
+/**
+ * VS Code storage for session token.
+ */
 export default class VscodeTokenStorage implements TokenStorage {
     private readonly memento: vscode.Memento;
 

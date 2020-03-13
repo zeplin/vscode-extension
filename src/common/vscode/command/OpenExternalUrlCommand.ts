@@ -1,6 +1,9 @@
 import * as vscode from "vscode";
 import Command from "./Command";
 
+/**
+ * Command to open an external link.
+ */
 class OpenExternalUrlCommand implements Command {
     public name = "openExternalUrl";
 

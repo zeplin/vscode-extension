@@ -63,7 +63,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
     commands.forEach(registerCommand);
 
-    if (vscode.workspace.onDidRenameFiles) { // This feature requires VS Code v1.41 and up
+    if (vscode.workspace.onDidRenameFiles) { // This feature requires VS Code v1.41 and up.
         context.subscriptions.push(vscode.workspace.onDidRenameFiles(updateConfigOnComponentRename));
     }
     context.subscriptions.push(vscode.window.registerUriHandler(UriHandler));
@@ -89,5 +89,5 @@ export async function activate(context: vscode.ExtensionContext) {
 
 export function deactivate() {
     Logger.log("Extension deactivating");
-    // No need to clear anything
+    // No need to clear anything.
 }

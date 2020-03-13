@@ -1,9 +1,8 @@
 /**
- * Creates a Promise that is
- * - resolved when original promise is rejected,
- * - rejected when original promise is resolved,
- * @param {Promise<T>} promise Promise to be reversed
- * @returns {Promise<T>} A new Promise.
+ * Returns a Promise that is
+ * - resolved when original promise is rejected.
+ * - rejected when original promise is resolved.
+ * @param {Promise<T>} promise A Promise to be reversed.
  */
 async function reverse<T>(promise: Promise<T>): Promise<unknown> {
     let result;
@@ -16,21 +15,20 @@ async function reverse<T>(promise: Promise<T>): Promise<unknown> {
 }
 
 /**
- * Creates a Promise that is
- * - resolved when any of the provided Promises are resolved,
- * - rejects when all of the provided Promises are rejected
- * @param {Promise<T>} promises Promise An array of Promises.
- * @returns {Promise<T>} A new Promise.
+ * Returns a Promise that is
+ * - resolved when any of the provided Promises are resolved.
+ * - rejects when all of the provided Promises are rejected.
+ * @param {Promise<T>} promises An array of Promises.
  */
 function promiseAny<T>(promises: Promise<T>[]): Promise<T> {
     /*
     All promises are reversed before being supplied to Promise.all method. Thus, Promise.all will be:
-    - resolved when all promises are rejected,
+    - resolved when all promises are rejected.
     - rejected when one of promises is resolved. (Will not wait all promises to settle because a rejection make
-    Promise.all to reject)
+    Promise.all to reject.)
 
     Then, the result is reversed again and resulting promise will be:
-    - rejected when all promises are rejected
+    - rejected when all promises are rejected.
     - resolved when one of promises is resolved.
     */
     return reverse(Promise.all(promises.map(reverse))) as Promise<T>;
