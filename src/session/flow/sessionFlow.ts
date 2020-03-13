@@ -79,10 +79,16 @@ function clearCache() {
     CACHE_HOLDERS.forEach(cacheHolder => cacheHolder.clearCache());
 }
 
+function clearCacheAndNotify() {
+    clearCache();
+    MessageBuilder.with(localization.session.cacheCleared).setType(MessageType.Info).show();
+}
+
 export {
     showLoginWarningAfterInstall,
     tryLogin,
     tryManualLogin,
     completeLogin,
-    tryLogout
+    tryLogout,
+    clearCacheAndNotify
 };

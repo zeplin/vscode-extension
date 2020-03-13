@@ -9,6 +9,7 @@ import OpenConfigCommand from "../../../coco/config/command/OpenConfigCommand";
 import LoginCommand from "../../../session/command/LoginCommand";
 import ManualLoginCommand from "../../../session/command/ManualLoginCommand";
 import LogoutCommand from "../../../session/command/LogoutCommand";
+import ClearCacheCommand from "../../../session/command/ClearCacheCommand";
 import AddProjectCommand from "../../../coco/barrel/command/AddProjectCommand";
 import AddStyleguideCommand from "../../../coco/barrel/command/AddStyleguideCommand";
 import AddComponentCommand from "../../../coco/component/command/AddComponentCommand";
@@ -43,6 +44,7 @@ export async function activate(context: vscode.ExtensionContext) {
         LoginCommand,
         ManualLoginCommand,
         LogoutCommand,
+        ClearCacheCommand,
         AddProjectCommand,
         AddStyleguideCommand,
         AddComponentCommand,
