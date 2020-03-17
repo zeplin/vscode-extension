@@ -59,7 +59,7 @@ async function startAddZeplinComponentFlow(componentIndex?: number) {
         );
         barrelQuickPickProvider.get().title = localization.coco.zeplinComponent.connect;
         barrelQuickPickProvider.get().placeholder = localization.coco.zeplinComponent.selectBarrel;
-        barrel = await barrelQuickPickProvider.startSelection();
+        barrel = await barrelQuickPickProvider.startSingleSelection();
     }
 
     // Fail if no barrel is selected
@@ -79,7 +79,7 @@ async function startAddZeplinComponentFlow(componentIndex?: number) {
     );
     zeplinComponentQuickPickProvider.get().title = localization.coco.zeplinComponent.connect;
     zeplinComponentQuickPickProvider.get().placeholder = localization.coco.zeplinComponent.selectZeplinComponent;
-    const zeplinComponent = await zeplinComponentQuickPickProvider.startSelection();
+    const zeplinComponent = await zeplinComponentQuickPickProvider.startSingleSelection();
 
     // Fail if no Zeplin component name is selected
     if (!zeplinComponent) {
@@ -97,7 +97,7 @@ async function startAddZeplinComponentFlow(componentIndex?: number) {
         );
         componentPathQuickPickProvider.get().title = localization.coco.zeplinComponent.connect;
         componentPathQuickPickProvider.get().placeholder = localization.coco.zeplinComponent.selectComponent;
-        component = await componentPathQuickPickProvider.startSelection();
+        component = await componentPathQuickPickProvider.startSingleSelection();
     }
 
     // Fail if no component path is selected

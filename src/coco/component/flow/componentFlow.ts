@@ -28,7 +28,7 @@ async function startAddComponentFlow(selectedFilePath: string | undefined = unde
         );
         filePathQuickPickProvider.get().title = localization.coco.component.add;
         filePathQuickPickProvider.get().placeholder = localization.coco.component.writeFileName;
-        const componentPath = await filePathQuickPickProvider.startSelection();
+        const componentPath = await filePathQuickPickProvider.startSingleSelection();
         filePath = componentPath?.fs;
     }
 

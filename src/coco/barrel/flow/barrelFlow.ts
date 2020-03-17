@@ -36,7 +36,7 @@ async function startAddBarrelFlow(type: BarrelType) {
     );
     workspaceQuickPickProvider.get().title = title;
     workspaceQuickPickProvider.get().placeholder = localization.coco.barrel.selectWorkspace;
-    const workspace = await workspaceQuickPickProvider.startSelection();
+    const workspace = await workspaceQuickPickProvider.startSingleSelection();
 
     // Fail if no workspace is selected
     if (!workspace) {
@@ -54,7 +54,7 @@ async function startAddBarrelFlow(type: BarrelType) {
     );
     barrelQuickPickProvider.get().title = title;
     barrelQuickPickProvider.get().placeholder = localization.coco.barrel.select(type, workspace.name);
-    const barrel = await barrelQuickPickProvider.startSelection();
+    const barrel = await barrelQuickPickProvider.startSingleSelection();
 
     // Fail if no barrel is selected
     if (!barrel) {
