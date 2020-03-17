@@ -74,9 +74,10 @@ async function startAddComponentFlow(selectedFilePath: string | undefined = unde
         return;
     }
 
-    // Add config
+    // Add component
     configUtil.addComponentWithPath(filePath);
     showInEditor(configPath, { text: getRelativePathToRootFolder(filePath), onAdd: true });
+    MessageBuilder.with(localization.coco.component.added).setType(MessageType.Info).show();
 }
 
 async function startAddMultipleComponentsFlow(selectedFilePaths: string[] | undefined = undefined) {

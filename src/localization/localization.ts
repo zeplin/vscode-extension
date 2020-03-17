@@ -32,6 +32,7 @@ const localization = {
             createConfigsAndAdd: "Create Configs and Add components",
             alreadyAdded: "Selected component file is already added.",
             add: "Add component",
+            added: "Component added to configuration file.",
             addMultiple: "Add multiple components",
             addedMultiple: (count: number) => `${pluralize(count, "component")} added to configuration file.`,
             goToFile: "Go to component file",
