@@ -16,10 +16,18 @@ import MessageType from "../../../common/vscode/message/MessageType";
 import ZeplinComponent from "../model/ZeplinComponent";
 import BarrelError from "../model/BarrelError";
 import BarrelType from "../../barrel/model/BarrelType";
+import Component from "../../component/model/Component";
 
-async function startAddZeplinComponentFlow(componentIndex?: number) {
+type PrecheckResult = {
+    configPath: string;
+    component: Component;
+    zeplinComponentQuickPickProvider: QuickPickProvider<ZeplinComponent, BarrelError>;
+};
+
+async function precheckAddZeplinComponentRequirements(pickerTitle: string, componentIndex?: number):
+    Promise<PrecheckResult | undefined> {
     // Validate login and select config, fail if a modifiable config is not selected
-    const configPath = await selectAndValidateConfig(localization.coco.zeplinComponent.connect);
+    const configPath = await selectAndValidateConfig(pickerTitle);
     if (!configPath) {
         return;
     }
@@ -44,48 +52,6 @@ async function startAddZeplinComponentFlow(componentIndex?: number) {
         return;
     }
 
-    // Check if there is only one barrel in config, show barrel picker if not so
-    let barrel = configUtil.getActiveBarrel(configPath);
-    if (!barrel) {
-        // Show barrel picker
-        const barrelQuickPickProvider = new QuickPickProvider(
-            new ConfigBarrelsStore(configPath),
-            item => ({
-                label: item.name,
-                detail: getBarrelDetailRepresentationWithType(item)
-            }),
-            localization.coco.zeplinComponent.noBarrelFound,
-            showBarrelError
-        );
-        barrelQuickPickProvider.get().title = localization.coco.zeplinComponent.connect;
-        barrelQuickPickProvider.get().placeholder = localization.coco.zeplinComponent.selectBarrel;
-        barrel = await barrelQuickPickProvider.startSingleSelection();
-    }
-
-    // Fail if no barrel is selected
-    if (!barrel) {
-        return;
-    }
-
-    // Show Zeplin component picker
-    const zeplinComponentQuickPickProvider = new QuickPickProvider<ZeplinComponent, BarrelError>(
-        new ZeplinComponentsStore(barrel.id, barrel.type),
-        zeplinComponent => ({
-            label: zeplinComponent.name,
-            detail: getZeplinComponentDetailRepresentation(zeplinComponent)
-        }),
-        localization.coco.zeplinComponent.noZeplinComponentFound,
-        showBarrelError
-    );
-    zeplinComponentQuickPickProvider.get().title = localization.coco.zeplinComponent.connect;
-    zeplinComponentQuickPickProvider.get().placeholder = localization.coco.zeplinComponent.selectZeplinComponent;
-    const zeplinComponent = await zeplinComponentQuickPickProvider.startSingleSelection();
-
-    // Fail if no Zeplin component name is selected
-    if (!zeplinComponent) {
-        return;
-    }
-
     // Check if component is already selected or there is only one component in config, show component picker if not so
     let component = configUtil.getComponent(configPath, componentIndex) ?? configUtil.getActiveComponent(configPath);
     if (!component) {
@@ -105,18 +71,99 @@ async function startAddZeplinComponentFlow(componentIndex?: number) {
         return;
     }
 
-    // Fail if zeplin component is already added
-    if (configUtil.containsZeplinComponent(component, zeplinComponent)) {
-        MessageBuilder.with(localization.coco.zeplinComponent.alreadyAdded).show();
+    // Check if there is only one barrel in config, show barrel picker if not so
+    let barrel = configUtil.getActiveBarrel(configPath);
+    if (!barrel) {
+        // Show barrel picker
+        const barrelQuickPickProvider = new QuickPickProvider(
+            new ConfigBarrelsStore(configPath),
+            item => ({
+                label: item.name,
+                detail: getBarrelDetailRepresentationWithType(item)
+            }),
+            localization.coco.zeplinComponent.noBarrelFound,
+            showBarrelError
+        );
+        barrelQuickPickProvider.get().title = pickerTitle;
+        barrelQuickPickProvider.get().placeholder = localization.coco.zeplinComponent.selectBarrel;
+        barrel = await barrelQuickPickProvider.startSingleSelection();
+    }
+
+    // Fail if no barrel is selected
+    if (!barrel) {
+        return;
+    }
+
+    // Prepare Zeplin component picker
+    const zeplinComponentQuickPickProvider = new QuickPickProvider<ZeplinComponent, BarrelError>(
+        new ZeplinComponentsStore(
+            barrel.id, barrel.type, configUtil.getZeplinComponentsOfComponent(configPath, component.path)
+        ),
+        zeplinComponent => ({
+            label: zeplinComponent.name,
+            detail: getZeplinComponentDetailRepresentation(zeplinComponent)
+        }),
+        localization.coco.zeplinComponent.noZeplinComponentFound,
+        showBarrelError
+    );
+    zeplinComponentQuickPickProvider.get().title = pickerTitle;
+    zeplinComponentQuickPickProvider.get().placeholder = localization.coco.zeplinComponent.selectZeplinComponent;
+
+    return { configPath, component, zeplinComponentQuickPickProvider };
+}
+
+async function startAddZeplinComponentFlow(componentIndex?: number) {
+    // Precheck add zeplin component flow requirements, fail if not fulfilled
+    const precheckResult =
+        await precheckAddZeplinComponentRequirements(localization.coco.zeplinComponent.connect, componentIndex);
+    if (!precheckResult) {
+        return;
+    }
+    const { configPath, component, zeplinComponentQuickPickProvider } = precheckResult;
+
+    // Show Zeplin component picker
+    const zeplinComponent = await zeplinComponentQuickPickProvider.startSingleSelection();
+
+    // Fail if no Zeplin component name is selected
+    if (!zeplinComponent) {
         return;
     }
 
     // Add Zeplin component
     configUtil.addZeplinComponent(configPath, component.path, zeplinComponent.name);
-    MessageBuilder.with(localization.coco.zeplinComponent.connected).setType(MessageType.Info).show();
     showInEditor(configPath, { text: zeplinComponent.name, onAdd: true });
+    MessageBuilder.with(localization.coco.zeplinComponent.connected).setType(MessageType.Info).show();
+}
+
+async function startAddMultipleZeplinComponentsFlow(componentIndex?: number) {
+    // Precheck add zeplin component flow requirements, fail if not fulfilled
+    const precheckResult =
+        await precheckAddZeplinComponentRequirements(localization.coco.zeplinComponent.connect, componentIndex);
+    if (!precheckResult) {
+        return;
+    }
+    const { configPath, component, zeplinComponentQuickPickProvider } = precheckResult;
+
+    // Show Zeplin component picker
+    const zeplinComponents = await zeplinComponentQuickPickProvider.startMultipleSelection();
+
+    // Fail if no Zeplin component name is selected
+    if (!zeplinComponents) {
+        return;
+    }
+
+    // Add Zeplin component
+    configUtil.addZeplinComponents(
+        configPath, component.path, zeplinComponents.map(zeplinComponent => zeplinComponent.name)
+    );
+    showInEditor(configPath);
+    MessageBuilder
+        .with(localization.coco.zeplinComponent.connectedMultiple(zeplinComponents.length))
+        .setType(MessageType.Info)
+        .show();
 }
 
 export {
-    startAddZeplinComponentFlow
+    startAddZeplinComponentFlow,
+    startAddMultipleZeplinComponentsFlow
 };

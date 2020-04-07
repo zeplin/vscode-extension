@@ -111,11 +111,12 @@ const localization = {
             noZeplinComponentFound: "No Zeplin component found",
             selectZeplinComponent: "Select Zeplin Component",
             selectComponent: "Select component file",
-            alreadyAdded: "Selected Zeplin component is already connected.",
             joinBarrel: "Please join first.",
             join: "Join",
             connected: "Connected to Zeplin component.",
             connect: "Connect to Zeplin component",
+            connectedMultiple: (count: number) => `Connected to ${pluralize(count, "Zeplin Component")}.`,
+            connectMultiple: "Connect to multiple Zeplin components",
             notFound: (name: string) => `No component named “${name}” in projects/styleguides you’re a member of`
         },
         common: {

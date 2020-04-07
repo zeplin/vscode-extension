@@ -8,7 +8,7 @@ import BarrelError from "../model/BarrelError";
 import { convertBarrelResult } from "../../barrel/util/barrelUtil";
 
 export default class ZeplinComponentsStore implements Store<ZeplinComponent[], BarrelError> {
-    public constructor(private barrelId: string, private barrelType: BarrelType) { }
+    public constructor(private barrelId: string, private barrelType: BarrelType, private excludeList: string[]) { }
 
     public get = async (): Promise<Result<ZeplinComponent[], BarrelError>> => {
         const leafId = this.barrelId;
@@ -37,7 +37,9 @@ export default class ZeplinComponentsStore implements Store<ZeplinComponent[], B
             }
 
             if (data) {
-                accumulatedResult.data!.push(...data.components);
+                accumulatedResult.data!.push(
+                    ...data.components.filter(component => !this.excludeList.includes(component.name))
+                );
                 currentId = data.parentId; // eslint-disable-line require-atomic-updates
                 currentType = BarrelType.Styleguide; // eslint-disable-line require-atomic-updates
             }

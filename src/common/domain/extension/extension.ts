@@ -31,6 +31,7 @@ import { registerCommand } from "../../vscode/extension/extensionUtil";
 import ComponentLinkProvider from "../../../coco/component/documentLink/ComponentLinkProvider";
 import ConfigDiagnosticsProvider from "../../../coco/config/diagnostic/ConfigDiagnosticsProvider";
 import AddMultipleComponentsCommand from "../../../coco/component/command/AddMultipleComponentsCommand";
+import AddMultipleZeplinComponentsCommand from "../../../coco/zeplinComponent/command/AddMultipleZeplinComponentsCommand";
 
 export async function activate(context: vscode.ExtensionContext) {
     ContextProvider.initialize(context);
@@ -51,6 +52,7 @@ export async function activate(context: vscode.ExtensionContext) {
         AddComponentCommand,
         AddMultipleComponentsCommand,
         AddZeplinComponentCommand,
+        AddMultipleZeplinComponentsCommand,
         AddGithubCommand,
         AddGitlabCommand,
         AddBitbucketCommand,
