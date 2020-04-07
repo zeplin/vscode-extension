@@ -14,6 +14,7 @@ import { flatten, sum } from "../../../common/general/arrayUtil";
 import { isBarrelIdFormatValid } from "../../barrel/util/barrelUtil";
 import Logger from "../../../log/Logger";
 import RepositoryType from "../../repository/model/RepositoryType";
+import Repository from "../../repository/model/Repository";
 
 const ENCODING = "utf8";
 const RELATIVE_PATH = ".zeplin/components.json";
@@ -211,9 +212,9 @@ function hasRepository(configPath: string, type: RepositoryType) {
     return getConfig(configPath).hasRepository(type);
 }
 
-function addRepository(configPath: string, type: RepositoryType) {
+function addRepository(configPath: string, type: RepositoryType, repository: Repository) {
     const config = getConfig(configPath);
-    config.addRepository(type);
+    config.addRepository(type, repository);
     return saveConfig(configPath, config);
 }
 

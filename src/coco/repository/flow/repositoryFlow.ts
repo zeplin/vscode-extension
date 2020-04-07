@@ -5,6 +5,8 @@ import MessageBuilder from "../../../common/vscode/message/MessageBuilder";
 import MessageType from "../../../common/vscode/message/MessageType";
 import RepositoryType from "../model/RepositoryType";
 import localization from "../../../localization";
+import { getRootFolderPathForFile } from "../../../common/vscode/workspace/workspaceUtil";
+import { getRepositoryForType } from "../util/repositoryUtil";
 
 function startAddGithubFlow() {
     return startAddRepositoryFlow(RepositoryType.Github);
@@ -30,9 +32,11 @@ async function startAddRepositoryFlow(type: RepositoryType) {
         return;
     }
 
-    addRepository(configPath, type);
+    const rootFolderPath = getRootFolderPathForFile(configPath);
+    const repository = getRepositoryForType(rootFolderPath, type);
+    addRepository(configPath, type, repository);
     MessageBuilder.with(localization.coco.repository.added(type)).setType(MessageType.Info).show();
-    showInEditor(configPath, { text: "", onAdd: true });
+    showInEditor(configPath, { text: repository.repository, onAdd: true });
 }
 
 function getRepositoryFieldName(type: RepositoryType): string {

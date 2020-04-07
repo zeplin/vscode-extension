@@ -107,11 +107,7 @@ export class Config {
         }
     }
 
-    public addRepository(type: RepositoryType) {
-        const repository = {
-            repository: ""
-        } as Repository;
-
+    public addRepository(type: RepositoryType, repository: Repository) {
         switch (type) {
             case RepositoryType.Github:
                 this.github = repository;
