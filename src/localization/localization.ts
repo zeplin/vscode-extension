@@ -26,10 +26,15 @@ const localization = {
         component: {
             writeFileName: "Start typing component file name to add",
             configNotFound: (folderName: string) => `Please create Zeplin configuration file first for ${folderName}`,
+            configsNotFound: `Please create Zeplin configuration file first for required workspace folders`,
             notInWorkspace: "Selected file is not in your workspace",
             createConfigAndAdd: "Create Config and Add component",
+            createConfigsAndAdd: "Create Configs and Add components",
             alreadyAdded: "Selected component file is already added.",
             add: "Add component",
+            added: "Component added to configuration file.",
+            addMultiple: "Add multiple components",
+            addedMultiple: (count: number) => `${pluralize(count, "component")} added to configuration file.`,
             goToFile: "Go to component file",
             zeplinComponentCount: (count: number) => `Connected to ${pluralize(count, "Zeplin Component")}`,
             componentNotFound: "Component file does not exist.",
@@ -117,7 +122,9 @@ const localization = {
             noConfigFound: "Please create a Zeplin configuration file first.",
             createConfig: "Create Config",
             configInvalid: "Zeplin configuration file is invalid, please review it before continuing.",
-            configNotSaved: "Zeplin configuration file is not saved, please save it before continuing."
+            configsInvalid: "Some of the Zeplin configuration files are invalid, please review them before continuing.",
+            configNotSaved: "Zeplin configuration file is not saved, please save it before continuing.",
+            configsNotSaved: "Some of the Zeplin configuration files are not saved, please save them before continuing."
         }
     },
     session: {

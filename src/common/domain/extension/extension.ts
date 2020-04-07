@@ -30,6 +30,7 @@ import { updateConfigOnComponentRename } from "../../../coco/component/fileChang
 import { registerCommand } from "../../vscode/extension/extensionUtil";
 import ComponentLinkProvider from "../../../coco/component/documentLink/ComponentLinkProvider";
 import ConfigDiagnosticsProvider from "../../../coco/config/diagnostic/ConfigDiagnosticsProvider";
+import AddMultipleComponentsCommand from "../../../coco/component/command/AddMultipleComponentsCommand";
 
 export async function activate(context: vscode.ExtensionContext) {
     ContextProvider.initialize(context);
@@ -48,6 +49,7 @@ export async function activate(context: vscode.ExtensionContext) {
         AddProjectCommand,
         AddStyleguideCommand,
         AddComponentCommand,
+        AddMultipleComponentsCommand,
         AddZeplinComponentCommand,
         AddGithubCommand,
         AddGitlabCommand,

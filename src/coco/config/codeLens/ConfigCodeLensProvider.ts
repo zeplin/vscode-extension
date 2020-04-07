@@ -6,6 +6,7 @@ import LoginCodeLensCreator from "../../../session/codeLens/LoginCodeLensCreator
 import ConfigStatisticsCodeLensCreator from "./ConfigStatisticsCodeLensCreator";
 import AddBarrelCodeLensCreator from "../../barrel/codeLens/AddBarrelCodeLensCreator";
 import AddComponentCodeLensCreator from "../../component/codeLens/AddComponentCodeLensCreator";
+import AddMultipleComponentsCodeLensCreator from "../../component/codeLens/AddMultipleComponentsCodeLensCreator";
 import AddZeplinComponentCodeLensCreator from "../../zeplinComponent/codeLens/AddZeplinComponentCodeLensCreator";
 import CodeLensProvider from "../../../common/vscode/codeLens/CodeLensProvider";
 
@@ -29,6 +30,7 @@ class ConfigCodeLensProvider extends CodeLensProvider {
             ConfigStatisticsCodeLensCreator,
             AddBarrelCodeLensCreator,
             AddComponentCodeLensCreator,
+            AddMultipleComponentsCodeLensCreator,
             AddZeplinComponentCodeLensCreator
         ];
     }

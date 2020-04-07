@@ -13,6 +13,7 @@ import ContextProvider from "../extension/ContextProvider";
 export default class QuickPickProvider<T, E extends BaseError = BaseError> {
     private quickPick: vscode.QuickPick<vscode.QuickPickItem>;
     private dataItems?: T[];
+    private canSelectMany = false;
 
     /**
      * Constructor for QuickPickProvider.
@@ -47,9 +48,23 @@ export default class QuickPickProvider<T, E extends BaseError = BaseError> {
      * an item is selected or the selection process is ended.
      * Note: Picker UI is blocked while retrieval process.
      */
-    public async startSelection(): Promise<T | undefined> {
+    public startSingleSelection(): Promise<T | undefined> {
+        return this.startSelection(false) as Promise<T | undefined>;
+    }
+
+    /**
+     * Starts selection by retriving store data if it is not already retrieved and returns a Promise which resolves when
+     * items are selected or the selection process is ended.
+     * Note: Picker UI is blocked while retrieval process.
+     */
+    public startMultipleSelection(): Promise<T[] | undefined> {
+        return this.startSelection(true) as Promise<T[] | undefined>;
+    }
+
+    private async startSelection(multiple: boolean) {
         this.block();
         this.quickPick.show();
+        this.canSelectMany = multiple;
         Logger.log(`Quick Pick shown: ${this.quickPick.placeholder}`);
         await this.prepareForSelection(this.store.get);
         return this.itemSelected(this.quickPick);
@@ -71,8 +86,9 @@ export default class QuickPickProvider<T, E extends BaseError = BaseError> {
     private async prepareForSelection(getDataFunction: () => Promise<Result<T[], E>>) {
         const result = await getDataFunction();
         this.dataItems = result.data || [];
+        const hasItems = !!this.dataItems.length;
         Logger.log(`Quick Pick item count: ${this.dataItems.length}`);
-        const pickerItems = this.dataItems.length
+        const pickerItems = hasItems
             ? this.dataItems.map(this.mapItem)
             : [QuickPickProvider.getEmptyListItem(this.noItemsMessage)];
 
@@ -80,6 +96,7 @@ export default class QuickPickProvider<T, E extends BaseError = BaseError> {
 
         this.quickPick.items = pickerItems;
         this.quickPick.buttons = [QuickPickProvider.refreshButton];
+        this.quickPick.canSelectMany = this.canSelectMany && hasItems;
         this.quickPick.busy = false;
         this.quickPick.enabled = true;
     }
@@ -109,20 +126,27 @@ export default class QuickPickProvider<T, E extends BaseError = BaseError> {
      * 3. Otherwise, returns selected item.
      * @param quickPick A picker.
      */
-    private itemSelected(quickPick: vscode.QuickPick<vscode.QuickPickItem>): Promise<T | undefined> {
-        return new Promise<T | undefined>(resolve => {
+    private itemSelected(quickPick: vscode.QuickPick<vscode.QuickPickItem>): Promise<T[] | T | undefined> {
+        return new Promise<T[] | T | undefined>(resolve => {
             quickPick.onDidAccept(() => {
-                const selectedItem = quickPick.selectedItems[0];
-                if (!selectedItem) {
+                const { items, selectedItems } = this.quickPick;
+                const noItemSelected = !selectedItems.length;
+                const oneItemSelected = selectedItems.length === 1;
+                const selectedItem = selectedItems[0];
+                if (noItemSelected) {
                     Logger.log("Quick Pick dismissed");
                     resolve(undefined);
-                } else if (selectedItem.detail === localization.common.clickToRefresh) {
+                } else if (oneItemSelected && selectedItem.detail === localization.common.clickToRefresh) {
                     this.refreshData();
                     return;
-                } else {
-                    const selectedIndex = this.quickPick.items.indexOf(selectedItem);
+                } else if (!this.canSelectMany) {
+                    const selectedIndex = items.indexOf(selectedItem);
                     Logger.log(`Quick Pick item selected with index ${selectedIndex}`);
                     resolve(this.dataItems![selectedIndex]);
+                } else {
+                    const selectedIndices = selectedItems.map(item => items.indexOf(item));
+                    Logger.log(`${selectedIndices.length} Quick Pick items selected`);
+                    resolve(selectedIndices.map(index => this.dataItems![index]));
                 }
                 quickPick.dispose();
             });
