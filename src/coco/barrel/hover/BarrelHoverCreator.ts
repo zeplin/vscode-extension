@@ -7,12 +7,13 @@ import HoverBuilder from "../../../common/vscode/hover/HoverBuilder";
 import { getConfig } from "../../config/util/configUtil";
 import localization from "../../../localization";
 import { getBarrelAppUrl, getBarrelWebUrl } from "../../../common/domain/uri/zeplinUrls";
-import { boldenForMarkdown } from "../../../common/vscode/hover/hoverUtil";
+import { boldenForMarkdown, getMarkdownCommand } from "../../../common/vscode/hover/hoverUtil";
 import BaseError from "../../../common/domain/error/BaseError";
 import { ErrorCodes } from "../../../common/domain/error/errorUi";
 import { getCroppedImageUrl } from "../../../common/domain/image/zeplinImageUtil";
-import { getOpenInZeplinLinks } from "../../../common/domain/hover/zeplinHoverUtil";
+import { getOpenInZeplinLinks, getMarkdownRefreshIcon } from "../../../common/domain/hover/zeplinHoverUtil";
 import { isBarrelIdFormatValid } from "../util/barrelUtil";
+import ClearCacheCommand from "../../../session/command/ClearCacheCommand";
 
 const MAX_THUMBNAIL_WIDTH = 270;
 const MAX_THUMBNAIL_HEIGHT = 92;
@@ -46,7 +47,9 @@ class BarrelHoverCreator implements ConfigHoverCreator {
             const detail = getBarrelDetailRepresentation(data!);
 
             const builder = new HoverBuilder()
-                .append(boldenForMarkdown(name))
+                .append(
+                    `${boldenForMarkdown(name)} ${getMarkdownCommand(ClearCacheCommand.name, getMarkdownRefreshIcon())}`
+                )
                 .appendLine(true);
             if (thumbnailUrl) {
                 builder

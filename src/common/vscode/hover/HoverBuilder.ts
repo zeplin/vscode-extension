@@ -79,7 +79,7 @@ export default class HoverBuilder {
      * Return built markdown.
      */
     public build() {
-        const markdown = new vscode.MarkdownString(this.content);
+        const markdown = new vscode.MarkdownString(this.content, true);
         markdown.isTrusted = true;
         return new vscode.Hover(markdown);
     }

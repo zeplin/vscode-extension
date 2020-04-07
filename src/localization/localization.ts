@@ -130,7 +130,9 @@ const localization = {
         loginToZeplin: "Login to Zeplin",
         login: "Login",
         logout: "Logout",
-        authenticateWithToken: "Authenticate with Token"
+        authenticateWithToken: "Authenticate with Token",
+        clearCache: "Clear Cache",
+        cacheCleared: "Cache cleared."
     },
     common: {
         ok: "OK",

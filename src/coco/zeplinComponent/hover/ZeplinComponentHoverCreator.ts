@@ -5,10 +5,11 @@ import ZeplinComponentStore from "../data/ZeplinComponentStore";
 import localization from "../../../localization";
 import { getConfig } from "../../config/util/configUtil";
 import { getZeplinComponentDetailRepresentation } from "../util/zeplinComponentUi";
-import { boldenForMarkdown } from "../../../common/vscode/hover/hoverUtil";
+import { boldenForMarkdown, getMarkdownCommand } from "../../../common/vscode/hover/hoverUtil";
 import { getComponentAppUrl, getComponentWebUrl } from "../../../common/domain/uri/zeplinUrls";
-import { getOpenInZeplinLinks } from "../../../common/domain/hover/zeplinHoverUtil";
+import { getOpenInZeplinLinks, getMarkdownRefreshIcon } from "../../../common/domain/hover/zeplinHoverUtil";
 import { getImageSize } from "../../../common/general/imageUtil";
+import ClearCacheCommand from "../../../session/command/ClearCacheCommand";
 
 const MAX_DESCRIPTION_LENGTH = 100;
 const MAX_THUMBNAIL_HEIGHT = 80;
@@ -34,7 +35,10 @@ class ZeplinComponentHoverCreator implements ConfigHoverCreator {
             const webUrl = getComponentWebUrl(providerId, providerType, component._id);
 
             const builder = new HoverBuilder()
-                .append(boldenForMarkdown(component.name))
+                .append(
+                    `${boldenForMarkdown(component.name)} ` +
+                    `${getMarkdownCommand(ClearCacheCommand.name, getMarkdownRefreshIcon())}`
+                )
                 .appendLine(true)
                 .appendImage(thumbnailUrl, thumbnailSize.width, thumbnailSize.height, undefined, MAX_THUMBNAIL_HEIGHT)
                 .appendLine();

@@ -5,8 +5,9 @@ import PersonalStyleguidesStore from "./PersonalStyleguidesStore";
 import Barrel from "../model/Barrel";
 import BarrelType from "../model/BarrelType";
 import Store from "../../../common/domain/store/Store";
+import CacheHolder from "../../../common/domain/store/CacheHolder";
 
-class BarrelsStoreProvider {
+class BarrelsStoreProvider implements CacheHolder {
     private personalProjectsStore = new PersonalProjectsStore();
     private personalStyleguidesStore = new PersonalStyleguidesStore();
     private projectsStoreCache: { [organizationId: string]: Store<Barrel[]> } = {};

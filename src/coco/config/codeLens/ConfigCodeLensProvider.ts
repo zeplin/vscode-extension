@@ -1,6 +1,7 @@
 import * as vscode from "vscode";
 import { RELATIVE_PATH, isConfigPath } from "../util/configUtil";
 import CodeLensCreator from "../../../common/vscode/codeLens/CodeLensCreator";
+import ClearCacheCodeLensCreator from "../../../session/codeLens/ClearCacheCodeLensCreator";
 import LoginCodeLensCreator from "../../../session/codeLens/LoginCodeLensCreator";
 import ConfigStatisticsCodeLensCreator from "./ConfigStatisticsCodeLensCreator";
 import AddBarrelCodeLensCreator from "../../barrel/codeLens/AddBarrelCodeLensCreator";
@@ -24,6 +25,7 @@ class ConfigCodeLensProvider extends CodeLensProvider {
     protected getCodeLensCreators(): CodeLensCreator[] {
         return [
             LoginCodeLensCreator,
+            ClearCacheCodeLensCreator,
             ConfigStatisticsCodeLensCreator,
             AddBarrelCodeLensCreator,
             AddComponentCodeLensCreator,

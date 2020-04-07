@@ -3,8 +3,9 @@ import ProjectDetailsStore from "./ProjectDetailsStore";
 import StyleguideDetailsStore from "./StyleguideDetailsStore";
 import Store from "../../../common/domain/store/Store";
 import BarrelDetails from "../model/BarrelDetails";
+import CacheHolder from "../../../common/domain/store/CacheHolder";
 
-class BarrelDetailsStoreProvider {
+class BarrelDetailsStoreProvider implements CacheHolder {
     private cache: { [id: string]: Store<BarrelDetails> } = {};
 
     public get(id: string, type: BarrelType, childId?: string, childType?: BarrelType): Store<BarrelDetails> {
