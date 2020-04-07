@@ -204,6 +204,18 @@ function addZeplinComponent(configPath: string, componentRelativePath: string, z
     return saveConfig(configPath, config);
 }
 
+function addZeplinComponents(configPath: string, componentRelativePath: string, zeplinComponentNames: string[]) {
+    const config = getConfig(configPath);
+    zeplinComponentNames.forEach(name => config.addZeplinComponent(componentRelativePath, name));
+    return saveConfig(configPath, config);
+}
+
+function getZeplinComponentsOfComponent(configPath: string, componentRelativePath: string): string[] {
+    const config = getConfig(configPath);
+    const components = config.getComponentsWithRelativePath(componentRelativePath);
+    return flatten(components.map(component => component.zeplinNames));
+}
+
 function getZeplinComponentsCountOfComponent(filePath: string): number {
     return sum(getComponentsWithPath(filePath).map(component => component.zeplinNames.length));
 }
@@ -266,6 +278,8 @@ export {
     addComponentWithPath,
     containsZeplinComponent,
     addZeplinComponent,
+    addZeplinComponents,
+    getZeplinComponentsOfComponent,
     getZeplinComponentsCountOfComponent,
     hasRepository,
     addRepository,

@@ -9,6 +9,7 @@ import AddComponentCodeLensCreator from "../../component/codeLens/AddComponentCo
 import AddMultipleComponentsCodeLensCreator from "../../component/codeLens/AddMultipleComponentsCodeLensCreator";
 import AddZeplinComponentCodeLensCreator from "../../zeplinComponent/codeLens/AddZeplinComponentCodeLensCreator";
 import CodeLensProvider from "../../../common/vscode/codeLens/CodeLensProvider";
+import AddMultipleZeplinComponentsCodeLensCreator from "../../zeplinComponent/codeLens/AddMultipleZeplinComponentsCodeLensCreator";
 
 class ConfigCodeLensProvider extends CodeLensProvider {
     public createWatcher(): vscode.Disposable {
@@ -31,7 +32,8 @@ class ConfigCodeLensProvider extends CodeLensProvider {
             AddBarrelCodeLensCreator,
             AddComponentCodeLensCreator,
             AddMultipleComponentsCodeLensCreator,
-            AddZeplinComponentCodeLensCreator
+            AddZeplinComponentCodeLensCreator,
+            AddMultipleZeplinComponentsCodeLensCreator
         ];
     }
 }

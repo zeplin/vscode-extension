@@ -92,6 +92,11 @@
                 "category": "Zeplin"
             },
             {
+                "command": "zeplin.addMultipleZeplinComponents",
+                "title": "Connect Multiple Zeplin Components to Component in Configuration",
+                "category": "Zeplin"
+            },
+            {
                 "command": "zeplin.addGithub",
                 "title": "Add GitHub Repository to Zeplin Configuration",
                 "category": "Zeplin"
