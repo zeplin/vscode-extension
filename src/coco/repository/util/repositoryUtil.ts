@@ -8,7 +8,7 @@ const GIT_REPO_URL_SUFFIX = ".git";
 const DOMAIN_GITHUB = "github.com";
 const DOMAIN_GITLAB = "gitlab.com";
 const DOMAIN_BITBUCKET = "bitbucket.org";
-const CUSTOM_DOMAIN_REG_EXP_GITHUB = /github.(.+).com/; // TODO
+const CUSTOM_DOMAIN_REG_EXP_GITHUB = /github\.(.+)\.com/;
 const SUFFIX_HTTPS = "https://";
 
 function getRepositoryForType(rootFolderPath: string, type: RepositoryType): Repository {
