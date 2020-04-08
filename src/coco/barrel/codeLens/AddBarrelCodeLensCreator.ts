@@ -20,14 +20,14 @@ class AddBarrelCodeLensCreator implements CodeLensCreator {
                 getPositionsOfProperty(KEY_PROJECTS, document),
                 {
                     command: AddProjectCommand.name,
-                    title: localization.coco.barrel.add(BarrelType.Project)
+                    title: localization.common.barrel.add(BarrelType.Project)
                 }
             );
             const styleguideCodeLenses = createCodeLenses(
                 getPositionsOfProperty(KEY_STYLEGUIDES, document),
                 {
                     command: AddStyleguideCommand.name,
-                    title: localization.coco.barrel.add(BarrelType.Styleguide)
+                    title: localization.common.barrel.add(BarrelType.Styleguide)
                 }
             );
 

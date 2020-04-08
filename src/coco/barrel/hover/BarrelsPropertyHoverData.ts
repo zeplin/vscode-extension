@@ -14,7 +14,7 @@ class BarrelsPropertyHoverData implements ConfigPropertyHoverData {
     public constructor(private type: BarrelType, public key: string, command: Command) {
         this.command = {
             name: command.name,
-            text: localization.coco.barrel.add(type)
+            text: localization.common.barrel.add(type)
         };
     }
 }

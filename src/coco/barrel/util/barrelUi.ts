@@ -41,7 +41,7 @@ function getBarrelDetailRepresentation(barrel: Barrel): string {
 
 function getBarrelDetailRepresentationWithType(barrel: Barrel): string {
     return mergeRepresentations(
-        localization.common.barrel(barrel.type),
+        localization.common.barrel.barrel(barrel.type),
         getPlatformRepresentation(barrel.platform),
         getDensityScaleRepresentation(barrel.platform, barrel.densityScale)
     );
