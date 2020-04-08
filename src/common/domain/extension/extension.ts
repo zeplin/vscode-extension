@@ -4,6 +4,8 @@ import Logger from "../../../log/Logger";
 import { initializeSession } from "../../../session/util/SessionInitializer";
 import { showWarningsAtStartUp } from "./zeplinExtensionUtil";
 import Preferences from "../../../preferences/Preferences";
+import AddProjectToSidebarCommand from "../../../sidebar/barrel/command/AddProjectToSidebarCommand";
+import AddStyleguideToSidebarCommand from "../../../sidebar/barrel/command/AddStyleguideToSidebarCommand";
 import CreateConfigCommand from "../../../coco/config/command/CreateConfigCommand";
 import OpenConfigCommand from "../../../coco/config/command/OpenConfigCommand";
 import LoginCommand from "../../../session/command/LoginCommand";
@@ -41,6 +43,8 @@ export async function activate(context: vscode.ExtensionContext) {
     Preferences.initialize();
 
     const commands = [
+        AddProjectToSidebarCommand,
+        AddStyleguideToSidebarCommand,
         CreateConfigCommand,
         OpenConfigCommand,
         LoginCommand,

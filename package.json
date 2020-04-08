@@ -62,6 +62,16 @@
         },
         "commands": [
             {
+                "command": "zeplin.sidebar.addProject",
+                "title": "Add project",
+                "category": "Zeplin"
+            },
+            {
+                "command": "zeplin.sidebar.addStyleguide",
+                "title": "Add styleguide",
+                "category": "Zeplin"
+            },
+            {
                 "command": "zeplin.createConfig",
                 "title": "Create Zeplin Configuration File",
                 "category": "Zeplin"
