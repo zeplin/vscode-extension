@@ -34,6 +34,7 @@ import ComponentLinkProvider from "../../../coco/component/documentLink/Componen
 import ConfigDiagnosticsProvider from "../../../coco/config/diagnostic/ConfigDiagnosticsProvider";
 import AddMultipleComponentsCommand from "../../../coco/component/command/AddMultipleComponentsCommand";
 import AddMultipleZeplinComponentsCommand from "../../../coco/zeplinComponent/command/AddMultipleZeplinComponentsCommand";
+import BarrelTreeDataProvider from "../../../sidebar/barrel/tree/BarrelTreeDataProvider";
 
 export async function activate(context: vscode.ExtensionContext) {
     ContextProvider.initialize(context);
@@ -93,6 +94,8 @@ export async function activate(context: vscode.ExtensionContext) {
         )
     );
     context.subscriptions.push(ConfigDiagnosticsProvider.register());
+
+    context.subscriptions.push(vscode.window.registerTreeDataProvider("zeplin.views.barrels", BarrelTreeDataProvider));
 
     Logger.log("Extension activated");
 }

@@ -1,5 +1,6 @@
 import Barrel from "../../../common/domain/barrel/Barrel";
 import ContextProvider from "../../../common/vscode/extension/ContextProvider";
+import BarrelTreeDataProvider from "../tree/BarrelTreeDataProvider";
 
 const KEY_SAVED_BARRELS = "sidebar.savedBarrels";
 
@@ -9,6 +10,8 @@ function getSavedBarrels(): Barrel[] {
 
 function saveBarrels(barrels: Barrel[]) {
     ContextProvider.get().workspaceState.update(KEY_SAVED_BARRELS, barrels);
+
+    BarrelTreeDataProvider.refresh();
 }
 
 function isBarrelSaved(barrel: Barrel): boolean {
