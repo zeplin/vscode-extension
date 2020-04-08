@@ -2,8 +2,8 @@ import OrganizationProjectsStore from "./OrganizationProjectsStore";
 import OrganizationStyleguidesStore from "./OrganizationStyleguidesStore";
 import PersonalProjectsStore from "./PersonalProjectsStore";
 import PersonalStyleguidesStore from "./PersonalStyleguidesStore";
-import Barrel from "../model/Barrel";
-import BarrelType from "../model/BarrelType";
+import Barrel from "../../../common/domain/barrel/Barrel";
+import BarrelType from "../../../common/domain/barrel/BarrelType";
 import Store from "../../../common/domain/store/Store";
 import CacheHolder from "../../../common/domain/store/CacheHolder";
 

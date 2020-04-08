@@ -15,7 +15,7 @@ import MessageBuilder from "../../../common/vscode/message/MessageBuilder";
 import MessageType from "../../../common/vscode/message/MessageType";
 import ZeplinComponent from "../model/ZeplinComponent";
 import BarrelError from "../model/BarrelError";
-import BarrelType from "../../barrel/model/BarrelType";
+import BarrelType from "../../../common/domain/barrel/BarrelType";
 import Component from "../../component/model/Component";
 
 type PrecheckResult = {

@@ -1,4 +1,4 @@
-import BarrelType from "../../barrel/model/BarrelType";
+import BarrelType from "../../../common/domain/barrel/BarrelType";
 import ZeplinComponent from "../model/ZeplinComponent";
 import Store from "../../../common/domain/store/Store";
 import BarrelDetailsStoreProvider from "./BarrelDetailsStoreProvider";

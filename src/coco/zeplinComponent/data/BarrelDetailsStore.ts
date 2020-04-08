@@ -1,7 +1,7 @@
 import BasicStore from "../../../common/domain/store/BasicStore";
 import BarrelDetails from "../model/BarrelDetails";
 import BarrelDetailsResponse from "../model/BarrelDetailsResponse";
-import BarrelType from "../../barrel/model/BarrelType";
+import BarrelType from "../../../common/domain/barrel/BarrelType";
 import { getComponentsFromSections } from "../util/zeplinComponentUtil";
 import BaseError from "../../../common/domain/error/BaseError";
 

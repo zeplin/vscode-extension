@@ -6,7 +6,7 @@ import localization from "../../../localization";
 import AddStyleguideCommand from "../command/AddStyleguideCommand";
 import { getPositionsOfProperty } from "../../../common/vscode/editor/textDocumentUtil";
 import { createCodeLenses } from "../../../common/vscode/codeLens/codeLensUtil";
-import BarrelType from "../model/BarrelType";
+import BarrelType from "../../../common/domain/barrel/BarrelType";
 
 const KEY_PROJECTS = "projects";
 const KEY_STYLEGUIDES = "styleguides";

@@ -1,4 +1,4 @@
-import BarrelType from "../coco/barrel/model/BarrelType";
+import BarrelType from "../common/domain/barrel/BarrelType";
 import RepositoryType from "../coco/repository/model/RepositoryType";
 
 /**

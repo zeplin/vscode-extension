@@ -1,4 +1,4 @@
-import BarrelType from "../model/BarrelType";
+import BarrelType from "../../../common/domain/barrel/BarrelType";
 import BarrelError from "../../zeplinComponent/model/BarrelError";
 import Result from "../../../common/domain/store/Result";
 import BarrelDetails from "../../zeplinComponent/model/BarrelDetails";

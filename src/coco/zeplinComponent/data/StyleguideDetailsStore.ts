@@ -1,6 +1,6 @@
 import { getStyleguideDetails } from "../../../common/domain/api/api";
 import BarrelDetailsStore from "./BarrelDetailsStore";
-import BarrelType from "../../barrel/model/BarrelType";
+import BarrelType from "../../../common/domain/barrel/BarrelType";
 import StyleguideDetailsResponse from "../model/StyleguideDetailsResponse";
 
 export default class StyleguideDetailsStore extends BarrelDetailsStore<StyleguideDetailsResponse> {

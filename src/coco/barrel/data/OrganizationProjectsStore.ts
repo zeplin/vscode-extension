@@ -1,5 +1,5 @@
 import { getOrganizationProjects } from "../../../common/domain/api/api";
-import BarrelType from "../model/BarrelType";
+import BarrelType from "../../../common/domain/barrel/BarrelType";
 import BarrelStore from "./BarrelStore";
 import ResponseBarrel from "../model/ResponseBarrel";
 import ProjectsResponse from "../model/ProjectsResponse";

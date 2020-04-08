@@ -2,7 +2,7 @@ import localization from "../../../localization";
 import WorkspacesStore from "../data/WorkspacesStore";
 import BarrelsStoreProvider from "../data/BarrelsStoreProvider";
 import { getBarrelDetailRepresentation } from "../util/barrelUi";
-import BarrelType from "../model/BarrelType";
+import BarrelType from "../../../common/domain/barrel/BarrelType";
 import * as configUtil from "../../config/util/configUtil";
 import { showInEditor } from "../../../common/vscode/editor/editorUtil";
 import QuickPickProvider from "../../../common/vscode/quickPick/QuickPickerProvider";

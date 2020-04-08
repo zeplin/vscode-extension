@@ -1,7 +1,7 @@
 import Store from "../../../common/domain/store/Store";
 import { getConfig } from "../../config/util/configUtil";
 import BarrelDetailsStoreProvider from "./BarrelDetailsStoreProvider";
-import BarrelType from "../../barrel/model/BarrelType";
+import BarrelType from "../../../common/domain/barrel/BarrelType";
 import BarrelDetails from "../model/BarrelDetails";
 import Result from "../../../common/domain/store/Result";
 import { flatten } from "../../../common/general/arrayUtil";

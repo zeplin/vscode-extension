@@ -1,5 +1,5 @@
 import ConfigPropertyHoverData from "../../../common/domain/hover/ConfigPropertyHoverData";
-import BarrelType from "../model/BarrelType";
+import BarrelType from "../../../common/domain/barrel/BarrelType";
 import AddProjectCommand from "../command/AddProjectCommand";
 import AddStyleguideCommand from "../command/AddStyleguideCommand";
 import Command from "../../../common/vscode/command/Command";

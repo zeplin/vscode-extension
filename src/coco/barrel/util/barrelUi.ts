@@ -1,4 +1,4 @@
-import Barrel from "../model/Barrel";
+import Barrel from "../../../common/domain/barrel/Barrel";
 import localization from "../../../localization";
 
 const DETAIL_ITEM_SEPARATOR = ", ";
