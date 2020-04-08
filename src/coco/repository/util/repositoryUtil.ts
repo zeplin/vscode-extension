@@ -9,7 +9,8 @@ const DOMAIN_GITHUB = "github.com";
 const DOMAIN_GITLAB = "gitlab.com";
 const DOMAIN_BITBUCKET = "bitbucket.org";
 const CUSTOM_DOMAIN_REG_EXP_GITHUB = /github\.(.+)\.com/;
-const SUFFIX_HTTPS = "https://";
+const URL_SUFFIX_HTTPS = "https://";
+const SEARCH_SUFFIX_HTTP = "http";
 
 function getRepositoryForType(rootFolderPath: string, type: RepositoryType): Repository {
     let fullUrl: string | undefined;
@@ -43,7 +44,9 @@ function getRepositoryForType(rootFolderPath: string, type: RepositoryType): Rep
     if (customUrl) {
         const customUrlIndex = fullUrl.indexOf(customUrl);
         const name = fullUrl.substring(customUrlIndex + customUrl.length + 1); // +1 is for the divider after domain
-        const fullCustomUrl = SUFFIX_HTTPS + customUrl;
+        const fullCustomUrl = fullUrl.startsWith(SEARCH_SUFFIX_HTTP)
+            ? fullUrl.substring(0, customUrlIndex + customUrl.length)
+            : URL_SUFFIX_HTTPS + customUrl;
         return {
             repository: name,
             url: fullCustomUrl
