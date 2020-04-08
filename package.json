@@ -35,6 +35,31 @@
     ],
     "main": "./dist/extension.js",
     "contributes": {
+        "viewsContainers": {
+            "activitybar": [
+                {
+                    "id": "zeplin",
+                    "title": "Zeplin",
+                    "icon": "resources/icon-zeplin.png"
+                }
+            ]
+        },
+        "views": {
+            "zeplin": [
+                {
+                    "id": "zeplin.views.barrels",
+                    "name": "Projects and Styleguides"
+                },
+                {
+                    "id": "zeplin.views.pinned",
+                    "name": "Pinned"
+                },
+                {
+                    "id": "zeplin.views.activity",
+                    "name": "Activity"
+                }
+            ]
+        },
         "commands": [
             {
                 "command": "zeplin.createConfig",
