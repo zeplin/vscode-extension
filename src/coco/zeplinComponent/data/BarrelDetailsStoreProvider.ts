@@ -1,4 +1,4 @@
-import BarrelType from "../../barrel/model/BarrelType";
+import BarrelType from "../../../common/domain/barrel/BarrelType";
 import ProjectDetailsStore from "./ProjectDetailsStore";
 import StyleguideDetailsStore from "./StyleguideDetailsStore";
 import Store from "../../../common/domain/store/Store";

@@ -6,8 +6,8 @@ import {
     getRootFolderPaths, getRootFolderPathForFile, getRelativePathToRootFolder, isInWorkspace
 } from "../../../common/vscode/workspace/workspaceUtil";
 import { Config } from "../model/Config";
-import Barrel from "../../barrel/model/Barrel";
-import BarrelType from "../../barrel/model/BarrelType";
+import Barrel from "../../../common/domain/barrel/Barrel";
+import BarrelType from "../../../common/domain/barrel/BarrelType";
 import Component from "../../component/model/Component";
 import ZeplinComponent from "../../zeplinComponent/model/ZeplinComponent";
 import { flatten, sum } from "../../../common/general/arrayUtil";

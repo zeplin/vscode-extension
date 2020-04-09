@@ -1,4 +1,4 @@
-import BarrelType from "../coco/barrel/model/BarrelType";
+import BarrelType from "../common/domain/barrel/BarrelType";
 import RepositoryType from "../coco/repository/model/RepositoryType";
 
 /**
@@ -8,14 +8,8 @@ import RepositoryType from "../coco/repository/model/RepositoryType";
 const localization = {
     coco: {
         barrel: {
-            noWorkspaceFound: "No workspace found",
-            selectWorkspace: "Select Zeplin workspace",
             personalWorkspace: "Personal Workspace",
-            noneFound: (type: BarrelType) => `No ${barrelLower(type)} found`,
-            select: (type: BarrelType, workspace: string) => `Select ${barrelLower(type)} from ${workspace}`,
-            alreadyAdded: (type: BarrelType) => `Selected ${barrelLower(type)} is already added.`,
             added: (type: BarrelType) => `Added ${barrelLower(type)} to configuration file.`,
-            add: (type: BarrelType) => `Add ${barrelLower(type)}`,
             notFound: (type: BarrelType) => `${barrel(type)} not found, make sure the identifier is correct`,
             formatNotValid: (type: BarrelType) =>
                 `${barrel(type)} ids must be exactly 24 characters long and hexadecimal.`,
@@ -143,6 +137,15 @@ const localization = {
         cacheCleared: "Cache cleared."
     },
     common: {
+        barrel: {
+            noWorkspaceFound: "No workspace found",
+            selectWorkspace: "Select Zeplin workspace",
+            noneFound: (type: BarrelType) => `No ${barrelLower(type)} found`,
+            select: (type: BarrelType, workspace: string) => `Select ${barrelLower(type)} from ${workspace}`,
+            add: (type: BarrelType) => `Add ${barrelLower(type)}`,
+            alreadyAdded: (type: BarrelType) => `Selected ${barrelLower(type)} is already added.`,
+            barrel
+        },
         ok: "OK",
         cancel: "Cancel",
         wrongUri: "Handling URI failed.",
@@ -151,7 +154,6 @@ const localization = {
         refresh: "Refresh",
         noItemFound: "No item found",
         clickToRefresh: "Click to refresh",
-        barrel,
         restrictedMember: "Organization member is restricted. Please contact your organization admins.",
         openInZeplin: "Open in Zeplin ",
         app: "App",

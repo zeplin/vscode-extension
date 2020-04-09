@@ -15,7 +15,7 @@ import MessageBuilder from "../../../common/vscode/message/MessageBuilder";
 import MessageType from "../../../common/vscode/message/MessageType";
 import ZeplinComponent from "../model/ZeplinComponent";
 import BarrelError from "../model/BarrelError";
-import BarrelType from "../../barrel/model/BarrelType";
+import BarrelType from "../../../common/domain/barrel/BarrelType";
 import Component from "../../component/model/Component";
 
 type PrecheckResult = {
@@ -36,8 +36,8 @@ async function precheckAddZeplinComponentRequirements(pickerTitle: string, compo
     if (!configUtil.hasBarrelsWithValidFormat(configPath)) {
         showInEditor(configPath);
         MessageBuilder.with(localization.coco.zeplinComponent.noValidBarrelFound)
-            .addOption(localization.coco.barrel.add(BarrelType.Project), startAddProjectFlow)
-            .addOption(localization.coco.barrel.add(BarrelType.Styleguide), startAddStyleguideFlow)
+            .addOption(localization.common.barrel.add(BarrelType.Project), startAddProjectFlow)
+            .addOption(localization.common.barrel.add(BarrelType.Styleguide), startAddStyleguideFlow)
             .addOption(localization.common.cancel)
             .show();
         return;

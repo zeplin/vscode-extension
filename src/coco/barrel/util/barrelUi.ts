@@ -1,4 +1,4 @@
-import Barrel from "../model/Barrel";
+import Barrel from "../../../common/domain/barrel/Barrel";
 import localization from "../../../localization";
 
 const DETAIL_ITEM_SEPARATOR = ", ";
@@ -41,7 +41,7 @@ function getBarrelDetailRepresentation(barrel: Barrel): string {
 
 function getBarrelDetailRepresentationWithType(barrel: Barrel): string {
     return mergeRepresentations(
-        localization.common.barrel(barrel.type),
+        localization.common.barrel.barrel(barrel.type),
         getPlatformRepresentation(barrel.platform),
         getDensityScaleRepresentation(barrel.platform, barrel.densityScale)
     );

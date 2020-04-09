@@ -1,6 +1,6 @@
 import { getProjectDetails } from "../../../common/domain/api/api";
 import BarrelDetailsStore from "./BarrelDetailsStore";
-import BarrelType from "../../barrel/model/BarrelType";
+import BarrelType from "../../../common/domain/barrel/BarrelType";
 import ProjectDetailsResponse from "../model/ProjectDetailsResponse";
 
 export default class ProjectDetailsStore extends BarrelDetailsStore<ProjectDetailsResponse> {

@@ -1,4 +1,4 @@
-import BarrelType from "../../../coco/barrel/model/BarrelType";
+import BarrelType from "../barrel/BarrelType";
 import configuration from "../extension/configuration";
 
 /**

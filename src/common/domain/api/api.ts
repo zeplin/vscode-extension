@@ -6,7 +6,7 @@ import StyleguidesResponse from "../../../coco/barrel/model/StyleguidesResponse"
 import ProjectDetailsResponse from "../../../coco/zeplinComponent/model/ProjectDetailsResponse";
 import StyleguideDetailsResponse from "../../../coco/zeplinComponent/model/StyleguideDetailsResponse";
 import BaseError from "../error/BaseError";
-import BarrelType from "../../../coco/barrel/model/BarrelType";
+import BarrelType from "../barrel/BarrelType";
 import configuration from "../extension/configuration";
 import Logger from "../../../log/Logger";
 
