@@ -1,4 +1,4 @@
-import ZeplinComponent from "../model/ZeplinComponent";
+import ZeplinComponent from "../../../common/domain/zeplinComponent/model/ZeplinComponent";
 
 const DETAIL_ITEM_SEPARATOR = " ▸ ";
 

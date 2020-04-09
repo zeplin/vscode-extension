@@ -1,5 +1,5 @@
-import ZeplinComponentSection from "../model/ZeplinComponentSection";
-import ZeplinComponent from "../model/ZeplinComponent";
+import ZeplinComponentSection from "../../../common/domain/zeplinComponent/model/ZeplinComponentSection";
+import ZeplinComponent from "../../../common/domain/zeplinComponent/model/ZeplinComponent";
 import BarrelDetailsResponse from "../model/BarrelDetailsResponse";
 
 function getComponentsFromSections(barrel: BarrelDetailsResponse): ZeplinComponent[] {

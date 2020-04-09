@@ -4,7 +4,7 @@ import Session from "../Session";
 import UriHandler from "../../common/domain/uri/UriHandler";
 import { isUri } from "../../common/vscode/uri/uriUtil";
 import ConfigCodeLensProvider from "../../coco/config/codeLens/ConfigCodeLensProvider";
-import BarrelDetailsStoreProvider from "../../coco/zeplinComponent/data/BarrelDetailsStoreProvider";
+import BarrelDetailsStoreProvider from "../../common/domain/zeplinComponent/data/BarrelDetailsStoreProvider";
 import BarrelsStoreProvider from "../../coco/barrel/data/BarrelsStoreProvider";
 import WorkspacesStore from "../../coco/barrel/data/WorkspacesStore";
 import configuration from "../../common/domain/extension/configuration";
