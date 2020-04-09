@@ -71,6 +71,12 @@
                     "when": "view == zeplin.views.barrels"
                 }
             ],
+            "view/item/context": [
+                {
+                    "command": "zeplin.sidebar.removeBarrel",
+                    "when": "view == zeplin.views.barrels && viewItem == barrel"
+                }
+            ],
             "commandPalette": [
                 {
                     "command": "zeplin.sidebar.addProject",
@@ -78,6 +84,10 @@
                 },
                 {
                     "command": "zeplin.sidebar.addStyleguide",
+                    "when": "false"
+                },
+                {
+                    "command": "zeplin.sidebar.removeBarrel",
                     "when": "false"
                 }
             ]
@@ -91,6 +101,11 @@
             {
                 "command": "zeplin.sidebar.addStyleguide",
                 "title": "Add styleguide",
+                "category": "Zeplin"
+            },
+            {
+                "command": "zeplin.sidebar.removeBarrel",
+                "title": "Remove",
                 "category": "Zeplin"
             },
             {

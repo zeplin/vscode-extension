@@ -29,8 +29,14 @@ function saveBarrel(barrel: Barrel) {
     saveBarrels(barrels);
 }
 
+function removeBarrel(barrel: Barrel) {
+    const barrels = getSavedBarrels().filter(savedBarrel => savedBarrel.id !== barrel.id);
+    saveBarrels(barrels);
+}
+
 export {
     getSavedBarrels,
     isBarrelSaved,
-    saveBarrel
+    saveBarrel,
+    removeBarrel
 };
