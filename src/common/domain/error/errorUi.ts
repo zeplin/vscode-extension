@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import BarrelError from "../../../coco/zeplinComponent/model/BarrelError";
+import BarrelError from "../zeplinComponent/model/BarrelError";
 import LoginCommand from "../../../session/command/LoginCommand";
 import ManualLoginCommand from "../../../session/command/ManualLoginCommand";
 import BaseError from "./BaseError";

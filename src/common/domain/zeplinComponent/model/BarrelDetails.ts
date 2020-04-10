@@ -1,4 +1,4 @@
-import Barrel from "../../../common/domain/barrel/Barrel";
+import Barrel from "../../barrel/Barrel";
 import ZeplinComponent from "./ZeplinComponent";
 
 export default interface BarrelDetails extends Barrel {

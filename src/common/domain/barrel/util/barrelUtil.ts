@@ -1,6 +1,6 @@
-import BarrelType from "../../../common/domain/barrel/BarrelType";
+import BarrelType from "../BarrelType";
 import BarrelError from "../../zeplinComponent/model/BarrelError";
-import Result from "../../../common/domain/store/Result";
+import Result from "../../store/Result";
 import BarrelDetails from "../../zeplinComponent/model/BarrelDetails";
 
 const BARREL_ID_VALIDATION_REGEX = /^[0-9A-Fa-f]{24}$/;

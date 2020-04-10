@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 import ConfigHoverCreator from "../../config/hover/ConfigHoverCreator";
-import BarrelDetailsStoreProvider from "../../zeplinComponent/data/BarrelDetailsStoreProvider";
+import BarrelDetailsStoreProvider from "../../../common/domain/zeplinComponent/data/BarrelDetailsStoreProvider";
 import BarrelType from "../../../common/domain/barrel/BarrelType";
 import { getBarrelDetailRepresentation } from "../util/barrelUi";
 import HoverBuilder from "../../../common/vscode/hover/HoverBuilder";
@@ -12,7 +12,7 @@ import BaseError from "../../../common/domain/error/BaseError";
 import { ErrorCodes } from "../../../common/domain/error/errorUi";
 import { getCroppedImageUrl } from "../../../common/domain/image/zeplinImageUtil";
 import { getOpenInZeplinLinks, getMarkdownRefreshIcon } from "../../../common/domain/hover/zeplinHoverUtil";
-import { isBarrelIdFormatValid } from "../util/barrelUtil";
+import { isBarrelIdFormatValid } from "../../../common/domain/barrel/util/barrelUtil";
 import ClearCacheCommand from "../../../session/command/ClearCacheCommand";
 
 const MAX_THUMBNAIL_WIDTH = 270;

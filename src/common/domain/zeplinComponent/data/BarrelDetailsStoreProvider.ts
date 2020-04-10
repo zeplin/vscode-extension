@@ -1,9 +1,9 @@
-import BarrelType from "../../../common/domain/barrel/BarrelType";
-import ProjectDetailsStore from "./ProjectDetailsStore";
-import StyleguideDetailsStore from "./StyleguideDetailsStore";
-import Store from "../../../common/domain/store/Store";
+import BarrelType from "../../barrel/BarrelType";
+import ProjectDetailsStore from "../../../../coco/zeplinComponent/data/ProjectDetailsStore";
+import StyleguideDetailsStore from "../../../../coco/zeplinComponent/data/StyleguideDetailsStore";
+import Store from "../../store/Store";
 import BarrelDetails from "../model/BarrelDetails";
-import CacheHolder from "../../../common/domain/store/CacheHolder";
+import CacheHolder from "../../store/CacheHolder";
 
 class BarrelDetailsStoreProvider implements CacheHolder {
     private cache: { [id: string]: Store<BarrelDetails> } = {};

@@ -10,7 +10,7 @@ import {
     getConfigPaths, isConfigValid, isConfigDirty, getConfig, getConfigCount
 } from "../coco/config/util/configUtil";
 import ContextProvider from "../common/vscode/extension/ContextProvider";
-import { isBarrelIdFormatValid } from "../coco/barrel/util/barrelUtil";
+import { isBarrelIdFormatValid } from "../common/domain/barrel/util/barrelUtil";
 import { doesComponentExist } from "../coco/component/util/componentUtil";
 import RepositoryType from "../coco/repository/model/RepositoryType";
 

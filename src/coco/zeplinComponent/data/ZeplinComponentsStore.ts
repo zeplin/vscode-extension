@@ -1,11 +1,11 @@
 import BarrelType from "../../../common/domain/barrel/BarrelType";
-import ZeplinComponent from "../model/ZeplinComponent";
+import ZeplinComponent from "../../../common/domain/zeplinComponent/model/ZeplinComponent";
 import Store from "../../../common/domain/store/Store";
-import BarrelDetailsStoreProvider from "./BarrelDetailsStoreProvider";
-import BarrelDetails from "../model/BarrelDetails";
+import BarrelDetailsStoreProvider from "../../../common/domain/zeplinComponent/data/BarrelDetailsStoreProvider";
+import BarrelDetails from "../../../common/domain/zeplinComponent/model/BarrelDetails";
 import Result from "../../../common/domain/store/Result";
-import BarrelError from "../model/BarrelError";
-import { convertBarrelResult } from "../../barrel/util/barrelUtil";
+import BarrelError from "../../../common/domain/zeplinComponent/model/BarrelError";
+import { convertBarrelResult } from "../../../common/domain/barrel/util/barrelUtil";
 
 export default class ZeplinComponentsStore implements Store<ZeplinComponent[], BarrelError> {
     public constructor(private barrelId: string, private barrelType: BarrelType, private excludeList: string[]) { }

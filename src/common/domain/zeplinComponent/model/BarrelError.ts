@@ -1,5 +1,5 @@
-import BaseError from "../../../common/domain/error/BaseError";
-import BarrelType from "../../../common/domain/barrel/BarrelType";
+import BaseError from "../../error/BaseError";
+import BarrelType from "../../barrel/BarrelType";
 
 export default class BarrelError extends BaseError {
     public constructor(

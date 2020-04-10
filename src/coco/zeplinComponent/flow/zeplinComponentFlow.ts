@@ -13,8 +13,8 @@ import { startAddProjectFlow, startAddStyleguideFlow } from "../../barrel/flow/b
 import { startAddComponentFlow } from "../../component/flow/componentFlow";
 import MessageBuilder from "../../../common/vscode/message/MessageBuilder";
 import MessageType from "../../../common/vscode/message/MessageType";
-import ZeplinComponent from "../model/ZeplinComponent";
-import BarrelError from "../model/BarrelError";
+import ZeplinComponent from "../../../common/domain/zeplinComponent/model/ZeplinComponent";
+import BarrelError from "../../../common/domain/zeplinComponent/model/BarrelError";
 import BarrelType from "../../../common/domain/barrel/BarrelType";
 import Component from "../../component/model/Component";
 
