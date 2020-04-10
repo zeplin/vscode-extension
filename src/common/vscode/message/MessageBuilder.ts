@@ -15,6 +15,7 @@ type Action = () => void;
 export default class MessageBuilder {
     private type: MessageType = MessageType.Error;
     private options: Option[] = [];
+    private modal = false;
 
     private constructor(private message: string) { }
 
@@ -29,7 +30,8 @@ export default class MessageBuilder {
     /**
      * Return VS Code's built-in message function.
      */
-    private getShowMessageFunction(): (message: string, ...items: string[]) => Thenable<string | undefined> {
+    private getShowMessageFunction():
+        (message: string, options: vscode.MessageOptions, ...items: string[]) => Thenable<string | undefined> {
         switch (this.type) {
             case MessageType.Warning:
                 return vscode.window.showWarningMessage;
@@ -65,6 +67,15 @@ export default class MessageBuilder {
     }
 
     /**
+     * Sets modality of message.
+     * @param modal Modal.
+     */
+    public setModal(modal: boolean): MessageBuilder {
+        this.modal = modal;
+        return this;
+    }
+
+    /**
      * Shows message with VS Code's built-in message feature.
      */
     public async show(): Promise<string | undefined> {
@@ -72,7 +83,7 @@ export default class MessageBuilder {
         const optionNames = this.options.map(option => option.name);
 
         Logger.log(`Message shown: ${this.message}`);
-        const result = await showMessage(this.message, ...optionNames);
+        const result = await showMessage(this.message, { modal: this.modal }, ...optionNames);
 
         Logger.log(`Message answered: Answer: ${result}, Message: ${this.message}`);
         this.options.find(option => option.name === result)?.action?.();
