@@ -1,5 +1,5 @@
-import BarrelType from "../barrel/BarrelType";
-import configuration from "../extension/configuration";
+import BarrelType from "../../barrel/BarrelType";
+import configuration from "../../extension/configuration";
 
 /**
  * Returns a project's Windows and Mac app url.

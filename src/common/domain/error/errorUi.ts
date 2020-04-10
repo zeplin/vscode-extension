@@ -5,7 +5,7 @@ import ManualLoginCommand from "../../../session/command/ManualLoginCommand";
 import BaseError from "./BaseError";
 import localization from "../../../localization";
 import { tryCreateConfig } from "../../../coco/config/flow/configFlow";
-import { getBarrelWebUrl } from "../uri/zeplinUrls";
+import { getBarrelWebUrl } from "../openInZeplin/util/zeplinUrls";
 import MessageBuilder from "../../vscode/message/MessageBuilder";
 
 enum ErrorCodes {
