@@ -139,6 +139,11 @@ const localization = {
     sidebar: {
         barrel: {
             added: (type: BarrelType) => `Added ${barrelLower(type)} to sidebar.`
+        },
+        zeplinComponent: {
+            zeplinComponents: "Components",
+            localStyleguide: "Local Styleguide",
+            noneFound: "No component found"
         }
     },
     common: {
