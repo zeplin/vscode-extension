@@ -16,7 +16,8 @@ export default abstract class BarrelStore<R> extends BasicStore<R, Barrel[]> {
             name: responseBarrel.name,
             type: this.type,
             platform: responseBarrel.type,
-            densityScale: responseBarrel.densityScale
+            densityScale: responseBarrel.densityScale,
+            thumbnail: responseBarrel.thumbnail
         }));
     }
 }
