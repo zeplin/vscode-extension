@@ -136,6 +136,11 @@ const localization = {
         clearCache: "Clear Cache",
         cacheCleared: "Cache cleared."
     },
+    sidebar: {
+        barrel: {
+            added: (type: BarrelType) => `Added ${barrelLower(type)} to sidebar.`
+        }
+    },
     common: {
         barrel: {
             noWorkspaceFound: "No workspace found",
