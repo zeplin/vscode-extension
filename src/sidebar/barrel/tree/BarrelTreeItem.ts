@@ -6,6 +6,7 @@ import ZeplinComponentsTreeItem from "../../zeplinComponent/tree/ZeplinComponent
 export class BarrelTreeItem extends TreeItem {
     public constructor(public barrel: Barrel) {
         super(barrel.name, vscode.TreeItemCollapsibleState.Collapsed);
+        this.contextValue = "barrel";
     }
 
     public getChildren(): Promise<TreeItem[]> {
