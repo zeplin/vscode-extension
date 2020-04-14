@@ -74,7 +74,12 @@
             "view/item/context": [
                 {
                     "command": "zeplin.sidebar.removeBarrel",
-                    "when": "view == zeplin.views.barrels && viewItem == barrel"
+                    "when": "view == zeplin.views.barrels && viewItem =~ /\\bbarrel\\b/"
+                },
+                {
+                    "command": "zeplin.sidebar.openInZeplin",
+                    "when": "viewItem =~ /\\bzeplinLink\\b/",
+                    "group": "inline"
                 }
             ],
             "commandPalette": [
@@ -88,6 +93,10 @@
                 },
                 {
                     "command": "zeplin.sidebar.removeBarrel",
+                    "when": "false"
+                },
+                {
+                    "command": "zeplin.sidebar.openInZeplin",
                     "when": "false"
                 }
             ]
@@ -107,6 +116,12 @@
                 "command": "zeplin.sidebar.removeBarrel",
                 "title": "Remove",
                 "category": "Zeplin"
+            },
+            {
+                "command": "zeplin.sidebar.openInZeplin",
+                "title": "Open in Zeplin",
+                "category": "Zeplin",
+                "icon": "resources/icon-zeplin.png"
             },
             {
                 "command": "zeplin.createConfig",
@@ -202,6 +217,14 @@
         "configuration": {
             "title": "Zeplin",
             "properties": {
+                "zeplin.preferredApplicationType": {
+                    "type": "string",
+                    "default": "Web",
+                    "enum": ["Web", "App"],
+                    "enumDescriptions": ["Open in Web App", "Open in Native App"],
+                    "markdownDescription": "Preferred application type to open items in Zeplin",
+                    "scope": "resource"
+                },
                 "zeplin.connectedComponents.ignoredExtensions": {
                     "type": "array",
                     "uniqueItems": true,
