@@ -140,6 +140,11 @@ const localization = {
         barrel: {
             added: (type: BarrelType) => `Added ${barrelLower(type)} to sidebar.`
         },
+        openInZeplin: {
+            selectPreferred: "Select preferred application type to open items in Zeplin",
+            web: "Open in Web App",
+            app: "Open in Native App"
+        },
         zeplinComponent: {
             zeplinComponents: "Components",
             localStyleguide: "Local Styleguide",

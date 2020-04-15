@@ -7,6 +7,7 @@ import Preferences from "../../../preferences/Preferences";
 import AddProjectToSidebarCommand from "../../../sidebar/barrel/command/AddProjectToSidebarCommand";
 import AddStyleguideToSidebarCommand from "../../../sidebar/barrel/command/AddStyleguideToSidebarCommand";
 import RemoveBarrelFromSidebarCommand from "../../../sidebar/barrel/command/RemoveBarrelFromSidebarCommand";
+import OpenInZeplinCommand from "../../../sidebar/openInZeplin/command/OpenInZeplinCommand";
 import CreateConfigCommand from "../../../coco/config/command/CreateConfigCommand";
 import OpenConfigCommand from "../../../coco/config/command/OpenConfigCommand";
 import LoginCommand from "../../../session/command/LoginCommand";
@@ -48,6 +49,7 @@ export async function activate(context: vscode.ExtensionContext) {
         AddProjectToSidebarCommand,
         AddStyleguideToSidebarCommand,
         RemoveBarrelFromSidebarCommand,
+        OpenInZeplinCommand,
         CreateConfigCommand,
         OpenConfigCommand,
         LoginCommand,

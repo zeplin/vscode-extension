@@ -6,7 +6,7 @@ import localization from "../../../localization";
 import { getConfig } from "../../config/util/configUtil";
 import { getZeplinComponentDetailRepresentation } from "../util/zeplinComponentUi";
 import { boldenForMarkdown, getMarkdownCommand } from "../../../common/vscode/hover/hoverUtil";
-import { getComponentAppUrl, getComponentWebUrl } from "../../../common/domain/uri/zeplinUrls";
+import { getComponentAppUrl, getComponentWebUrl } from "../../../common/domain/openInZeplin/util/zeplinUrls";
 import { getOpenInZeplinLinks, getMarkdownRefreshIcon } from "../../../common/domain/hover/zeplinHoverUtil";
 import { getImageSize } from "../../../common/general/imageUtil";
 import ClearCacheCommand from "../../../session/command/ClearCacheCommand";

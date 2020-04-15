@@ -2,6 +2,7 @@ import * as vscode from "vscode";
 import ContextProvider from "../common/vscode/extension/ContextProvider";
 import { EXTENSION_NAME } from "../common/vscode/extension/extensionUtil";
 import { normalizePaths } from "../common/general/pathUtil";
+import { filterPreferredAppType } from "../common/domain/openInZeplin/util/openInZeplinUtil";
 
 /**
  * Preference holder with lazy loading.
@@ -22,6 +23,11 @@ class PreferenceHolder<T> {
     public get(): T {
         return this.value ??
             (this.value = this.filter(vscode.workspace.getConfiguration(EXTENSION_NAME).get(this.key)));
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    public update(value: any, target: vscode.ConfigurationTarget.Global) {
+        return vscode.workspace.getConfiguration(EXTENSION_NAME).update(this.key, value, target);
     }
 
     /**
@@ -57,6 +63,7 @@ const Preferences = {
     IgnoredComponentFiles: new PreferenceHolder("connectedComponents.ignoredFiles", normalizePaths),
     IgnoredComponentPathsStartWith: new PreferenceHolder("connectedComponents.ignoredPathsStartWith", normalizePaths),
     IgnoredComponentPathsInclude: new PreferenceHolder("connectedComponents.ignoredPathsInclude", normalizePaths),
+    PreferredApplicationType: new PreferenceHolder("preferredApplicationType", filterPreferredAppType),
     initialize
 };
 

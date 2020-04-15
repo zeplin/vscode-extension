@@ -1,5 +1,6 @@
-import BarrelType from "../barrel/BarrelType";
-import configuration from "../extension/configuration";
+import BarrelType from "../../barrel/BarrelType";
+import configuration from "../../extension/configuration";
+import ApplicationType from "../model/ApplicationType";
 
 /**
  * Returns a project's Windows and Mac app url.
@@ -33,6 +34,12 @@ function getStyleguideWebUrl(styleguideId: string): string {
     return `${configuration.webUrl}/styleguide/${styleguideId}`;
 }
 
+function getBarrelUrl(barrelId: string, barrelType: BarrelType, applicationType: ApplicationType) {
+    return applicationType === ApplicationType.Web
+        ? getBarrelWebUrl(barrelId, barrelType)
+        : getBarrelAppUrl(barrelId, barrelType);
+}
+
 /**
  * Returns a barrel's Windows and Mac app url.
  * @param barrelId A barrel id.
@@ -49,6 +56,14 @@ function getBarrelAppUrl(barrelId: string, barrelType: BarrelType): string {
  */
 function getBarrelWebUrl(barrelId: string, barrelType: BarrelType): string {
     return barrelType === BarrelType.Project ? getProjectWebUrl(barrelId) : getStyleguideWebUrl(barrelId);
+}
+
+function getComponentUrl(
+    barrelId: string, barrelType: BarrelType, componentId: string, applicationType: ApplicationType
+) {
+    return applicationType === ApplicationType.Web
+        ? getComponentWebUrl(barrelId, barrelType, componentId)
+        : getComponentAppUrl(barrelId, barrelType, componentId);
 }
 
 /**
@@ -73,9 +88,30 @@ function getComponentWebUrl(barrelId: string, barrelType: BarrelType, componentI
     return `${getBarrelWebUrl(barrelId, barrelType)}${styleguideLabel}/components?coid=${componentId}`;
 }
 
+function getComponentSectionUrl(
+    barrelId: string, barrelType: BarrelType, componentSectionId: string, applicationType: ApplicationType
+) {
+    return applicationType === ApplicationType.Web
+        ? getComponentSectionWebUrl(barrelId, barrelType, componentSectionId)
+        : getComponentSectionAppUrl(barrelId, barrelType, componentSectionId);
+}
+
+function getComponentSectionWebUrl(barrelId: string, barrelType: BarrelType, componentSectionId: string) {
+    const styleguideLabel = barrelType === BarrelType.Project ? "/styleguide" : "";
+    return `${getBarrelWebUrl(barrelId, barrelType)}${styleguideLabel}/components?seid=${componentSectionId}`;
+}
+
+function getComponentSectionAppUrl(barrelId: string, barrelType: BarrelType, componentSectionId: string) {
+    const barrelIdKey = barrelType === BarrelType.Project ? "pid" : "stid";
+    return `${configuration.appUrl}components?cseid=${componentSectionId}&${barrelIdKey}=${barrelId}`;
+}
+
 export {
+    getBarrelUrl,
     getBarrelAppUrl,
     getBarrelWebUrl,
+    getComponentUrl,
     getComponentAppUrl,
-    getComponentWebUrl
+    getComponentWebUrl,
+    getComponentSectionUrl
 };

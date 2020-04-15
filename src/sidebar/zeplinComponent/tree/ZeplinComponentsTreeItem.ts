@@ -10,7 +10,9 @@ import localization from "../../../localization";
 
 export default class ZeplinComponentsTreeItem extends TreeItem {
     public constructor(private barrel: Barrel) {
-        super(localization.sidebar.zeplinComponent.zeplinComponents, vscode.TreeItemCollapsibleState.Collapsed);
+        super(
+            localization.sidebar.zeplinComponent.zeplinComponents, undefined, vscode.TreeItemCollapsibleState.Collapsed
+        );
     }
 
     public async getChildren(): Promise<TreeItem[]> {
@@ -21,7 +23,7 @@ export default class ZeplinComponentsTreeItem extends TreeItem {
             return [new TreeItem(error.message)];
         } else if (data.length === 1 && !errors?.length) {
             const [{ components }, ...sections] = data[0].componentSections;
-            return createList(components, sections);
+            return createList(components, sections, this.barrel);
         } else {
             const error = errors?.[0];
             const errorItems = error ? [new ExpandedErrorTreeItem(error.id, error.message)] : [];

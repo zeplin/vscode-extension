@@ -6,7 +6,7 @@ import { getBarrelDetailRepresentation } from "../util/barrelUi";
 import HoverBuilder from "../../../common/vscode/hover/HoverBuilder";
 import { getConfig } from "../../config/util/configUtil";
 import localization from "../../../localization";
-import { getBarrelAppUrl, getBarrelWebUrl } from "../../../common/domain/uri/zeplinUrls";
+import { getBarrelAppUrl, getBarrelWebUrl } from "../../../common/domain/openInZeplin/util/zeplinUrls";
 import { boldenForMarkdown, getMarkdownCommand } from "../../../common/vscode/hover/hoverUtil";
 import BaseError from "../../../common/domain/error/BaseError";
 import { ErrorCodes } from "../../../common/domain/error/errorUi";
