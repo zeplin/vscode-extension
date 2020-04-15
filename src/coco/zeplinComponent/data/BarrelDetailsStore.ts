@@ -31,7 +31,8 @@ export default abstract class BarrelDetailsStore<T extends BarrelDetailsResponse
             parentId: this.getParent(response),
             description: response.description,
             components: getComponentsFromSections(response),
-            componentSections: response.componentSections
+            componentSections: response.componentSections,
+            screenSections: response.sections
         };
     }
 }
