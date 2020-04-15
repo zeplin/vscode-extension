@@ -28,18 +28,18 @@ export default class MessageBuilder {
     }
 
     /**
-     * Return VS Code's built-in message function.
+     * Show message using VS Code's built-in message function.
      */
-    private getShowMessageFunction():
-        (message: string, options: vscode.MessageOptions, ...items: string[]) => Thenable<string | undefined> {
+    private showMessage(message: string, options: vscode.MessageOptions, ...items: string[]):
+        Thenable<string | undefined> {
         switch (this.type) {
             case MessageType.Warning:
-                return vscode.window.showWarningMessage;
+                return vscode.window.showWarningMessage(message, options, ...items);
             case MessageType.Error:
-                return vscode.window.showErrorMessage;
+                return vscode.window.showErrorMessage(message, options, ...items);
             case MessageType.Info:
             default:
-                return vscode.window.showInformationMessage;
+                return vscode.window.showInformationMessage(message, options, ...items);
         }
     }
 
@@ -79,11 +79,10 @@ export default class MessageBuilder {
      * Shows message with VS Code's built-in message feature.
      */
     public async show(): Promise<string | undefined> {
-        const showMessage = this.getShowMessageFunction();
         const optionNames = this.options.map(option => option.name);
 
         Logger.log(`Message shown: ${this.message}`);
-        const result = await showMessage(this.message, { modal: this.modal }, ...optionNames);
+        const result = await this.showMessage(this.message, { modal: this.modal }, ...optionNames);
 
         Logger.log(`Message answered: Answer: ${result}, Message: ${this.message}`);
         this.options.find(option => option.name === result)?.action?.();
