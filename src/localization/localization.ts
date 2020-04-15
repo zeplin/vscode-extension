@@ -145,6 +145,9 @@ const localization = {
             web: "Open in Web App",
             app: "Open in Native App"
         },
+        screens: {
+            screens: "Screens"
+        },
         zeplinComponent: {
             zeplinComponents: "Components",
             localStyleguide: "Local Styleguide",
