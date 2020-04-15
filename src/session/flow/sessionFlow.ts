@@ -12,8 +12,10 @@ import { showNotLoggedInError } from "../../common/domain/error/errorUi";
 import MessageBuilder from "../../common/vscode/message/MessageBuilder";
 import MessageType from "../../common/vscode/message/MessageType";
 import CacheHolder from "../../common/domain/store/CacheHolder";
+import ScreensStoreProvider from "../../sidebar/screen/data/ScreensStoreProvider";
 
-const CACHE_HOLDERS: CacheHolder[] = [WorkspacesStore, BarrelsStoreProvider, BarrelDetailsStoreProvider];
+const CACHE_HOLDERS: CacheHolder[] =
+    [WorkspacesStore, BarrelsStoreProvider, BarrelDetailsStoreProvider, ScreensStoreProvider];
 
 function showLoginWarningAfterInstall() {
     MessageBuilder.with(localization.session.askLogin)
