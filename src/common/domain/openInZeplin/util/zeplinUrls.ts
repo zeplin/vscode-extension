@@ -106,6 +106,66 @@ function getComponentSectionAppUrl(barrelId: string, barrelType: BarrelType, com
     return `${configuration.appUrl}components?cseid=${componentSectionId}&${barrelIdKey}=${barrelId}`;
 }
 
+/**
+ * Returns a screen's app url
+ * @param projectId A project id.
+ * @param screenId A screen id.
+ * @param applicationType Type of app to create url of.
+ */
+function getScreenUrl(projectId: string, screenId: string, applicationType: ApplicationType): string {
+    return applicationType === ApplicationType.Web
+        ? getScreenWebUrl(projectId, screenId)
+        : getScreenAppUrl(projectId, screenId);
+}
+
+/**
+ * Returns a screen's Web app url
+ * @param projectId A project id.
+ * @param screenId A screen id.
+ */
+function getScreenWebUrl(projectId: string, screenId: string): string {
+    return `${getProjectWebUrl(projectId)}/screen/${screenId}`;
+}
+
+/**
+ * Returns a screen's Mac app url
+ * @param projectId A project id.
+ * @param screenId A screen id.
+ */
+function getScreenAppUrl(projectId: string, screenId: string): string {
+    return `${configuration.appUrl}screen?pid=${projectId}&sid=${screenId}`;
+}
+
+/**
+ * Returns a screen section's app url
+ * @param projectId A project id.
+ * @param screenSectionId A screen section id.
+ * @param applicationType Type of app to create url of.
+ */
+function getScreenSectionUrl(projectId: string, screenSectionId: string, applicationType: ApplicationType): string {
+    return applicationType === ApplicationType.Web
+        ? getScreenSectionWebUrl(projectId, screenSectionId)
+        : getScreenSectionAppUrl(projectId, screenSectionId);
+}
+
+/**
+ * Returns a screen section's Web app url
+ * @param projectId A project id.
+ * @param screenSectionId A screen section id.
+ */
+function getScreenSectionWebUrl(projectId: string, screenSectionId: string): string {
+    return `${getProjectWebUrl(projectId)}?seid=${screenSectionId}`;
+}
+
+/**
+ * Returns a screen section's Mac app url
+ * @param projectId A project id.
+ * @param screenSectionId A screen section id.
+ */
+function getScreenSectionAppUrl(projectId: string, screenSectionId: string): string {
+    return `${configuration.appUrl}project?pid=${projectId}&seid=${screenSectionId}`;
+}
+
 export {
     getBarrelUrl,
     getBarrelAppUrl,
@@ -113,5 +173,7 @@ export {
     getComponentUrl,
     getComponentAppUrl,
     getComponentWebUrl,
-    getComponentSectionUrl
+    getComponentSectionUrl,
+    getScreenUrl,
+    getScreenSectionUrl
 };
