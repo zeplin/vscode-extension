@@ -6,14 +6,17 @@ import TreeItemContextProvider from "../../../common/vscode/tree/TreeItemContext
 import TreeItemContext from "../../../common/domain/tree/TreeItemContext";
 import Barrel from "../../../common/domain/barrel/Barrel";
 
-const contextProvider = new TreeItemContextProvider(
-    TreeItemContext.ScreenSection,
-    TreeItemContext.ZeplinLink
-);
+function getContextProvider(section: ScreenSection): TreeItemContextProvider {
+    const contexts = [TreeItemContext.ScreenSection, TreeItemContext.ZeplinLink];
+    if (section.jiras.length) {
+        contexts.push(TreeItemContext.Jira);
+    }
+    return new TreeItemContextProvider(...contexts);
+}
 
 export default class ScreenSectionTreeItem extends TreeItem {
     public constructor(public section: ScreenSection, public project: Barrel) {
-        super(section.name, contextProvider, vscode.TreeItemCollapsibleState.Collapsed);
+        super(section.name, getContextProvider(section), vscode.TreeItemCollapsibleState.Collapsed);
     }
 
     public getChildren(): Promise<TreeItem[]> {

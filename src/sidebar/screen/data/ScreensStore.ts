@@ -1,10 +1,10 @@
 import BasicStore from "../../../common/domain/store/BasicStore";
 import { getScreens } from "../../../common/domain/api/api";
-import Screen from "../model/Screen";
+import ResponseScreen from "../model/ResponseScreen";
 import ScreensResponse from "../model/ScreensResponse";
 import BaseError from "../../../common/domain/error/BaseError";
 
-export default class ScreensStore extends BasicStore<ScreensResponse, Screen[]> {
+export default class ScreensStore extends BasicStore<ScreensResponse, ResponseScreen[]> {
     public constructor(private projectId: string) {
         super();
     }
@@ -13,7 +13,7 @@ export default class ScreensStore extends BasicStore<ScreensResponse, Screen[]> 
         return getScreens(this.projectId);
     }
 
-    protected extractData(response: ScreensResponse): Screen[] {
+    protected extractData(response: ScreensResponse): ResponseScreen[] {
         return response.screens;
     }
 }

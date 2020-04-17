@@ -1,10 +1,8 @@
-export default interface Screen {
+import JiraAttachable from "../../../common/domain/jira/model/JiraAttachable";
+
+export default interface Screen extends JiraAttachable {
     _id: string;
     description?: string;
     name: string;
-    latestVersion: {
-        snapshot: {
-            url: string;
-        };
-    };
+    thumbnail: string;
 }

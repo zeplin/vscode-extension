@@ -1,5 +1,5 @@
-import Screen from "./Screen";
+import ResponseScreen from "./ResponseScreen";
 
 export default interface ScreensResponse {
-    screens: Screen[];
+    screens: ResponseScreen[];
 }

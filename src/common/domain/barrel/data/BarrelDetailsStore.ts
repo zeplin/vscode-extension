@@ -4,6 +4,7 @@ import BarrelDetailsResponse from "../model/BarrelDetailsResponse";
 import BarrelType from "../BarrelType";
 import { getComponentsFromSections } from "../../../../coco/zeplinComponent/util/zeplinComponentUtil";
 import BaseError from "../../error/BaseError";
+import { getProjectJiras, getProjectItemJiras } from "../../jira/util/jiraUtil";
 
 export default abstract class BarrelDetailsStore<T extends BarrelDetailsResponse> extends BasicStore<T, BarrelDetails> {
     protected abstract type: BarrelType;
@@ -32,7 +33,9 @@ export default abstract class BarrelDetailsStore<T extends BarrelDetailsResponse
             description: response.description,
             components: getComponentsFromSections(response),
             componentSections: response.componentSections,
-            screenSections: response.sections
+            screenSections: response.sections,
+            jiras: getProjectJiras(response),
+            itemJiras: getProjectItemJiras(response)
         };
     }
 }
