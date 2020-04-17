@@ -1,9 +1,9 @@
-import { getOrganizationProjects } from "../../../common/domain/api/api";
-import BarrelType from "../../../common/domain/barrel/BarrelType";
+import { getOrganizationProjects } from "../../api/api";
+import BarrelType from "../BarrelType";
 import BarrelStore from "./BarrelStore";
 import ResponseBarrel from "../model/ResponseBarrel";
 import ProjectsResponse from "../model/ProjectsResponse";
-import BaseError from "../../../common/domain/error/BaseError";
+import BaseError from "../../error/BaseError";
 
 export default class OrganizationProjectsStore extends BarrelStore<ProjectsResponse> {
     protected type = BarrelType.Project;

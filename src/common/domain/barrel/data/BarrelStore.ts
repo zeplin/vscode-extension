@@ -1,7 +1,7 @@
 import ResponseBarrel from "../model/ResponseBarrel";
-import BasicStore from "../../../common/domain/store/BasicStore";
-import Barrel from "../../../common/domain/barrel/Barrel";
-import BarrelType from "../../../common/domain/barrel/BarrelType";
+import BasicStore from "../../store/BasicStore";
+import Barrel from "../Barrel";
+import BarrelType from "../BarrelType";
 
 export default abstract class BarrelStore<R> extends BasicStore<R, Barrel[]> {
     protected abstract type: BarrelType;

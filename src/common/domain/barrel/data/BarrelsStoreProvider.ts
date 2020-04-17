@@ -2,10 +2,10 @@ import OrganizationProjectsStore from "./OrganizationProjectsStore";
 import OrganizationStyleguidesStore from "./OrganizationStyleguidesStore";
 import PersonalProjectsStore from "./PersonalProjectsStore";
 import PersonalStyleguidesStore from "./PersonalStyleguidesStore";
-import Barrel from "../../../common/domain/barrel/Barrel";
-import BarrelType from "../../../common/domain/barrel/BarrelType";
-import Store from "../../../common/domain/store/Store";
-import CacheHolder from "../../../common/domain/store/CacheHolder";
+import Barrel from "../Barrel";
+import BarrelType from "../BarrelType";
+import Store from "../../store/Store";
+import CacheHolder from "../../store/CacheHolder";
 
 class BarrelsStoreProvider implements CacheHolder {
     private personalProjectsStore = new PersonalProjectsStore();

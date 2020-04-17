@@ -1,6 +1,6 @@
 import ZeplinComponentSection from "../../../common/domain/zeplinComponent/model/ZeplinComponentSection";
 import ZeplinComponent from "../../../common/domain/zeplinComponent/model/ZeplinComponent";
-import BarrelDetailsResponse from "../model/BarrelDetailsResponse";
+import BarrelDetailsResponse from "../../../common/domain/barrel/model/BarrelDetailsResponse";
 
 function getComponentsFromSections(barrel: BarrelDetailsResponse): ZeplinComponent[] {
     return getComponentsFromSectionsAdditive(

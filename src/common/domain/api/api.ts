@@ -1,10 +1,10 @@
 import Session from "../../../session/Session";
 import fetch, { Headers } from "node-fetch";
-import OrganizationsResponse from "../../../coco/barrel/model/OrganizationsResponse";
-import ProjectsResponse from "../../../coco/barrel/model/ProjectsResponse";
-import StyleguidesResponse from "../../../coco/barrel/model/StyleguidesResponse";
-import ProjectDetailsResponse from "../../../coco/zeplinComponent/model/ProjectDetailsResponse";
-import StyleguideDetailsResponse from "../../../coco/zeplinComponent/model/StyleguideDetailsResponse";
+import OrganizationsResponse from "../barrel/model/OrganizationsResponse";
+import ProjectsResponse from "../barrel/model/ProjectsResponse";
+import StyleguidesResponse from "../barrel/model/StyleguidesResponse";
+import ProjectDetailsResponse from "../barrel/model/ProjectDetailsResponse";
+import StyleguideDetailsResponse from "../barrel/model/StyleguideDetailsResponse";
 import BaseError from "../error/BaseError";
 import BarrelType from "../barrel/BarrelType";
 import configuration from "../extension/configuration";
