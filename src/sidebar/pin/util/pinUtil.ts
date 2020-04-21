@@ -6,11 +6,17 @@ import ComponentPinData from "../model/ComponentPinData";
 import ResponseZeplinComponent from "../../../common/domain/zeplinComponent/model/ResponseZeplinComponent";
 import PinData from "../model/PinData";
 import ScreenPinData from "../model/ScreenPinData";
+import { setContext } from "../../../common/vscode/ide/builtinCommands";
 
 const KEY_PINNED_ITEMS = "sidebar.pinnedItems";
+const CONTEXT_KEY_ANY_PINNED_ITEMS = "zeplin:sidebar:anyPinnedItems";
 
 function getPinnedItems(): PinData[] {
     return ContextProvider.get().workspaceState.get(KEY_PINNED_ITEMS) ?? [];
+}
+
+function updateAnyPinnedItemsContext() {
+    setContext(CONTEXT_KEY_ANY_PINNED_ITEMS, !!getPinnedItems().length);
 }
 
 function doesScreenMatchWithPinData(screen: Screen, item: PinData) {
@@ -67,6 +73,7 @@ function removeAllFromPinnedItems() {
 
 export {
     getPinnedItems,
+    updateAnyPinnedItemsContext,
     isComponentPinned,
     isScreenPinned,
     addScreenToPinnedItems,

@@ -1,7 +1,7 @@
 import * as vscode from "vscode";
 import TreeDataProvider from "../../../common/vscode/tree/TreeDataProvider";
 import TreeItem from "../../../common/vscode/tree/TreeItem";
-import { getPinnedItems } from "../util/pinUtil";
+import { getPinnedItems, updateAnyPinnedItemsContext } from "../util/pinUtil";
 import PinData from "../model/PinData";
 import PinType from "../model/PinType";
 import ScreenTreeItem from "../../screen/tree/ScreenTreeItem";
@@ -18,7 +18,13 @@ class PinTreeDataProvider extends TreeDataProvider {
     }
 
     public refresh() {
+        updateAnyPinnedItemsContext();
         this.eventEmitter.fire();
+    }
+
+    public register(): vscode.Disposable {
+        updateAnyPinnedItemsContext();
+        return super.register();
     }
 
     public getRoots(): TreeItem[] {

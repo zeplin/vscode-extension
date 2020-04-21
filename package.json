@@ -72,7 +72,7 @@
                 },
                 {
                     "command": "zeplin.sidebar.unpinAll",
-                    "when": "view == zeplin.views.pinned"
+                    "when": "view == zeplin.views.pinned && zeplin:sidebar:anyPinnedItems"
                 }
             ],
             "view/item/context": [
