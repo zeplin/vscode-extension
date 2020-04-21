@@ -26,7 +26,7 @@ class HoverProvider implements vscode.HoverProvider {
     }
 
     /**
-     * Provides a hover by accummulating Hover creators. None is returned when none of the creators create a hover.
+     * Provides a hover by accumulating Hover creators. None is returned when none of the creators create a hover.
      * @param document The document in which the command was invoked.
      * @param position The position at which the command was invoked.
      */
