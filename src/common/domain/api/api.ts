@@ -9,6 +9,7 @@ import BaseError from "../error/BaseError";
 import BarrelType from "../barrel/BarrelType";
 import configuration from "../extension/configuration";
 import Logger from "../../../log/Logger";
+import ScreensResponse from "../../../sidebar/screen/model/ScreensResponse";
 
 const HEADER_KEY_CONTENT_TYPE = "Content-Type";
 const HEADER_KEY_ACCESS_TOKEN = "Zeplin-Access-Token";
@@ -115,6 +116,14 @@ function getStyleguideDetails(styleguideId: string, childId?: string, childType?
     return get(`/public/vscodeextension/styleguides/${styleguideId}`, headers);
 }
 
+/**
+ * Fetches a project's screens.
+ * @param projectId A project id
+ */
+function getScreens(projectId: string): ApiResult<ScreensResponse> {
+    return get(`/public/vscodeextension/projects/${projectId}/screens`);
+}
+
 export {
     getOrganizations,
     getOrganizationProjects,
@@ -122,5 +131,6 @@ export {
     getPersonalProjects,
     getPersonalStyleguides,
     getProjectDetails,
-    getStyleguideDetails
+    getStyleguideDetails,
+    getScreens
 };
