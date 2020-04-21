@@ -1,9 +1,9 @@
-import BasicStore from "../../../common/domain/store/BasicStore";
-import BarrelDetails from "../../../common/domain/zeplinComponent/model/BarrelDetails";
+import BasicStore from "../../store/BasicStore";
+import BarrelDetails from "../../zeplinComponent/model/BarrelDetails";
 import BarrelDetailsResponse from "../model/BarrelDetailsResponse";
-import BarrelType from "../../../common/domain/barrel/BarrelType";
-import { getComponentsFromSections } from "../util/zeplinComponentUtil";
-import BaseError from "../../../common/domain/error/BaseError";
+import BarrelType from "../BarrelType";
+import { getComponentsFromSections } from "../../../../coco/zeplinComponent/util/zeplinComponentUtil";
+import BaseError from "../../error/BaseError";
 
 export default abstract class BarrelDetailsStore<T extends BarrelDetailsResponse> extends BasicStore<T, BarrelDetails> {
     protected abstract type: BarrelType;

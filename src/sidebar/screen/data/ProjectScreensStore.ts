@@ -3,7 +3,7 @@ import Result from "../../../common/domain/store/Result";
 import BarrelDetailsStoreProvider from "../../../common/domain/zeplinComponent/data/BarrelDetailsStoreProvider";
 import ScreensStoreProvider from "./ScreensStoreProvider";
 import BarrelType from "../../../common/domain/barrel/BarrelType";
-import ResponseScreenSection from "../model/ResponseScreenSection";
+import ResponseScreenSection from "../../../common/domain/screen/model/ResponseScreenSection";
 import Screen from "../model/Screen";
 import ProjectScreens from "../model/ProjectScreens";
 

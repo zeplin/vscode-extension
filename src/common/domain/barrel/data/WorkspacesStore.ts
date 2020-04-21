@@ -1,7 +1,7 @@
 import Workspace from "../model/Workspace";
-import * as api from "../../../common/domain/api/api";
-import BasicStore from "../../../common/domain/store/BasicStore";
-import localization from "../../../localization";
+import * as api from "../../api/api";
+import BasicStore from "../../store/BasicStore";
+import localization from "../../../../localization";
 import OrganizationsResponse from "../model/OrganizationsResponse";
 
 class WorkspacesStore extends BasicStore<OrganizationsResponse, Workspace[]> {

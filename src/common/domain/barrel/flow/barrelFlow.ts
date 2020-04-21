@@ -1,8 +1,8 @@
 import Barrel from "../Barrel";
 import QuickPickProvider from "../../../vscode/quickPick/QuickPickerProvider";
-import WorkspacesStore from "../../../../coco/barrel/data/WorkspacesStore";
+import WorkspacesStore from "../data/WorkspacesStore";
 import localization from "../../../../localization";
-import BarrelsStoreProvider from "../../../../coco/barrel/data/BarrelsStoreProvider";
+import BarrelsStoreProvider from "../data/BarrelsStoreProvider";
 import { getBarrelDetailRepresentation } from "../../../../coco/barrel/util/barrelUi";
 import BarrelType from "../BarrelType";
 

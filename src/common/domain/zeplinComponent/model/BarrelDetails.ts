@@ -1,7 +1,7 @@
 import Barrel from "../../barrel/Barrel";
 import ZeplinComponent from "./ZeplinComponent";
 import ZeplinComponentSection from "./ZeplinComponentSection";
-import ResponseScreenSection from "../../../../sidebar/screen/model/ResponseScreenSection";
+import ResponseScreenSection from "../../screen/model/ResponseScreenSection";
 
 export default interface BarrelDetails extends Barrel {
     parentId?: string;
