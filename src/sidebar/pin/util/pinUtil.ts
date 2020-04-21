@@ -61,6 +61,10 @@ function removeComponentFromPinnedItems(component: ResponseZeplinComponent) {
     ContextProvider.get().workspaceState.update(KEY_PINNED_ITEMS, newPinnedItems);
 }
 
+function removeAllFromPinnedItems() {
+    ContextProvider.get().workspaceState.update(KEY_PINNED_ITEMS, []);
+}
+
 export {
     getPinnedItems,
     isComponentPinned,
@@ -68,5 +72,6 @@ export {
     addScreenToPinnedItems,
     addComponentToPinnedItems,
     removeScreenFromPinnedItems,
-    removeComponentFromPinnedItems
+    removeComponentFromPinnedItems,
+    removeAllFromPinnedItems
 };
