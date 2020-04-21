@@ -5,7 +5,8 @@ enum TreeItemContext {
     ZeplinComponentBarrel = "zeplinComponentBarrel",
     ZeplinComponent = "zeplinComponent",
     ZeplinComponentSection = "zeplinComponentSection",
-    ZeplinLink = "zeplinLink"
+    ZeplinLink = "zeplinLink",
+    Jira = "jira"
 }
 
 export default TreeItemContext;

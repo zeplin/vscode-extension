@@ -80,6 +80,11 @@
                     "command": "zeplin.sidebar.openInZeplin",
                     "when": "viewItem =~ /\\bzeplinLink\\b/",
                     "group": "inline"
+                },
+                {
+                    "command": "zeplin.sidebar.openJiraLink",
+                    "when": "viewItem =~ /\\bjira\\b/",
+                    "group": "inline"
                 }
             ],
             "commandPalette": [
@@ -97,6 +102,10 @@
                 },
                 {
                     "command": "zeplin.sidebar.openInZeplin",
+                    "when": "false"
+                },
+                {
+                    "command": "zeplin.sidebar.openJiraLink",
                     "when": "false"
                 }
             ]
@@ -122,6 +131,11 @@
                 "title": "Open in Zeplin",
                 "category": "Zeplin",
                 "icon": "resources/icon-zeplin.png"
+            },
+            {
+                "command": "zeplin.sidebar.openJiraLink",
+                "title": "Open JIRA Link",
+                "category": "Zeplin"
             },
             {
                 "command": "zeplin.createConfig",

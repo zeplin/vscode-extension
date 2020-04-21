@@ -140,6 +140,10 @@ const localization = {
         barrel: {
             added: (type: BarrelType) => `Added ${barrelLower(type)} to sidebar.`
         },
+        jira: {
+            open: "Open JIRA",
+            select: "Select JIRA"
+        },
         openInZeplin: {
             selectPreferred: "Select preferred application type to open items in Zeplin",
             web: "Open in Web App",

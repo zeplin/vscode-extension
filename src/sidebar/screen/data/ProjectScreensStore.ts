@@ -6,6 +6,8 @@ import BarrelType from "../../../common/domain/barrel/BarrelType";
 import ResponseScreenSection from "../../../common/domain/screen/model/ResponseScreenSection";
 import Screen from "../model/Screen";
 import ProjectScreens from "../model/ProjectScreens";
+import Jira from "../../../common/domain/jira/model/Jira";
+import ResponseScreen from "../model/ResponseScreen";
 
 export default class ProjectScreensStore implements Store<ProjectScreens> {
     public constructor(private projectId: string) { }
@@ -24,30 +26,36 @@ export default class ProjectScreensStore implements Store<ProjectScreens> {
                 errors: barrelErrors ?? screensErrors
             };
         } else {
-            const [
-                defaultSection,
-                ...sections
-            ] = barrelDetails!.screenSections!;
+            const [defaultSection, ...sections] = barrelDetails!.screenSections!;
+            const { ofScreenSections: screenSectionJiras, ofScreens: screenJiras } = barrelDetails!.itemJiras;
 
             return {
                 data: {
-                    screens: this.getSectionScreens(defaultSection, screens!),
+                    screens: this.getSectionScreens(defaultSection, screens!, screenJiras),
                     sections: sections.map(section => ({
                         id: section._id,
                         name: section.name,
                         description: section.description,
-                        screens: this.getSectionScreens(section, screens!)
+                        screens: this.getSectionScreens(section, screens!, screenJiras),
+                        jiras: screenSectionJiras.filter(jira => jira._id === section._id)
                     }))
                 }
             };
         }
     };
 
-    private getSectionScreens(section: ResponseScreenSection, screens: Screen[]): Screen[] {
+    private getSectionScreens(section: ResponseScreenSection, screens: ResponseScreen[], jiras: Jira[]): Screen[] {
         return section.screens
             .map(screenId => screens.findIndex(screen => screen._id === screenId))
             .filter(index => index >= 0)
-            .map(index => screens[index]);
+            .map(index => screens[index])
+            .map(screen => ({
+                _id: screen._id,
+                description: screen.description,
+                name: screen.name,
+                thumbnail: screen.latestVersion.snapshot.url,
+                jiras: jiras.filter(jira => jira._id === screen._id)
+            }));
     }
 
     public refresh = (): Promise<Result<ProjectScreens>> => {
