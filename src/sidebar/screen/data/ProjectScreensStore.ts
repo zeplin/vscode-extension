@@ -37,7 +37,7 @@ export default class ProjectScreensStore implements Store<ProjectScreens> {
                         name: section.name,
                         description: section.description,
                         screens: this.getSectionScreens(section, screens!, screenJiras),
-                        jiras: screenSectionJiras.filter(jira => jira._id === section._id)
+                        jiras: screenSectionJiras.filter(jira => jira.itemId === section._id)
                     }))
                 }
             };
@@ -54,7 +54,7 @@ export default class ProjectScreensStore implements Store<ProjectScreens> {
                 description: screen.description,
                 name: screen.name,
                 thumbnail: screen.latestVersion.snapshot.url,
-                jiras: jiras.filter(jira => jira._id === screen._id)
+                jiras: jiras.filter(jira => jira.itemId === screen._id)
             }));
     }
 
