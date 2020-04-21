@@ -85,6 +85,20 @@
                     "command": "zeplin.sidebar.openJiraLink",
                     "when": "viewItem =~ /\\bjira\\b/",
                     "group": "inline"
+                },
+                {
+                    "command": "zeplin.sidebar.pinItem",
+                    "when": "view == zeplin.views.barrels && viewItem =~ /\\bpinnable\\b/",
+                    "group": "inline"
+                },
+                {
+                    "command": "zeplin.sidebar.unpinItem",
+                    "when": "view == zeplin.views.barrels && viewItem =~ /\\bpinned\\b/",
+                    "group": "inline"
+                },
+                {
+                    "command": "zeplin.sidebar.unpinItem",
+                    "when": "view == zeplin.views.pinned"
                 }
             ],
             "commandPalette": [
@@ -106,6 +120,14 @@
                 },
                 {
                     "command": "zeplin.sidebar.openJiraLink",
+                    "when": "false"
+                },
+                {
+                    "command": "zeplin.sidebar.pinItem",
+                    "when": "false"
+                },
+                {
+                    "command": "zeplin.sidebar.unpinItem",
                     "when": "false"
                 }
             ]
@@ -135,6 +157,16 @@
             {
                 "command": "zeplin.sidebar.openJiraLink",
                 "title": "Open JIRA Link",
+                "category": "Zeplin"
+            },
+            {
+                "command": "zeplin.sidebar.pinItem",
+                "title": "Pin",
+                "category": "Zeplin"
+            },
+            {
+                "command": "zeplin.sidebar.unpinItem",
+                "title": "Unpin",
                 "category": "Zeplin"
             },
             {
