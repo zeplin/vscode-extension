@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { getBarrelUrl, getComponentUrl, getComponentSectionUrl } from "../../../common/domain/openInZeplin/util/zeplinUrls";
+import * as zeplinUrls from "../../../common/domain/openInZeplin/util/zeplinUrls";
 import { isPreferredAppTypeSelected, setPreferredAppTypeSelected } from "../../../common/domain/openInZeplin/util/openInZeplinUtil";
 import MessageBuilder from "../../../common/vscode/message/MessageBuilder";
 import ApplicationType from "../../../common/domain/openInZeplin/model/ApplicationType";
@@ -11,6 +11,8 @@ import ZeplinComponentSectionTreeItem from "../../zeplinComponent/tree/ZeplinCom
 import localization from "../../../localization";
 import { BarrelTreeItem } from "../../barrel/tree/BarrelTreeItem";
 import BarrelZeplinComponentsTreeItem from "../../zeplinComponent/tree/BarrelZeplinComponentsTreeItem";
+import ScreenTreeItem from "../../screen/tree/ScreenTreeItem";
+import ScreenSectionTreeItem from "../../screen/tree/ScreenSectionTreeItem";
 
 async function openInZeplin(item: TreeItem) {
     if (!isPreferredAppTypeSelected()) {
@@ -32,16 +34,22 @@ async function openInZeplin(item: TreeItem) {
     let url;
     if (item.containsContext(TreeItemContext.Barrel)) {
         const { barrel: { id, type } } = item as BarrelTreeItem;
-        url = getBarrelUrl(id, type, applicationType);
+        url = zeplinUrls.getBarrelUrl(id, type, applicationType);
     } else if (item.containsContext(TreeItemContext.ZeplinComponentBarrel)) {
         const { barrel: { id, type } } = item as BarrelZeplinComponentsTreeItem;
-        url = getBarrelUrl(id, type, applicationType);
+        url = zeplinUrls.getBarrelUrl(id, type, applicationType);
+    } else if (item.containsContext(TreeItemContext.Screen)) {
+        const { screen: { _id: screenId }, project: { id: projectId } } = item as ScreenTreeItem;
+        url = zeplinUrls.getScreenUrl(projectId, screenId, applicationType);
+    } else if (item.containsContext(TreeItemContext.ScreenSection)) {
+        const { section: { id: sectionId }, project: { id: projectId } } = item as ScreenSectionTreeItem;
+        url = zeplinUrls.getScreenSectionUrl(projectId, sectionId, applicationType);
     } else if (item.containsContext(TreeItemContext.ZeplinComponent)) {
         const { zeplinComponent: { _id }, barrel: { id: barrelId, type } } = item as ZeplinComponentTreeItem;
-        url = getComponentUrl(barrelId, type, _id, applicationType);
+        url = zeplinUrls.getComponentUrl(barrelId, type, _id, applicationType);
     } else if (item.containsContext(TreeItemContext.ZeplinComponentSection)) {
         const { section: { _id }, barrel: { id: barrelId, type } } = item as ZeplinComponentSectionTreeItem;
-        url = getComponentSectionUrl(barrelId, type, _id, applicationType);
+        url = zeplinUrls.getComponentSectionUrl(barrelId, type, _id, applicationType);
     } else {
         throw new Error("Wrong item type for opening in Zeplin");
     }

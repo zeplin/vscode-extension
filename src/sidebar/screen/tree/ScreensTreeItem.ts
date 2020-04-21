@@ -20,8 +20,10 @@ export default class ScreensTreeItem extends TreeItem {
         } else {
             const { screens, sections } = data;
             return [
-                ...screens.map(screen => new ScreenTreeItem(screen)),
-                ...sections.filter(this.isSectionFilled).map(section => new ScreenSectionTreeItem(section))
+                ...screens.map(screen => new ScreenTreeItem(screen, this.project)),
+                ...sections
+                    .filter(this.isSectionFilled)
+                    .map(section => new ScreenSectionTreeItem(section, this.project))
             ];
         }
     }
