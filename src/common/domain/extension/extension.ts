@@ -101,7 +101,10 @@ export async function activate(context: vscode.ExtensionContext) {
     );
     context.subscriptions.push(ConfigDiagnosticsProvider.register());
 
-    context.subscriptions.push(vscode.window.registerTreeDataProvider("zeplin.views.barrels", BarrelTreeDataProvider));
+    const treeDataProviders = [
+        BarrelTreeDataProvider
+    ];
+    treeDataProviders.forEach(provider => context.subscriptions.push(provider.register()));
 
     Logger.log("Extension activated");
 }
