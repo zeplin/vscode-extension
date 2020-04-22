@@ -20,7 +20,7 @@ export default class QuickPickProvider<T, E extends BaseError = BaseError> {
      * @param store A store for getting items to select from.
      * @param mapItem A function to map a store item to a picker item.
      * @param noItemsMessage A message to be shown when there are no items found.
-     * @param handleError A function to handle errors occured when retriving store items.
+     * @param handleError A function to handle errors occurred when retrieving store items.
      */
     public constructor(
         private store: Store<T[], E>,
@@ -44,7 +44,7 @@ export default class QuickPickProvider<T, E extends BaseError = BaseError> {
     }
 
     /**
-     * Starts selection by retriving store data if it is not already retrieved and returns a Promise which resolves when
+     * Starts selection by retrieving store data if it is not already retrieved and returns a Promise which resolves when
      * an item is selected or the selection process is ended.
      * Note: Picker UI is blocked while retrieval process.
      */
@@ -53,7 +53,7 @@ export default class QuickPickProvider<T, E extends BaseError = BaseError> {
     }
 
     /**
-     * Starts selection by retriving store data if it is not already retrieved and returns a Promise which resolves when
+     * Starts selection by retrieving store data if it is not already retrieved and returns a Promise which resolves when
      * items are selected or the selection process is ended.
      * Note: Picker UI is blocked while retrieval process.
      */

@@ -3,7 +3,7 @@ import AbortController from "abort-controller";
 import imageSize from "image-size";
 
 /**
- * Return width and height of an image by retriving its data until metadata is received.
+ * Return width and height of an image by retrieving its data until metadata is received.
  * @param url An image url.
  */
 async function getImageSize(url: string): Promise<{ width: number; height: number }> {

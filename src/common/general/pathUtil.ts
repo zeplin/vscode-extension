@@ -23,7 +23,7 @@ function toUnixPath(path: string): string {
 }
 
 /**
- * Removes a path's first character if it is Unix or Windows path seperator.
+ * Removes a path's first character if it is Unix or Windows path separator.
  * @param path A path.
  */
 function removeLeadingPathSeparator(path: string): string {
