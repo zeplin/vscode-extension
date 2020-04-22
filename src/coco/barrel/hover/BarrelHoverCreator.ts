@@ -2,7 +2,7 @@ import * as vscode from "vscode";
 import ConfigHoverCreator from "../../config/hover/ConfigHoverCreator";
 import BarrelDetailsStoreProvider from "../../../common/domain/zeplinComponent/data/BarrelDetailsStoreProvider";
 import BarrelType from "../../../common/domain/barrel/BarrelType";
-import { getBarrelDetailRepresentation } from "../util/barrelUi";
+import { getBarrelDetailRepresentation } from "../../../common/domain/barrel/util/barrelUi";
 import HoverBuilder from "../../../common/vscode/hover/HoverBuilder";
 import { getConfig } from "../../config/util/configUtil";
 import localization from "../../../localization";
