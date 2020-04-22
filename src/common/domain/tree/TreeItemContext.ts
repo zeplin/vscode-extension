@@ -6,7 +6,9 @@ enum TreeItemContext {
     ZeplinComponent = "zeplinComponent",
     ZeplinComponentSection = "zeplinComponentSection",
     ZeplinLink = "zeplinLink",
-    Jira = "jira"
+    Jira = "jira",
+    Pinnable = "pinnable",
+    Pinned = "pinned"
 }
 
 export default TreeItemContext;

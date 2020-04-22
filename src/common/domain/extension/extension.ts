@@ -9,6 +9,8 @@ import AddStyleguideToSidebarCommand from "../../../sidebar/barrel/command/AddSt
 import RemoveBarrelFromSidebarCommand from "../../../sidebar/barrel/command/RemoveBarrelFromSidebarCommand";
 import OpenInZeplinCommand from "../../../sidebar/openInZeplin/command/OpenInZeplinCommand";
 import OpenJiraLinkCommand from "../../../sidebar/jira/command/OpenJiraLinkCommand";
+import PinToSidebarCommand from "../../../sidebar/pin/command/PinToSidebarCommand";
+import UnpinFromSidebarCommand from "../../../sidebar/pin/command/UnpinFromSidebarCommand";
 import CreateConfigCommand from "../../../coco/config/command/CreateConfigCommand";
 import OpenConfigCommand from "../../../coco/config/command/OpenConfigCommand";
 import LoginCommand from "../../../session/command/LoginCommand";
@@ -38,6 +40,7 @@ import ConfigDiagnosticsProvider from "../../../coco/config/diagnostic/ConfigDia
 import AddMultipleComponentsCommand from "../../../coco/component/command/AddMultipleComponentsCommand";
 import AddMultipleZeplinComponentsCommand from "../../../coco/zeplinComponent/command/AddMultipleZeplinComponentsCommand";
 import BarrelTreeDataProvider from "../../../sidebar/barrel/tree/BarrelTreeDataProvider";
+import PinTreeDataProvider from "../../../sidebar/pin/tree/PinTreeDataProvider";
 
 export async function activate(context: vscode.ExtensionContext) {
     ContextProvider.initialize(context);
@@ -52,6 +55,8 @@ export async function activate(context: vscode.ExtensionContext) {
         RemoveBarrelFromSidebarCommand,
         OpenInZeplinCommand,
         OpenJiraLinkCommand,
+        PinToSidebarCommand,
+        UnpinFromSidebarCommand,
         CreateConfigCommand,
         OpenConfigCommand,
         LoginCommand,
@@ -101,7 +106,11 @@ export async function activate(context: vscode.ExtensionContext) {
     );
     context.subscriptions.push(ConfigDiagnosticsProvider.register());
 
-    context.subscriptions.push(vscode.window.registerTreeDataProvider("zeplin.views.barrels", BarrelTreeDataProvider));
+    const treeDataProviders = [
+        BarrelTreeDataProvider,
+        PinTreeDataProvider
+    ];
+    treeDataProviders.forEach(provider => context.subscriptions.push(provider.register()));
 
     Logger.log("Extension activated");
 }

@@ -1,0 +1,72 @@
+import ContextProvider from "../../../common/vscode/extension/ContextProvider";
+import Screen from "../../screen/model/Screen";
+import Barrel from "../../../common/domain/barrel/Barrel";
+import PinType from "../model/PinType";
+import ComponentPinData from "../model/ComponentPinData";
+import ResponseZeplinComponent from "../../../common/domain/zeplinComponent/model/ResponseZeplinComponent";
+import PinData from "../model/PinData";
+import ScreenPinData from "../model/ScreenPinData";
+
+const KEY_PINNED_ITEMS = "sidebar.pinnedItems";
+
+function getPinnedItems(): PinData[] {
+    return ContextProvider.get().workspaceState.get(KEY_PINNED_ITEMS) ?? [];
+}
+
+function doesScreenMatchWithPinData(screen: Screen, item: PinData) {
+    return item.type === PinType.Screen && (item as ScreenPinData).screen._id === screen._id;
+}
+
+function doesComponentMatchWithPinData(component: ResponseZeplinComponent, item: PinData) {
+    return item.type === PinType.Component && (item as ComponentPinData).component._id === component._id;
+}
+
+function isScreenPinned(screen: Screen): boolean {
+    return getPinnedItems().some(item => doesScreenMatchWithPinData(screen, item));
+}
+
+function isComponentPinned(component: ResponseZeplinComponent) {
+    return getPinnedItems().some(item => doesComponentMatchWithPinData(component, item));
+}
+
+function addScreenToPinnedItems(screen: Screen, project: Barrel) {
+    const pinnedItems = getPinnedItems();
+    const newPinnedItems = pinnedItems.concat({
+        type: PinType.Screen,
+        screen,
+        project
+    } as ScreenPinData);
+    ContextProvider.get().workspaceState.update(KEY_PINNED_ITEMS, newPinnedItems);
+}
+
+function addComponentToPinnedItems(component: ResponseZeplinComponent, barrel: Barrel) {
+    const pinnedItems = getPinnedItems();
+    const newPinnedItems = pinnedItems.concat({
+        type: PinType.Component,
+        component,
+        barrel
+    } as ComponentPinData);
+    ContextProvider.get().workspaceState.update(KEY_PINNED_ITEMS, newPinnedItems);
+}
+
+function removeScreenFromPinnedItems(screen: Screen) {
+    const pinnedItems = getPinnedItems();
+    const newPinnedItems = pinnedItems.filter(item => !doesScreenMatchWithPinData(screen, item));
+    ContextProvider.get().workspaceState.update(KEY_PINNED_ITEMS, newPinnedItems);
+}
+
+function removeComponentFromPinnedItems(component: ResponseZeplinComponent) {
+    const pinnedItems = getPinnedItems();
+    const newPinnedItems = pinnedItems.filter(item => !doesComponentMatchWithPinData(component, item));
+    ContextProvider.get().workspaceState.update(KEY_PINNED_ITEMS, newPinnedItems);
+}
+
+export {
+    getPinnedItems,
+    isComponentPinned,
+    isScreenPinned,
+    addScreenToPinnedItems,
+    addComponentToPinnedItems,
+    removeScreenFromPinnedItems,
+    removeComponentFromPinnedItems
+};

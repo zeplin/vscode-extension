@@ -4,9 +4,14 @@ import TreeItem from "../../../common/vscode/tree/TreeItem";
 import TreeItemContextProvider from "../../../common/vscode/tree/TreeItemContextProvider";
 import TreeItemContext from "../../../common/domain/tree/TreeItemContext";
 import Barrel from "../../../common/domain/barrel/Barrel";
+import { isScreenPinned } from "../../pin/util/pinUtil";
 
 function getContextProvider(screen: Screen): TreeItemContextProvider {
-    const contexts = [TreeItemContext.Screen, TreeItemContext.ZeplinLink];
+    const contexts = [
+        TreeItemContext.Screen,
+        TreeItemContext.ZeplinLink,
+        isScreenPinned(screen) ? TreeItemContext.Pinned : TreeItemContext.Pinnable
+    ];
     if (screen.jiras.length) {
         contexts.push(TreeItemContext.Jira);
     }

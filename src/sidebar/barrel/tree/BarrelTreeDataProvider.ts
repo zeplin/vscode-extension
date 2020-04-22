@@ -5,6 +5,7 @@ import { getSavedBarrels } from "../util/barrelUtil";
 import { BarrelTreeItem } from "./BarrelTreeItem";
 
 class BarrelTreeDataProvider extends TreeDataProvider {
+    protected viewId = "zeplin.views.barrels";
     private eventEmitter = new vscode.EventEmitter<TreeItem>();
 
     public get onDidChangeTreeData(): vscode.Event<TreeItem> {
