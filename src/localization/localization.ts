@@ -149,6 +149,9 @@ const localization = {
             web: "Open in Web App",
             app: "Open in Native App"
         },
+        pin: {
+            askUnpinAll: "Unpin all items?"
+        },
         screens: {
             screens: "Screens"
         },

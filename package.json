@@ -69,6 +69,10 @@
                 {
                     "command": "zeplin.sidebar.addStyleguide",
                     "when": "view == zeplin.views.barrels"
+                },
+                {
+                    "command": "zeplin.sidebar.unpinAll",
+                    "when": "view == zeplin.views.pinned && zeplin:sidebar:anyPinnedItems"
                 }
             ],
             "view/item/context": [
@@ -129,6 +133,10 @@
                 {
                     "command": "zeplin.sidebar.unpinItem",
                     "when": "false"
+                },
+                {
+                    "command": "zeplin.sidebar.unpinAll",
+                    "when": "false"
                 }
             ]
         },
@@ -167,6 +175,11 @@
             {
                 "command": "zeplin.sidebar.unpinItem",
                 "title": "Unpin",
+                "category": "Zeplin"
+            },
+            {
+                "command": "zeplin.sidebar.unpinAll",
+                "title": "Remove all",
                 "category": "Zeplin"
             },
             {

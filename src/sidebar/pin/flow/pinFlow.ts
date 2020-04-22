@@ -4,17 +4,17 @@ import TreeItem from "../../../common/vscode/tree/TreeItem";
 import TreeItemContext from "../../../common/domain/tree/TreeItemContext";
 import ScreenTreeItem from "../../screen/tree/ScreenTreeItem";
 import ZeplinComponentTreeItem from "../../zeplinComponent/tree/ZeplinComponentTreeItem";
-import {
-    addScreenToPinnedItems, addComponentToPinnedItems, removeScreenFromPinnedItems, removeComponentFromPinnedItems
-} from "../util/pinUtil";
+import * as pinUtil from "../util/pinUtil";
+import MessageBuilder from "../../../common/vscode/message/MessageBuilder";
+import localization from "../../../localization";
 
 function pinItem(item: TreeItem) {
     if (item.containsContext(TreeItemContext.Screen)) {
         const { screen, project } = item as ScreenTreeItem;
-        addScreenToPinnedItems(screen, project);
+        pinUtil.addScreenToPinnedItems(screen, project);
     } else if (item.containsContext(TreeItemContext.ZeplinComponent)) {
         const { zeplinComponent, barrel } = item as ZeplinComponentTreeItem;
-        addComponentToPinnedItems(zeplinComponent, barrel);
+        pinUtil.addComponentToPinnedItems(zeplinComponent, barrel);
     } else {
         throw new Error("Wrong item type to pin");
     }
@@ -26,10 +26,10 @@ function pinItem(item: TreeItem) {
 function unpinItem(item: TreeItem) {
     if (item.containsContext(TreeItemContext.Screen)) {
         const { screen } = item as ScreenTreeItem;
-        removeScreenFromPinnedItems(screen);
+        pinUtil.removeScreenFromPinnedItems(screen);
     } else if (item.containsContext(TreeItemContext.ZeplinComponent)) {
         const { zeplinComponent } = item as ZeplinComponentTreeItem;
-        removeComponentFromPinnedItems(zeplinComponent);
+        pinUtil.removeComponentFromPinnedItems(zeplinComponent);
     } else {
         throw new Error("Wrong item type to pin");
     }
@@ -38,7 +38,19 @@ function unpinItem(item: TreeItem) {
     PinTreeDataProvider.refresh();
 }
 
+function askUnpinAll() {
+    MessageBuilder.with(localization.sidebar.pin.askUnpinAll)
+        .setModal(true)
+        .addOption(localization.common.ok, () => {
+            pinUtil.removeAllFromPinnedItems();
+            BarrelTreeDataProvider.refresh();
+            PinTreeDataProvider.refresh();
+        })
+        .show();
+}
+
 export {
     pinItem,
-    unpinItem
+    unpinItem,
+    askUnpinAll
 };
