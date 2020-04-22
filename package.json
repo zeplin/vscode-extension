@@ -71,8 +71,19 @@
                     "when": "view == zeplin.views.barrels"
                 },
                 {
+                    "command": "zeplin.sidebar.pinScreen",
+                    "when": "view == zeplin.views.pinned",
+                    "group": "zeplin.sidebar.pinned_1@1"
+                },
+                {
+                    "command": "zeplin.sidebar.pinComponent",
+                    "when": "view == zeplin.views.pinned",
+                    "group": "zeplin.sidebar.pinned_1@2"
+                },
+                {
                     "command": "zeplin.sidebar.unpinAll",
-                    "when": "view == zeplin.views.pinned && zeplin:sidebar:anyPinnedItems"
+                    "when": "view == zeplin.views.pinned && zeplin:sidebar:anyPinnedItems",
+                    "group": "zeplin.sidebar.pinned_2"
                 }
             ],
             "view/item/context": [
@@ -135,6 +146,14 @@
                     "when": "false"
                 },
                 {
+                    "command": "zeplin.sidebar.pinScreen",
+                    "when": "false"
+                },
+                {
+                    "command": "zeplin.sidebar.pinComponent",
+                    "when": "false"
+                },
+                {
                     "command": "zeplin.sidebar.unpinAll",
                     "when": "false"
                 }
@@ -175,6 +194,16 @@
             {
                 "command": "zeplin.sidebar.unpinItem",
                 "title": "Unpin",
+                "category": "Zeplin"
+            },
+            {
+                "command": "zeplin.sidebar.pinScreen",
+                "title": "Add screen",
+                "category": "Zeplin"
+            },
+            {
+                "command": "zeplin.sidebar.pinComponent",
+                "title": "Add component",
                 "category": "Zeplin"
             },
             {
