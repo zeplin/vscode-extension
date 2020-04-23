@@ -3,6 +3,7 @@ import TreeDataProvider from "../../../common/vscode/tree/TreeDataProvider";
 import TreeItem from "../../../common/vscode/tree/TreeItem";
 import { getSavedBarrels } from "../util/barrelUtil";
 import { BarrelTreeItem } from "./BarrelTreeItem";
+import localization from "../../../localization";
 
 class BarrelTreeDataProvider extends TreeDataProvider {
     protected viewId = "zeplin.views.barrels";
@@ -17,7 +18,10 @@ class BarrelTreeDataProvider extends TreeDataProvider {
     }
 
     public getRoots(): TreeItem[] {
-        return getSavedBarrels().map(barrel => new BarrelTreeItem(barrel));
+        const savedBarrels = getSavedBarrels();
+        return savedBarrels.length
+            ? savedBarrels.map(barrel => new BarrelTreeItem(barrel))
+            : [new TreeItem(localization.sidebar.barrel.emptyInfo)];
     }
 }
 

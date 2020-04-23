@@ -138,7 +138,8 @@ const localization = {
     },
     sidebar: {
         barrel: {
-            added: (type: BarrelType) => `Added ${barrelLower(type)} to sidebar.`
+            added: (type: BarrelType) => `Added ${barrelLower(type)} to sidebar.`,
+            emptyInfo: "Add project/styleguide from “…” menu"
         },
         jira: {
             open: "Open JIRA",
