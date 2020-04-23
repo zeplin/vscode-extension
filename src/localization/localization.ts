@@ -151,7 +151,8 @@ const localization = {
             app: "Open in Native App"
         },
         pin: {
-            askUnpinAll: "Unpin all items?"
+            askUnpinAll: "Unpin all items?",
+            emptyInfo: "Pin screens/components you frequently use from “…” menu"
         },
         screen: {
             screens: "Screens",
