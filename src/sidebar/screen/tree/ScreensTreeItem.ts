@@ -19,12 +19,15 @@ export default class ScreensTreeItem extends TreeItem {
             return [new TreeItem(error.message)];
         } else {
             const { screens, sections } = data;
-            return [
-                ...screens.map(screen => new ScreenTreeItem(screen, this.project)),
-                ...sections
-                    .filter(this.isSectionFilled)
-                    .map(section => new ScreenSectionTreeItem(section, this.project))
-            ];
+            const filledSections = sections?.filter(this.isSectionFilled) ?? [];
+            if (screens.length || filledSections.length) {
+                return [
+                    ...screens.map(screen => new ScreenTreeItem(screen, this.project)),
+                    ...filledSections.map(section => new ScreenSectionTreeItem(section, this.project))
+                ];
+            } else {
+                return [new TreeItem(localization.sidebar.screen.noneFound)];
+            }
         }
     }
 

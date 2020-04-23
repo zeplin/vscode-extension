@@ -153,7 +153,8 @@ const localization = {
             askUnpinAll: "Unpin all items?"
         },
         screen: {
-            screens: "Screens"
+            screens: "Screens",
+            noneFound: "No screen found"
         },
         zeplinComponent: {
             zeplinComponents: "Components",
