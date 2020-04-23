@@ -152,7 +152,7 @@ const localization = {
         pin: {
             askUnpinAll: "Unpin all items?"
         },
-        screens: {
+        screen: {
             screens: "Screens"
         },
         zeplinComponent: {

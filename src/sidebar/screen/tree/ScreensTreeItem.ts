@@ -9,7 +9,7 @@ import ScreenSectionTreeItem from "./ScreenSectionTreeItem";
 
 export default class ScreensTreeItem extends TreeItem {
     public constructor(private project: Barrel) {
-        super(localization.sidebar.screens.screens, undefined, vscode.TreeItemCollapsibleState.Collapsed);
+        super(localization.sidebar.screen.screens, undefined, vscode.TreeItemCollapsibleState.Collapsed);
     }
 
     public async getChildren(): Promise<TreeItem[]> {
