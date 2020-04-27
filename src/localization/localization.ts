@@ -137,6 +137,14 @@ const localization = {
         cacheCleared: "Cache cleared."
     },
     sidebar: {
+        activity: {
+            updated: (user: string, item: string) => `${user} updated ${item}.`,
+            minutesAgo: (count: number) => `${count}min`,
+            hoursAgo: (count: number) => `${count}h`,
+            daysAgo: (count: number) => `${count}d`,
+            monthsAgo: (count: number) => `${count}mon`,
+            yearsAgo: (count: number) => `${count}y`
+        },
         barrel: {
             added: (type: BarrelType) => `Added ${barrelLower(type)} to sidebar.`,
             emptyInfo: "Add project/styleguide from “…” menu"

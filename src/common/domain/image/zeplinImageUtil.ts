@@ -1,5 +1,6 @@
 import fetch from "node-fetch";
 import configuration from "../extension/configuration";
+import { snakeCaseToPascalCase } from "../../general/stringUtil";
 
 async function getCroppedImageUrl(url: string, width: number, height: number): Promise<string | undefined> {
     try {
@@ -12,6 +13,14 @@ async function getCroppedImageUrl(url: string, width: number, height: number): P
     }
 }
 
+function getEmotarUrl(emotar: string) {
+    const emotarFileName = emotar === "random"
+        ? "icRandom.svg"
+        : `emotar${snakeCaseToPascalCase(emotar)}.png`;
+    return `${configuration.webUrl}/img/emotars/${emotarFileName}`;
+}
+
 export {
-    getCroppedImageUrl
+    getCroppedImageUrl,
+    getEmotarUrl
 };

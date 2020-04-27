@@ -45,6 +45,7 @@ import AddMultipleComponentsCommand from "../../../coco/component/command/AddMul
 import AddMultipleZeplinComponentsCommand from "../../../coco/zeplinComponent/command/AddMultipleZeplinComponentsCommand";
 import BarrelTreeDataProvider from "../../../sidebar/barrel/tree/BarrelTreeDataProvider";
 import PinTreeDataProvider from "../../../sidebar/pin/tree/PinTreeDataProvider";
+import ActivityTreeDataProvider from "../../../sidebar/activity/tree/ActivityTreeDataProvider";
 
 export async function activate(context: vscode.ExtensionContext) {
     ContextProvider.initialize(context);
@@ -116,7 +117,8 @@ export async function activate(context: vscode.ExtensionContext) {
 
     const treeDataProviders = [
         BarrelTreeDataProvider,
-        PinTreeDataProvider
+        PinTreeDataProvider,
+        ActivityTreeDataProvider
     ];
     treeDataProviders.forEach(provider => context.subscriptions.push(provider.register()));
 
