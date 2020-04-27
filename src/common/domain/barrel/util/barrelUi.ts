@@ -1,5 +1,5 @@
-import Barrel from "../../../common/domain/barrel/Barrel";
-import localization from "../../../localization";
+import Barrel from "../Barrel";
+import localization from "../../../../localization";
 
 const DETAIL_ITEM_SEPARATOR = ", ";
 const PLATFORM_ANDROID = "android";

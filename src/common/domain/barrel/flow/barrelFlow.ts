@@ -3,7 +3,7 @@ import QuickPickProvider from "../../../vscode/quickPick/QuickPickerProvider";
 import WorkspacesStore from "../data/WorkspacesStore";
 import localization from "../../../../localization";
 import BarrelsStoreProvider from "../data/BarrelsStoreProvider";
-import { getBarrelDetailRepresentation } from "../../../../coco/barrel/util/barrelUi";
+import { getBarrelDetailRepresentation } from "../util/barrelUi";
 import BarrelType from "../BarrelType";
 
 async function pickBarrel(title: string, type: BarrelType): Promise<Barrel | undefined> {

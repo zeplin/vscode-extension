@@ -63,6 +63,11 @@
         "menus": {
             "view/title": [
                 {
+                    "command": "zeplin.sidebar.refreshBarrels",
+                    "when": "view == zeplin.views.barrels",
+                    "group": "navigation"
+                },
+                {
                     "command": "zeplin.sidebar.addProject",
                     "when": "view == zeplin.views.barrels"
                 },
@@ -71,8 +76,19 @@
                     "when": "view == zeplin.views.barrels"
                 },
                 {
+                    "command": "zeplin.sidebar.pinScreen",
+                    "when": "view == zeplin.views.pinned",
+                    "group": "zeplin.sidebar.pinned_1@1"
+                },
+                {
+                    "command": "zeplin.sidebar.pinComponent",
+                    "when": "view == zeplin.views.pinned",
+                    "group": "zeplin.sidebar.pinned_1@2"
+                },
+                {
                     "command": "zeplin.sidebar.unpinAll",
-                    "when": "view == zeplin.views.pinned && zeplin:sidebar:anyPinnedItems"
+                    "when": "view == zeplin.views.pinned && zeplin:sidebar:anyPinnedItems",
+                    "group": "zeplin.sidebar.pinned_2"
                 }
             ],
             "view/item/context": [
@@ -107,6 +123,10 @@
             ],
             "commandPalette": [
                 {
+                    "command": "zeplin.sidebar.refreshBarrels",
+                    "when": "false"
+                },
+                {
                     "command": "zeplin.sidebar.addProject",
                     "when": "false"
                 },
@@ -135,12 +155,29 @@
                     "when": "false"
                 },
                 {
+                    "command": "zeplin.sidebar.pinScreen",
+                    "when": "false"
+                },
+                {
+                    "command": "zeplin.sidebar.pinComponent",
+                    "when": "false"
+                },
+                {
                     "command": "zeplin.sidebar.unpinAll",
                     "when": "false"
                 }
             ]
         },
         "commands": [
+            {
+                "command": "zeplin.sidebar.refreshBarrels",
+                "title": "Refresh projects and styleguides",
+                "category": "Zeplin",
+                "icon": {
+                    "dark": "resources/dark/icon-refresh.svg",
+                    "light": "resources/light/icon-refresh.svg"
+                }
+            },
             {
                 "command": "zeplin.sidebar.addProject",
                 "title": "Add project",
@@ -175,6 +212,16 @@
             {
                 "command": "zeplin.sidebar.unpinItem",
                 "title": "Unpin",
+                "category": "Zeplin"
+            },
+            {
+                "command": "zeplin.sidebar.pinScreen",
+                "title": "Add screen",
+                "category": "Zeplin"
+            },
+            {
+                "command": "zeplin.sidebar.pinComponent",
+                "title": "Add component",
                 "category": "Zeplin"
             },
             {

@@ -151,6 +151,14 @@ const localization = {
             app: "Open in Native App"
         },
         pin: {
+            selectProject: "Select project",
+            selectBarrel: "Select project or styleguide",
+            noProjectFound: "Please add a project to sidebar first.",
+            noBarrelFound: "Please add a project or styleguide to sidebar first.",
+            pinScreen: "Pin screen",
+            pinComponent: "Pin component",
+            selectScreen: "Select screen",
+            selectComponent: "Select component",
             askUnpinAll: "Unpin all items?",
             emptyInfo: "Pin screens/components you frequently use from “…” menu"
         },
