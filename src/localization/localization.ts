@@ -138,7 +138,8 @@ const localization = {
     },
     sidebar: {
         barrel: {
-            added: (type: BarrelType) => `Added ${barrelLower(type)} to sidebar.`
+            added: (type: BarrelType) => `Added ${barrelLower(type)} to sidebar.`,
+            emptyInfo: "Add project/styleguide from “…” menu"
         },
         jira: {
             open: "Open JIRA",
@@ -158,10 +159,12 @@ const localization = {
             pinComponent: "Pin component",
             selectScreen: "Select screen",
             selectComponent: "Select component",
-            askUnpinAll: "Unpin all items?"
+            askUnpinAll: "Unpin all items?",
+            emptyInfo: "Pin screens/components you frequently use from “…” menu"
         },
-        screens: {
-            screens: "Screens"
+        screen: {
+            screens: "Screens",
+            noneFound: "No screen found"
         },
         zeplinComponent: {
             zeplinComponents: "Components",
