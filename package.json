@@ -63,8 +63,8 @@
         "menus": {
             "view/title": [
                 {
-                    "command": "zeplin.sidebar.refreshBarrels",
-                    "when": "view == zeplin.views.barrels",
+                    "command": "zeplin.sidebar.refresh",
+                    "when": "view == zeplin.views.barrels || view == zeplin.views.activity",
                     "group": "navigation"
                 },
                 {
@@ -123,7 +123,7 @@
             ],
             "commandPalette": [
                 {
-                    "command": "zeplin.sidebar.refreshBarrels",
+                    "command": "zeplin.sidebar.refresh",
                     "when": "false"
                 },
                 {
@@ -170,8 +170,8 @@
         },
         "commands": [
             {
-                "command": "zeplin.sidebar.refreshBarrels",
-                "title": "Refresh projects and styleguides",
+                "command": "zeplin.sidebar.refresh",
+                "title": "Refresh",
                 "category": "Zeplin",
                 "icon": {
                     "dark": "resources/dark/icon-refresh.svg",

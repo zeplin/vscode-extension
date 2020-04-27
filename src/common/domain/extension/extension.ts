@@ -4,7 +4,7 @@ import Logger from "../../../log/Logger";
 import { initializeSession } from "../../../session/util/SessionInitializer";
 import { showWarningsAtStartUp } from "./zeplinExtensionUtil";
 import Preferences from "../../../preferences/Preferences";
-import RefreshSidebarBarrelsCommand from "../../../sidebar/barrel/command/RefreshSidebarBarrelsCommand";
+import RefreshSidebarCommand from "../../../sidebar/refresh/command/RefreshSidebarCommand";
 import AddProjectToSidebarCommand from "../../../sidebar/barrel/command/AddProjectToSidebarCommand";
 import AddStyleguideToSidebarCommand from "../../../sidebar/barrel/command/AddStyleguideToSidebarCommand";
 import RemoveBarrelFromSidebarCommand from "../../../sidebar/barrel/command/RemoveBarrelFromSidebarCommand";
@@ -55,7 +55,7 @@ export async function activate(context: vscode.ExtensionContext) {
     Preferences.initialize();
 
     const commands = [
-        RefreshSidebarBarrelsCommand,
+        RefreshSidebarCommand,
         AddProjectToSidebarCommand,
         AddStyleguideToSidebarCommand,
         RemoveBarrelFromSidebarCommand,
