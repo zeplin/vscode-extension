@@ -63,6 +63,11 @@
         "menus": {
             "view/title": [
                 {
+                    "command": "zeplin.sidebar.refreshBarrels",
+                    "when": "view == zeplin.views.barrels",
+                    "group": "navigation"
+                },
+                {
                     "command": "zeplin.sidebar.addProject",
                     "when": "view == zeplin.views.barrels"
                 },
@@ -118,6 +123,10 @@
             ],
             "commandPalette": [
                 {
+                    "command": "zeplin.sidebar.refreshBarrels",
+                    "when": "false"
+                },
+                {
                     "command": "zeplin.sidebar.addProject",
                     "when": "false"
                 },
@@ -160,6 +169,15 @@
             ]
         },
         "commands": [
+            {
+                "command": "zeplin.sidebar.refreshBarrels",
+                "title": "Refresh projects and styleguides",
+                "category": "Zeplin",
+                "icon": {
+                    "dark": "resources/dark/icon-refresh.svg",
+                    "light": "resources/light/icon-refresh.svg"
+                }
+            },
             {
                 "command": "zeplin.sidebar.addProject",
                 "title": "Add project",
