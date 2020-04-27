@@ -44,6 +44,7 @@ module.exports = {
         "no-invalid-this": "off",
         "no-magic-numbers": "off", // On by next line for ts
         "@typescript-eslint/no-magic-numbers": ["error", { "ignore": [0, 1], "ignoreEnums": true }],
-        "valid-jsdoc": "off" // This rule is disabled because "requireReturn: false" results in false positives
+        "valid-jsdoc": "off", // This rule is disabled because "requireReturn: false" results in false positives
+        "@typescript-eslint/no-empty-interface": "off"
     }
 }

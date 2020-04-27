@@ -53,7 +53,7 @@ export default class ProjectScreensStore implements Store<ProjectScreens> {
                 _id: screen._id,
                 description: screen.description,
                 name: screen.name,
-                thumbnail: screen.latestVersion.snapshot.url,
+                latestVersion: screen.latestVersion,
                 jiras: jiras.filter(jira => jira.itemId === screen._id)
             }));
     }

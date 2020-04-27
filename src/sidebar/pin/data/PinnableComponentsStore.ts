@@ -12,8 +12,7 @@ export default class PinnableComponentsStore implements Store<ZeplinComponent[]>
     public constructor(private barrelId: string, private barrelType: BarrelType) { }
 
     public get = async (): Promise<Result<ZeplinComponent[]>> => {
-        const { data: components, errors } =
-            await new ZeplinComponentsStore(this.barrelId, this.barrelType, []).get();
+        const { data: components, errors } = await new ZeplinComponentsStore(this.barrelId, this.barrelType).get();
 
         if (errors?.length) {
             return {

@@ -19,7 +19,7 @@ function getContextProvider(screen: Screen): TreeItemContextProvider {
 }
 
 export default class ScreenTreeItem extends TreeItem {
-    public iconPath = vscode.Uri.parse(this.screen.thumbnail, true);
+    public iconPath = vscode.Uri.parse(this.screen.latestVersion.snapshot.url, true);
 
     public constructor(public screen: Screen, public project: Barrel) {
         super(screen.name, getContextProvider(screen));
