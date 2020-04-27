@@ -4,7 +4,7 @@ import HoverBuilder from "../../../common/vscode/hover/HoverBuilder";
 import ZeplinComponentStore from "../data/ZeplinComponentStore";
 import localization from "../../../localization";
 import { getConfig } from "../../config/util/configUtil";
-import { getZeplinComponentDetailRepresentation } from "../util/zeplinComponentUi";
+import { getZeplinComponentDetailRepresentation } from "../../../common/domain/zeplinComponent/util/zeplinComponentUi";
 import { boldenForMarkdown, getMarkdownCommand } from "../../../common/vscode/hover/hoverUtil";
 import { getComponentAppUrl, getComponentWebUrl } from "../../../common/domain/openInZeplin/util/zeplinUrls";
 import { getOpenInZeplinLinks, getMarkdownRefreshIcon } from "../../../common/domain/hover/zeplinHoverUtil";

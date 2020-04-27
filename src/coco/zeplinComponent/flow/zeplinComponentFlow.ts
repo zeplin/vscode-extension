@@ -4,10 +4,10 @@ import QuickPickProvider from "../../../common/vscode/quickPick/QuickPickerProvi
 import { ComponentStore } from "../data/ComponentStore";
 import { showInEditor } from "../../../common/vscode/editor/editorUtil";
 import ConfigBarrelsStore from "../data/ConfigBarrelsStore";
-import ZeplinComponentsStore from "../data/ZeplinComponentsStore";
+import ZeplinComponentsStore from "../../../common/domain/zeplinComponent/data/ZeplinComponentsStore";
 import { selectAndValidateConfig } from "../../common/flow/commonFlow";
-import { getBarrelDetailRepresentationWithType } from "../../barrel/util/barrelUi";
-import { getZeplinComponentDetailRepresentation } from "../util/zeplinComponentUi";
+import { getBarrelDetailRepresentationWithType } from "../../../common/domain/barrel/util/barrelUi";
+import { getZeplinComponentDetailRepresentation } from "../../../common/domain/zeplinComponent/util/zeplinComponentUi";
 import { showBarrelError } from "../../../common/domain/error/errorUi";
 import { startAddProjectFlow, startAddStyleguideFlow } from "../../barrel/flow/barrelFlow";
 import { startAddComponentFlow } from "../../component/flow/componentFlow";

@@ -11,6 +11,8 @@ import OpenInZeplinCommand from "../../../sidebar/openInZeplin/command/OpenInZep
 import OpenJiraLinkCommand from "../../../sidebar/jira/command/OpenJiraLinkCommand";
 import PinToSidebarCommand from "../../../sidebar/pin/command/PinToSidebarCommand";
 import UnpinFromSidebarCommand from "../../../sidebar/pin/command/UnpinFromSidebarCommand";
+import PinScreenToSidebarCommand from "../../../sidebar/pin/command/PinScreenToSidebarCommand";
+import PinComponentToSidebarCommand from "../../../sidebar/pin/command/PinComponentToSidebarCommand";
 import UnpinAllFromSidebarCommand from "../../../sidebar/pin/command/UnpinAllFromSidebarCommand";
 import CreateConfigCommand from "../../../coco/config/command/CreateConfigCommand";
 import OpenConfigCommand from "../../../coco/config/command/OpenConfigCommand";
@@ -58,6 +60,8 @@ export async function activate(context: vscode.ExtensionContext) {
         OpenJiraLinkCommand,
         PinToSidebarCommand,
         UnpinFromSidebarCommand,
+        PinScreenToSidebarCommand,
+        PinComponentToSidebarCommand,
         UnpinAllFromSidebarCommand,
         CreateConfigCommand,
         OpenConfigCommand,
