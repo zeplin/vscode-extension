@@ -7,6 +7,7 @@ import Activity from "../model/Activity";
 import { ActivitySlotTreeItem } from "./ActivitySlotTreeItem";
 import DateSlot from "../model/DateSlot";
 import ActivityErrorsTreeItem from "./ActivityErrorsTreeItem";
+import localization from "../../../localization";
 
 class ActivityTreeDataProvider extends TreeDataProvider {
     protected viewId = "zeplin.views.activity";
@@ -36,6 +37,9 @@ class ActivityTreeDataProvider extends TreeDataProvider {
         });
 
         roots.push(...Object.keys(slots).map(key => new ActivitySlotTreeItem(key as DateSlot, slots[key])));
+        if (!roots.length) {
+            roots.push(new TreeItem(localization.sidebar.activity.noneFound));
+        }
         return roots;
     }
 }
