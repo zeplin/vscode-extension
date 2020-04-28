@@ -139,6 +139,9 @@ const localization = {
     },
     sidebar: {
         activity: {
+            errors: "Errors",
+            componentsError: (barrelId: string) => `Components of ${barrelId} could not be fetched.`,
+            screensError: (barrelId: string) => `Screens of ${barrelId} could not be fetched.`,
             updated: (user: string, item: string) => `${user} updated ${item}.`,
             minutesAgo: (count: number) => `${count}min`,
             hoursAgo: (count: number) => `${count}h`,
