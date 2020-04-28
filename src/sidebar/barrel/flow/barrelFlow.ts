@@ -6,16 +6,6 @@ import * as sidebarUtil from "../util/barrelUtil";
 import { showNotLoggedInError } from "../../../common/domain/error/errorUi";
 import Session from "../../../session/Session";
 import { pickBarrel } from "../../../common/domain/barrel/flow/barrelFlow";
-import BarrelDetailsStoreProvider from "../../../common/domain/zeplinComponent/data/BarrelDetailsStoreProvider";
-import ScreensStoreProvider from "../../screen/data/ScreensStoreProvider";
-import BarrelTreeDataProvider from "../tree/BarrelTreeDataProvider";
-
-function refreshSidebarBarrels() {
-    BarrelDetailsStoreProvider.clearCache();
-    ScreensStoreProvider.clearCache();
-
-    BarrelTreeDataProvider.refresh();
-}
 
 function startAddProjectToSidebarFlow() {
     return startAddBarrelToSidebarFlow(BarrelType.Project);
@@ -55,7 +45,6 @@ async function startAddBarrelToSidebarFlow(type: BarrelType) {
 }
 
 export {
-    refreshSidebarBarrels,
     startAddProjectToSidebarFlow,
     startAddStyleguideToSidebarFlow
 };
