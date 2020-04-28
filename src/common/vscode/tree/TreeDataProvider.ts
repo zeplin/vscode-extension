@@ -16,5 +16,5 @@ export default abstract class TreeDataProvider implements vscode.TreeDataProvide
         return vscode.window.registerTreeDataProvider(this.viewId, this);
     }
 
-    public abstract getRoots(): TreeItem[];
+    public abstract getRoots(): vscode.ProviderResult<TreeItem[]>;
 }

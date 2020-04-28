@@ -1,0 +1,40 @@
+import * as vscode from "vscode";
+import TreeDataProvider from "../../../common/vscode/tree/TreeDataProvider";
+import TreeItem from "../../../common/vscode/tree/TreeItem";
+import ActivityStore from "../data/ActivityStore";
+import { getDateSlot } from "../util/activityUtil";
+import Activity from "../model/Activity";
+import { ActivitySlotTreeItem } from "./ActivitySlotTreeItem";
+import DateSlot from "../model/DateSlot";
+
+class ActivityTreeDataProvider extends TreeDataProvider {
+    protected viewId = "zeplin.views.activity";
+    private eventEmitter = new vscode.EventEmitter<TreeItem>();
+
+    public get onDidChangeTreeData(): vscode.Event<TreeItem> {
+        return this.eventEmitter.event;
+    }
+
+    public refresh() {
+        this.eventEmitter.fire();
+    }
+
+    public async getRoots(): Promise<TreeItem[]> {
+        // TODO: Handle errors
+        const { data } = await ActivityStore.get();
+
+        const slots: { [slot: string]: Activity[] } = {};
+        const activities = data!.sort((first, second) => second.date.getTime() - first.date.getTime());
+        activities.forEach(activity => {
+            const slot = getDateSlot(activity.date);
+            if (!slots[slot]) {
+                slots[slot] = [];
+            }
+            slots[slot].push(activity);
+        });
+        const slotTreeItems = Object.keys(slots).map(key => new ActivitySlotTreeItem(key as DateSlot, slots[key]));
+        return slotTreeItems;
+    }
+}
+
+export default new ActivityTreeDataProvider();

@@ -1,8 +1,5 @@
 import JiraAttachable from "../../../common/domain/jira/model/JiraAttachable";
+import ResponseScreen from "./ResponseScreen";
 
-export default interface Screen extends JiraAttachable {
-    _id: string;
-    description?: string;
-    name: string;
-    thumbnail: string;
+export default interface Screen extends ResponseScreen, JiraAttachable {
 }
