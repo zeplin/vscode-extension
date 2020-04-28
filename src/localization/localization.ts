@@ -1,5 +1,6 @@
 import BarrelType from "../common/domain/barrel/BarrelType";
 import RepositoryType from "../coco/repository/model/RepositoryType";
+import DateSlot from "../sidebar/activity/model/DateSlot";
 
 /**
  * Localization object that contains this extension's all user visible texts that may be relative to locale (except
@@ -143,7 +144,8 @@ const localization = {
             hoursAgo: (count: number) => `${count}h`,
             daysAgo: (count: number) => `${count}d`,
             monthsAgo: (count: number) => `${count}mon`,
-            yearsAgo: (count: number) => `${count}y`
+            yearsAgo: (count: number) => `${count}y`,
+            dateSlot
         },
         barrel: {
             added: (type: BarrelType) => `Added ${barrelLower(type)} to sidebar.`,
@@ -245,6 +247,25 @@ function repository(type: RepositoryType): string {
             return "Bitbucket";
         default:
             throw new Error(`Unhandled repository type: ${type}`);
+    }
+}
+
+function dateSlot(slot: DateSlot) {
+    switch (slot) {
+        case DateSlot.Today:
+            return "Today";
+        case DateSlot.Yesterday:
+            return "Yesterday";
+        case DateSlot.LessThanAWeekAgo:
+            return "Less than a week ago";
+        case DateSlot.OverAWeekAgo:
+            return "Over a week ago";
+        case DateSlot.OverAMonthAgo:
+            return "Over a month ago";
+        case DateSlot.OverAYearAgo:
+            return "Over a year ago";
+        default:
+            throw new Error(`Unhandled date slot: ${slot}`);
     }
 }
 
