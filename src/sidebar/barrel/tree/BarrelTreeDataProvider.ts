@@ -7,6 +7,7 @@ import localization from "../../../localization";
 
 class BarrelTreeDataProvider extends TreeDataProvider {
     protected viewId = "zeplin.views.barrels";
+    protected showCollapseAll = true;
     private eventEmitter = new vscode.EventEmitter<TreeItem>();
 
     public get onDidChangeTreeData(): vscode.Event<TreeItem> {
