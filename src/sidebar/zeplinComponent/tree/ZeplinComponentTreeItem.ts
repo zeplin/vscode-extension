@@ -17,7 +17,9 @@ function getContextProvider(zeplinComponent: ResponseZeplinComponent): TreeItemC
 export default class ZeplinComponentTreeItem extends TreeItem {
     public iconPath = vscode.Uri.parse(this.zeplinComponent.latestVersion.snapshot.url);
 
-    public constructor(public zeplinComponent: ResponseZeplinComponent, public barrel: Barrel) {
-        super(zeplinComponent.name, getContextProvider(zeplinComponent));
+    public constructor(
+        public zeplinComponent: ResponseZeplinComponent, public barrel: Barrel, parent: TreeItem | undefined
+    ) {
+        super(zeplinComponent.name, parent, getContextProvider(zeplinComponent));
     }
 }

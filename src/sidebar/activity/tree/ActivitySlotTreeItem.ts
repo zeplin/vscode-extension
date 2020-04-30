@@ -7,10 +7,15 @@ import localization from "../../../localization";
 
 export class ActivitySlotTreeItem extends TreeItem {
     public constructor(slot: DateSlot, private activities: Activity[]) {
-        super(localization.sidebar.activity.dateSlot(slot), undefined, vscode.TreeItemCollapsibleState.Collapsed);
+        super(
+            localization.sidebar.activity.dateSlot(slot),
+            undefined,
+            undefined,
+            vscode.TreeItemCollapsibleState.Collapsed
+        );
     }
 
     public getChildren(): Promise<TreeItem[]> {
-        return Promise.resolve(this.activities.map(activity => new ActivityTreeItem(activity)));
+        return Promise.resolve(this.activities.map(activity => new ActivityTreeItem(activity, this)));
     }
 }

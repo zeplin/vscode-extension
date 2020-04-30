@@ -32,18 +32,18 @@ class PinTreeDataProvider extends TreeDataProvider {
         const pinnedItems = getPinnedItems();
         return pinnedItems.length
             ? pinnedItems.map(this.toTreeItem)
-            : [new TreeItem(localization.sidebar.pin.emptyInfo)];
+            : [new TreeItem(localization.sidebar.pin.emptyInfo, undefined)];
     }
 
     private toTreeItem(pinData: PinData): TreeItem {
         switch (pinData.type) {
             case PinType.Screen: {
                 const { screen, project } = pinData as ScreenPinData;
-                return new ScreenTreeItem(screen, project);
+                return new ScreenTreeItem(screen, project, undefined);
             }
             case PinType.Component: {
                 const { component, barrel } = pinData as ComponentPinData;
-                return new ZeplinComponentTreeItem(component, barrel);
+                return new ZeplinComponentTreeItem(component, barrel, undefined);
             }
             default:
                 throw new Error("Wrong item type to show pin of");

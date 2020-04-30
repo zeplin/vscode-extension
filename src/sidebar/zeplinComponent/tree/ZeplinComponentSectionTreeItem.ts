@@ -12,11 +12,11 @@ const contextProvider = new TreeItemContextProvider(
 );
 
 export default class ZeplinComponentSectionTreeItem extends TreeItem {
-    public constructor(public section: ZeplinComponentSection, public barrel: Barrel) {
-        super(section.name, contextProvider, vscode.TreeItemCollapsibleState.Collapsed);
+    public constructor(public section: ZeplinComponentSection, public barrel: Barrel, parent: TreeItem | undefined) {
+        super(section.name, parent, contextProvider, vscode.TreeItemCollapsibleState.Collapsed);
     }
 
     public getChildren(): Promise<TreeItem[]> {
-        return Promise.resolve(createList(this.section.components, this.section.componentSections, this.barrel));
+        return Promise.resolve(createList(this.section.components, this.section.componentSections, this.barrel, this));
     }
 }

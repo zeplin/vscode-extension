@@ -22,7 +22,7 @@ class BarrelTreeDataProvider extends TreeDataProvider {
         const savedBarrels = getSavedBarrels();
         return savedBarrels.length
             ? savedBarrels.map(barrel => new BarrelTreeItem(barrel))
-            : [new TreeItem(localization.sidebar.barrel.emptyInfo)];
+            : [new TreeItem(localization.sidebar.barrel.emptyInfo, undefined)];
     }
 }
 

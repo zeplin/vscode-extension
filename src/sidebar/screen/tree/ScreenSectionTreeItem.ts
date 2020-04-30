@@ -15,11 +15,11 @@ function getContextProvider(section: ScreenSection): TreeItemContextProvider {
 }
 
 export default class ScreenSectionTreeItem extends TreeItem {
-    public constructor(public section: ScreenSection, public project: Barrel) {
-        super(section.name, getContextProvider(section), vscode.TreeItemCollapsibleState.Collapsed);
+    public constructor(public section: ScreenSection, public project: Barrel, parent: TreeItem | undefined) {
+        super(section.name, parent, getContextProvider(section), vscode.TreeItemCollapsibleState.Collapsed);
     }
 
     public getChildren(): Promise<TreeItem[]> {
-        return Promise.resolve(this.section.screens.map(screen => new ScreenTreeItem(screen, this.project)));
+        return Promise.resolve(this.section.screens.map(screen => new ScreenTreeItem(screen, this.project, this)));
     }
 }

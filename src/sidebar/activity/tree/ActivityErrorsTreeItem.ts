@@ -7,11 +7,11 @@ import ScreensError from "../../screen/model/ScreensError";
 
 export default class ActivityErrorsTreeItem extends TreeItem {
     public constructor(private errors: BaseError[]) {
-        super(localization.sidebar.activity.errors, undefined, vscode.TreeItemCollapsibleState.Collapsed);
+        super(localization.sidebar.activity.errors, undefined, undefined, vscode.TreeItemCollapsibleState.Collapsed);
     }
 
     public getChildren(): Promise<TreeItem[]> {
-        return Promise.resolve(this.errors.map(error => new TreeItem(this.getErrorMessage(error))));
+        return Promise.resolve(this.errors.map(error => new TreeItem(this.getErrorMessage(error), this)));
     }
 
     private getErrorMessage(error: BaseError) {
