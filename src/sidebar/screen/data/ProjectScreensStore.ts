@@ -31,12 +31,12 @@ export default class ProjectScreensStore implements Store<ProjectScreens> {
 
             return {
                 data: {
-                    screens: this.getSectionScreens(defaultSection, screens!, screenJiras),
+                    screens: this.getSectionScreens(defaultSection, screens!, screenJiras, true),
                     sections: sections.map(section => ({
                         id: section._id,
                         name: section.name,
                         description: section.description,
-                        screens: this.getSectionScreens(section, screens!, screenJiras),
+                        screens: this.getSectionScreens(section, screens!, screenJiras, false),
                         jiras: screenSectionJiras.filter(jira => jira.itemId === section._id)
                     }))
                 }
@@ -44,7 +44,9 @@ export default class ProjectScreensStore implements Store<ProjectScreens> {
         }
     };
 
-    private getSectionScreens(section: ResponseScreenSection, screens: ResponseScreen[], jiras: Jira[]): Screen[] {
+    private getSectionScreens(
+        section: ResponseScreenSection, screens: ResponseScreen[], jiras: Jira[], defaultSection: boolean
+    ): Screen[] {
         return section.screens
             .map(screenId => screens.findIndex(screen => screen._id === screenId))
             .filter(index => index >= 0)
@@ -53,9 +55,12 @@ export default class ProjectScreensStore implements Store<ProjectScreens> {
                 _id: screen._id,
                 description: screen.description,
                 name: screen.name,
+                sectionId: defaultSection ? undefined : section._id,
+                sectionName: defaultSection ? undefined : section.name,
+                // Default section screens are regarded as sectionless
                 latestVersion: screen.latestVersion,
                 jiras: jiras.filter(jira => jira.itemId === screen._id)
-            }));
+            }) as Screen);
     }
 
     public refresh = (): Promise<Result<ProjectScreens>> => {
