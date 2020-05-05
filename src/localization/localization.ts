@@ -166,9 +166,7 @@ const localization = {
         },
         pin: {
             selectProject: "Select project",
-            selectBarrel: "Select project or styleguide",
             noProjectFound: "Please add a project to sidebar first.",
-            noBarrelFound: "Please add a project or styleguide to sidebar first.",
             pinScreen: "Pin screen",
             pinComponent: "Pin component",
             selectScreen: "Select screen",
@@ -184,6 +182,10 @@ const localization = {
             zeplinComponents: "Components",
             localStyleguide: "Local Styleguide",
             noneFound: "No component found"
+        },
+        common: {
+            selectBarrel: "Select project or styleguide",
+            noBarrelFound: "Please add a project or styleguide to sidebar first."
         }
     },
     common: {
