@@ -15,7 +15,7 @@ export class ActivitySlotTreeItem extends TreeItem {
         );
     }
 
-    public getChildren(): Promise<TreeItem[]> {
-        return Promise.resolve(this.activities.map(activity => new ActivityTreeItem(activity, this)));
+    public getChildren(): TreeItem[] {
+        return this.activities.map(activity => new ActivityTreeItem(activity, this));
     }
 }

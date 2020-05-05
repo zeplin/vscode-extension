@@ -19,7 +19,7 @@ export default class ScreenSectionTreeItem extends TreeItem {
         super(section.name, parent, getContextProvider(section), vscode.TreeItemCollapsibleState.Collapsed);
     }
 
-    public getChildren(): Promise<TreeItem[]> {
-        return Promise.resolve(this.section.screens.map(screen => new ScreenTreeItem(screen, this.project, this)));
+    public getChildren(): TreeItem[] {
+        return this.section.screens.map(screen => new ScreenTreeItem(screen, this.project, this));
     }
 }

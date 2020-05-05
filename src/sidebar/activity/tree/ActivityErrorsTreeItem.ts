@@ -10,8 +10,8 @@ export default class ActivityErrorsTreeItem extends TreeItem {
         super(localization.sidebar.activity.errors, undefined, undefined, vscode.TreeItemCollapsibleState.Collapsed);
     }
 
-    public getChildren(): Promise<TreeItem[]> {
-        return Promise.resolve(this.errors.map(error => new TreeItem(this.getErrorMessage(error), this)));
+    public getChildren(): TreeItem[] {
+        return this.errors.map(error => new TreeItem(this.getErrorMessage(error), this));
     }
 
     private getErrorMessage(error: BaseError) {

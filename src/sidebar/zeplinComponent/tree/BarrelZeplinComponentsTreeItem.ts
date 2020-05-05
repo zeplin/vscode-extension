@@ -17,8 +17,8 @@ export default class BarrelZeplinComponentsTreeItem extends TreeItem {
         super(title ?? barrel.name, parent, contextProvider, vscode.TreeItemCollapsibleState.Collapsed);
     }
 
-    public getChildren(): Promise<TreeItem[]> {
+    public getChildren(): TreeItem[] {
         const [{ components }, ...sections] = this.barrel.componentSections;
-        return Promise.resolve(createList(components, sections, this.barrel, this));
+        return createList(components, sections, this.barrel, this);
     }
 }

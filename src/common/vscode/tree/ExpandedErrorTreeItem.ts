@@ -6,7 +6,7 @@ export default class ExpandedErrorTreeItem extends TreeItem {
         super(title, parent, undefined, vscode.TreeItemCollapsibleState.Expanded);
     }
 
-    public getChildren(): Promise<TreeItem[]> {
-        return Promise.resolve([new TreeItem(this.message, this)]);
+    public getChildren(): TreeItem[] {
+        return [new TreeItem(this.message, this)];
     }
 }

@@ -16,7 +16,7 @@ export default class ZeplinComponentSectionTreeItem extends TreeItem {
         super(section.name, parent, contextProvider, vscode.TreeItemCollapsibleState.Collapsed);
     }
 
-    public getChildren(): Promise<TreeItem[]> {
-        return Promise.resolve(createList(this.section.components, this.section.componentSections, this.barrel, this));
+    public getChildren(): TreeItem[] {
+        return createList(this.section.components, this.section.componentSections, this.barrel, this);
     }
 }

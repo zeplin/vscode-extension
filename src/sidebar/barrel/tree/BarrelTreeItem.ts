@@ -22,12 +22,12 @@ export class BarrelTreeItem extends TreeItem {
         super(barrel.name, undefined, getContextProvider(barrel), vscode.TreeItemCollapsibleState.Collapsed);
     }
 
-    public getChildren(): Promise<TreeItem[]> {
+    public getChildren(): TreeItem[] {
         const children: TreeItem[] = [new ZeplinComponentsTreeItem(this.barrel, this)];
         if (this.barrel.type === BarrelType.Project) {
             children.unshift(new ScreensTreeItem(this.barrel, this));
         }
 
-        return Promise.resolve(children);
+        return children;
     }
 }
