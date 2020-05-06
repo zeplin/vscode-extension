@@ -36,6 +36,14 @@ class BarrelTreeDataProvider extends TreeDataProvider {
             : [new TreeItem(localization.sidebar.barrel.emptyInfo, undefined)];
     }
 
+    public revealBarrel(barrel: Barrel) {
+        // Find barrel tree item
+        const barrelTreeItem =
+            this.getRoots().find(item => item instanceof BarrelTreeItem && item.barrel.id === barrel.id);
+
+        this.reveal(barrelTreeItem, `Barrel: ${barrel.name}|${barrel.id}`);
+    }
+
     public async revealScreen(screen: Screen, project: Barrel) {
         // Find project tree item
         const projectTreeItem =

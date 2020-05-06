@@ -6,6 +6,7 @@ import * as sidebarUtil from "../util/barrelUtil";
 import { showNotLoggedInError } from "../../../common/domain/error/errorUi";
 import Session from "../../../session/Session";
 import { pickBarrel } from "../../../common/domain/barrel/flow/barrelFlow";
+import BarrelTreeDataProvider from "../tree/BarrelTreeDataProvider";
 
 function startAddProjectToSidebarFlow() {
     return startAddBarrelToSidebarFlow(BarrelType.Project);
@@ -33,15 +34,15 @@ async function startAddBarrelToSidebarFlow(type: BarrelType) {
 
     // Fail if barrel is already saved
     if (sidebarUtil.isBarrelSaved(barrel)) {
+        BarrelTreeDataProvider.revealBarrel(barrel);
         MessageBuilder.with(localization.common.barrel.alreadyAdded(type)).show();
-        // TODO: Highlight item in sidebar
         return;
     }
 
     // Add barrel
     sidebarUtil.saveBarrel(barrel);
+    BarrelTreeDataProvider.revealBarrel(barrel);
     MessageBuilder.with(localization.sidebar.barrel.added(type)).setType(MessageType.Info).show();
-    // TODO: Highlight item in sidebar
 }
 
 export {
