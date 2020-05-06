@@ -159,6 +159,13 @@ const localization = {
             open: "Open JIRA",
             select: "Select JIRA"
         },
+        jumpTo: {
+            jumpToItem: "Jump to screen or component",
+            selectItem: "Select screen or component",
+            noItemFound: "No screen or component found",
+            screen: "Screen",
+            component: "Component"
+        },
         openInZeplin: {
             selectPreferred: "Select preferred application type to open items in Zeplin",
             web: "Open in Web App",
