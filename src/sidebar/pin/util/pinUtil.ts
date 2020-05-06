@@ -48,6 +48,7 @@ function addScreenToPinnedItems(screen: Screen, project: Barrel) {
 
     BarrelTreeDataProvider.refresh();
     PinTreeDataProvider.refresh();
+    PinTreeDataProvider.revealScreen(screen);
 }
 
 function addComponentToPinnedItems(component: ResponseZeplinComponent, barrel: Barrel) {
@@ -61,6 +62,7 @@ function addComponentToPinnedItems(component: ResponseZeplinComponent, barrel: B
 
     BarrelTreeDataProvider.refresh();
     PinTreeDataProvider.refresh();
+    PinTreeDataProvider.revealComponent(component);
 }
 
 function removeScreenFromPinnedItems(screen: Screen) {

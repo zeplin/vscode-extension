@@ -9,6 +9,8 @@ import ZeplinComponentTreeItem from "../../zeplinComponent/tree/ZeplinComponentT
 import ScreenPinData from "../model/ScreenPinData";
 import ComponentPinData from "../model/ComponentPinData";
 import localization from "../../../localization";
+import Screen from "../../screen/model/Screen";
+import ResponseZeplinComponent from "../../../common/domain/zeplinComponent/model/ResponseZeplinComponent";
 
 class PinTreeDataProvider extends TreeDataProvider {
     protected viewId = "zeplin.views.pinned";
@@ -48,6 +50,22 @@ class PinTreeDataProvider extends TreeDataProvider {
             default:
                 throw new Error("Wrong item type to show pin of");
         }
+    }
+
+    public revealScreen(screen: Screen) {
+        // Find screen tree item
+        const screenTreeItem =
+            this.getRoots().find(item => item instanceof ScreenTreeItem && item.screen._id === screen._id);
+
+        this.reveal(screenTreeItem, `Screen: ${screen.name}|${screen._id}`);
+    }
+
+    public revealComponent(component: ResponseZeplinComponent) {
+        // Find component tree item
+        const componentTreeItem = this.getRoots()
+            .find(item => item instanceof ZeplinComponentTreeItem && item.zeplinComponent._id === component._id);
+
+        this.reveal(componentTreeItem, `Component: ${component.name}|${component._id}`);
     }
 }
 
