@@ -1,5 +1,3 @@
-import BarrelTreeDataProvider from "../../barrel/tree/BarrelTreeDataProvider";
-import PinTreeDataProvider from "../tree/PinTreeDataProvider";
 import TreeItem from "../../../common/vscode/tree/TreeItem";
 import TreeItemContext from "../../../common/domain/tree/TreeItemContext";
 import ScreenTreeItem from "../../screen/tree/ScreenTreeItem";
@@ -29,9 +27,6 @@ function pinItem(item: TreeItem) {
     } else {
         throw new Error("Wrong item type to pin");
     }
-
-    BarrelTreeDataProvider.refresh();
-    PinTreeDataProvider.refresh();
 }
 
 function unpinItem(item: TreeItem) {
@@ -44,9 +39,6 @@ function unpinItem(item: TreeItem) {
     } else {
         throw new Error("Wrong item type to pin");
     }
-
-    BarrelTreeDataProvider.refresh();
-    PinTreeDataProvider.refresh();
 }
 
 async function startPinScreenFlow() {
@@ -106,9 +98,6 @@ async function startPinScreenFlow() {
     }
 
     pinUtil.addScreenToPinnedItems(screen, project);
-    BarrelTreeDataProvider.refresh();
-    PinTreeDataProvider.refresh();
-    // TODO: Highlight item in pinned items
 }
 
 async function startPinComponentFlow() {
@@ -169,19 +158,12 @@ async function startPinComponentFlow() {
     }
 
     pinUtil.addComponentToPinnedItems(component, barrel);
-    BarrelTreeDataProvider.refresh();
-    PinTreeDataProvider.refresh();
-    // TODO: Highlight item in pinned items
 }
 
 function askUnpinAll() {
     MessageBuilder.with(localization.sidebar.pin.askUnpinAll)
         .setModal(true)
-        .addOption(localization.common.ok, () => {
-            pinUtil.removeAllFromPinnedItems();
-            BarrelTreeDataProvider.refresh();
-            PinTreeDataProvider.refresh();
-        })
+        .addOption(localization.common.ok, pinUtil.removeAllFromPinnedItems)
         .show();
 }
 
