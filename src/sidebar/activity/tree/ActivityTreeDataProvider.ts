@@ -11,6 +11,7 @@ import localization from "../../../localization";
 
 class ActivityTreeDataProvider extends TreeDataProvider {
     protected viewId = "zeplin.views.activity";
+    protected showCollapseAll = true;
     private eventEmitter = new vscode.EventEmitter<TreeItem>();
 
     public get onDidChangeTreeData(): vscode.Event<TreeItem> {
