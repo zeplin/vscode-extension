@@ -10,7 +10,7 @@ import CacheHolder from "./CacheHolder";
 export default abstract class BasicStore<TResponse, TData, TError extends BaseError = BaseError>
 implements Store<TData, TError>, CacheHolder {
     private cache?: Result<TData, TError>;
-    private fetchPromise?: Promise<TResponse | BaseError>;
+    private fetchPromise?: Promise<TResponse | TError>;
 
     public get = async (): Promise<Result<TData, TError>> => {
         if (this.fetchPromise) {
@@ -50,7 +50,7 @@ implements Store<TData, TError>, CacheHolder {
         this.cache = undefined;
     }
 
-    protected abstract fetchData(): Promise<TResponse | BaseError>;
+    protected abstract fetchData(): Promise<TResponse | TError>;
 
     protected abstract extractData(response: TResponse): TData;
 }

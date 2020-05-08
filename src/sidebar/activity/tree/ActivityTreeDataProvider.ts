@@ -6,9 +6,12 @@ import { getDateSlot } from "../util/activityUtil";
 import Activity from "../model/Activity";
 import { ActivitySlotTreeItem } from "./ActivitySlotTreeItem";
 import DateSlot from "../model/DateSlot";
+import ActivityErrorsTreeItem from "./ActivityErrorsTreeItem";
+import localization from "../../../localization";
 
 class ActivityTreeDataProvider extends TreeDataProvider {
     protected viewId = "zeplin.views.activity";
+    protected showCollapseAll = true;
     private eventEmitter = new vscode.EventEmitter<TreeItem>();
 
     public get onDidChangeTreeData(): vscode.Event<TreeItem> {
@@ -20,8 +23,9 @@ class ActivityTreeDataProvider extends TreeDataProvider {
     }
 
     public async getRoots(): Promise<TreeItem[]> {
-        // TODO: Handle errors
-        const { data } = await ActivityStore.get();
+        const { data, errors } = await ActivityStore.get();
+
+        const roots: TreeItem[] = errors?.length ? [new ActivityErrorsTreeItem(errors)] : [];
 
         const slots: { [slot: string]: Activity[] } = {};
         const activities = data!.sort((first, second) => second.date.getTime() - first.date.getTime());
@@ -32,8 +36,12 @@ class ActivityTreeDataProvider extends TreeDataProvider {
             }
             slots[slot].push(activity);
         });
-        const slotTreeItems = Object.keys(slots).map(key => new ActivitySlotTreeItem(key as DateSlot, slots[key]));
-        return slotTreeItems;
+
+        roots.push(...Object.keys(slots).map(key => new ActivitySlotTreeItem(key as DateSlot, slots[key])));
+        if (!roots.length) {
+            roots.push(new TreeItem(localization.sidebar.activity.noneFound));
+        }
+        return roots;
     }
 }
 
