@@ -113,12 +113,8 @@
                 },
                 {
                     "command": "zeplin.sidebar.unpinItem",
-                    "when": "view == zeplin.views.barrels && viewItem =~ /\\bpinned\\b/",
+                    "when": "viewItem =~ /\\bpinned\\b/",
                     "group": "inline"
-                },
-                {
-                    "command": "zeplin.sidebar.unpinItem",
-                    "when": "view == zeplin.views.pinned"
                 }
             ],
             "commandPalette": [
