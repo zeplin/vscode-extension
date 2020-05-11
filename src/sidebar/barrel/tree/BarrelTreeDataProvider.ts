@@ -12,7 +12,6 @@ import Barrel from "../../../common/domain/barrel/Barrel";
 import ScreenSectionTreeItem from "../../screen/tree/ScreenSectionTreeItem";
 import ZeplinComponent from "../../../common/domain/zeplinComponent/model/ZeplinComponent";
 import ZeplinComponentsTreeItem from "../../zeplinComponent/tree/ZeplinComponentsTreeItem";
-import Logger from "../../../log/Logger";
 import BarrelZeplinComponentsTreeItem from "../../zeplinComponent/tree/BarrelZeplinComponentsTreeItem";
 import ZeplinComponentSectionTreeItem from "../../zeplinComponent/tree/ZeplinComponentSectionTreeItem";
 import ZeplinComponentTreeItem from "../../zeplinComponent/tree/ZeplinComponentTreeItem";
@@ -37,6 +36,14 @@ class BarrelTreeDataProvider extends TreeDataProvider {
             : [new TreeItem(localization.sidebar.barrel.emptyInfo, undefined)];
     }
 
+    public revealBarrel(barrel: Barrel) {
+        // Find barrel tree item
+        const barrelTreeItem =
+            this.getRoots().find(item => item instanceof BarrelTreeItem && item.barrel.id === barrel.id);
+
+        this.reveal(barrelTreeItem, `Barrel: ${barrel.name}|${barrel.id}`);
+    }
+
     public async revealScreen(screen: Screen, project: Barrel) {
         // Find project tree item
         const projectTreeItem =
@@ -58,11 +65,7 @@ class BarrelTreeDataProvider extends TreeDataProvider {
         const screenTreeItem = screensContainer
             ?.find(item => item instanceof ScreenTreeItem && item.screen._id === screen._id);
 
-        if (screenTreeItem) {
-            this.treeView?.reveal(screenTreeItem);
-        } else {
-            Logger.log("Screen could not be located on sidebar tree");
-        }
+        this.reveal(screenTreeItem, `Screen: ${screen.name}|${screen._id}`);
     }
 
     public async revealComponent(component: ZeplinComponent, barrel: Barrel) {
@@ -94,11 +97,7 @@ class BarrelTreeDataProvider extends TreeDataProvider {
         const componentTreeItem = componentsContainer
             ?.find(item => item instanceof ZeplinComponentTreeItem && item.zeplinComponent._id === component._id);
 
-        if (componentTreeItem) {
-            this.treeView?.reveal(componentTreeItem);
-        } else {
-            Logger.log("Component could not be located on sidebar tree");
-        }
+        this.reveal(componentTreeItem, `Component: ${component.name}|${component._id}`);
     }
 }
 

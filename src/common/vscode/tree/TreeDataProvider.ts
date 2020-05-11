@@ -1,5 +1,6 @@
 import * as vscode from "vscode";
 import TreeItem from "./TreeItem";
+import Logger from "../../../log/Logger";
 
 export default abstract class TreeDataProvider implements vscode.TreeDataProvider<TreeItem> {
     protected treeView?: vscode.TreeView<TreeItem>;
@@ -25,5 +26,13 @@ export default abstract class TreeDataProvider implements vscode.TreeDataProvide
 
     public getParent(element: TreeItem): TreeItem | undefined {
         return element.getParent();
+    }
+
+    protected reveal(treeItem: TreeItem | undefined, itemDescription: string) {
+        if (treeItem) {
+            this.treeView?.reveal(treeItem);
+        } else {
+            Logger.log(`${itemDescription} could not be located on ${this.viewId}`);
+        }
     }
 }

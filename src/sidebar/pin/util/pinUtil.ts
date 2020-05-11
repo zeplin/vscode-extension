@@ -7,6 +7,8 @@ import ResponseZeplinComponent from "../../../common/domain/zeplinComponent/mode
 import PinData from "../model/PinData";
 import ScreenPinData from "../model/ScreenPinData";
 import { setContext } from "../../../common/vscode/ide/builtinCommands";
+import BarrelTreeDataProvider from "../../barrel/tree/BarrelTreeDataProvider";
+import PinTreeDataProvider from "../tree/PinTreeDataProvider";
 
 const KEY_PINNED_ITEMS = "sidebar.pinnedItems";
 const CONTEXT_KEY_ANY_PINNED_ITEMS = "zeplin:sidebar:anyPinnedItems";
@@ -43,6 +45,10 @@ function addScreenToPinnedItems(screen: Screen, project: Barrel) {
         project
     } as ScreenPinData);
     ContextProvider.get().workspaceState.update(KEY_PINNED_ITEMS, newPinnedItems);
+
+    BarrelTreeDataProvider.refresh();
+    PinTreeDataProvider.refresh();
+    PinTreeDataProvider.revealScreen(screen);
 }
 
 function addComponentToPinnedItems(component: ResponseZeplinComponent, barrel: Barrel) {
@@ -53,22 +59,35 @@ function addComponentToPinnedItems(component: ResponseZeplinComponent, barrel: B
         barrel
     } as ComponentPinData);
     ContextProvider.get().workspaceState.update(KEY_PINNED_ITEMS, newPinnedItems);
+
+    BarrelTreeDataProvider.refresh();
+    PinTreeDataProvider.refresh();
+    PinTreeDataProvider.revealComponent(component);
 }
 
 function removeScreenFromPinnedItems(screen: Screen) {
     const pinnedItems = getPinnedItems();
     const newPinnedItems = pinnedItems.filter(item => !doesScreenMatchWithPinData(screen, item));
     ContextProvider.get().workspaceState.update(KEY_PINNED_ITEMS, newPinnedItems);
+
+    BarrelTreeDataProvider.refresh();
+    PinTreeDataProvider.refresh();
 }
 
 function removeComponentFromPinnedItems(component: ResponseZeplinComponent) {
     const pinnedItems = getPinnedItems();
     const newPinnedItems = pinnedItems.filter(item => !doesComponentMatchWithPinData(component, item));
     ContextProvider.get().workspaceState.update(KEY_PINNED_ITEMS, newPinnedItems);
+
+    BarrelTreeDataProvider.refresh();
+    PinTreeDataProvider.refresh();
 }
 
 function removeAllFromPinnedItems() {
     ContextProvider.get().workspaceState.update(KEY_PINNED_ITEMS, []);
+
+    BarrelTreeDataProvider.refresh();
+    PinTreeDataProvider.refresh();
 }
 
 export {
