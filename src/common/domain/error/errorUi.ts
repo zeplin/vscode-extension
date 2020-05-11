@@ -68,6 +68,7 @@ function showBarrelError(error: BarrelError): boolean {
                 )
                 .addOption(localization.common.cancel)
                 .show();
+            return true;
         }
         default:
             return showGeneralError(error);
