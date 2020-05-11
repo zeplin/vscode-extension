@@ -2,17 +2,10 @@ import * as vscode from "vscode";
 import TreeItem from "../../../common/vscode/tree/TreeItem";
 import Activity from "../model/Activity";
 import ActivityTreeItem from "./ActivityTreeItem";
-import DateSlot from "../model/DateSlot";
-import localization from "../../../localization";
 
 export default class ActivitySlotTreeItem extends TreeItem {
-    public constructor(slot: DateSlot, private activities: Activity[]) {
-        super(
-            localization.sidebar.activity.dateSlot(slot),
-            undefined,
-            undefined,
-            vscode.TreeItemCollapsibleState.Collapsed
-        );
+    public constructor(slot: string, private activities: Activity[]) {
+        super(slot, undefined, undefined, vscode.TreeItemCollapsibleState.Collapsed);
     }
 
     public getChildren(): TreeItem[] {

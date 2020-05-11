@@ -2,10 +2,9 @@ import * as vscode from "vscode";
 import TreeDataProvider from "../../../common/vscode/tree/TreeDataProvider";
 import TreeItem from "../../../common/vscode/tree/TreeItem";
 import ActivityStore from "../data/ActivityStore";
-import { getDateSlot } from "../util/activityUtil";
+import { getDateSlot } from "../util/activityUi";
 import Activity from "../model/Activity";
 import ActivitySlotTreeItem from "./ActivitySlotTreeItem";
-import DateSlot from "../model/DateSlot";
 import ActivityErrorsTreeItem from "./ActivityErrorsTreeItem";
 import localization from "../../../localization";
 
@@ -37,7 +36,7 @@ class ActivityTreeDataProvider extends TreeDataProvider {
             slots[slot].push(activity);
         });
 
-        roots.push(...Object.keys(slots).map(key => new ActivitySlotTreeItem(key as DateSlot, slots[key])));
+        roots.push(...Object.keys(slots).map(slot => new ActivitySlotTreeItem(slot, slots[slot])));
         if (!roots.length) {
             roots.push(new TreeItem(localization.sidebar.activity.noneFound, undefined));
         }

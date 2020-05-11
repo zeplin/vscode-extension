@@ -1,6 +1,6 @@
 import User from "../../../common/domain/componentLike/model/User";
 import Version from "../../../common/domain/componentLike/model/Version";
-import { getDateAgo } from "../util/activityUtil";
+import { getDateAgo } from "../util/activityUi";
 import ApplicationType from "../../../common/domain/openInZeplin/model/ApplicationType";
 
 export default abstract class Activity {
