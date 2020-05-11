@@ -60,6 +60,18 @@
                 }
             ]
         },
+        "viewsWelcome": [
+            {
+                "view": "zeplin.views.barrels",
+                "contents": "You are not logged in\n[Connect Zeplin account](command:zeplin.login)\n[Connect with token](command:zeplin.manualLogin)",
+                "when": "!zeplin:loggedIn"
+            },
+            {
+                "view": "zeplin.views.barrels",
+                "contents": "No projects or styleguides added\n[Add project](command:zeplin.sidebar.addProject)\n[Add styleguide](command:zeplin.sidebar.addStyleguide)",
+                "when": "zeplin:loggedIn"
+            }
+        ],
         "menus": {
             "view/title": [
                 {

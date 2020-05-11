@@ -31,9 +31,7 @@ class BarrelTreeDataProvider extends TreeDataProvider {
 
     public getRoots(): TreeItem[] {
         const savedBarrels = getSavedBarrels();
-        return savedBarrels.length
-            ? [JumpToTreeItem, ...savedBarrels.map(barrel => new BarrelTreeItem(barrel))]
-            : [new TreeItem(localization.sidebar.barrel.emptyInfo, undefined)];
+        return savedBarrels.length ? [JumpToTreeItem, ...savedBarrels.map(barrel => new BarrelTreeItem(barrel))] : [];
     }
 
     public revealBarrel(barrel: Barrel) {
