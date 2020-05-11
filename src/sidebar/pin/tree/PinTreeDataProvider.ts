@@ -40,8 +40,8 @@ class PinTreeDataProvider extends TreeDataProvider {
     private toTreeItem(pinData: PinData): TreeItem {
         switch (pinData.type) {
             case PinType.Screen: {
-                const { screen, project } = pinData as ScreenPinData;
-                return new ScreenTreeItem(screen, project, undefined);
+                const { screen, barrel } = pinData as ScreenPinData;
+                return new ScreenTreeItem(screen, barrel, undefined);
             }
             case PinType.Component: {
                 const { component, barrel } = pinData as ComponentPinData;

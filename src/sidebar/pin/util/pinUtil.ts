@@ -42,7 +42,7 @@ function addScreenToPinnedItems(screen: Screen, project: Barrel) {
     const newPinnedItems = pinnedItems.concat({
         type: PinType.Screen,
         screen,
-        project
+        barrel: project
     } as ScreenPinData);
     ContextProvider.get().workspaceState.update(KEY_PINNED_ITEMS, newPinnedItems);
 
