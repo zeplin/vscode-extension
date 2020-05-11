@@ -4,7 +4,7 @@ import Activity from "../model/Activity";
 import { getEmotarUrl } from "../../../common/domain/image/zeplinImageUtil";
 import localization from "../../../localization";
 
-export class ActivityTreeItem extends TreeItem {
+export default class ActivityTreeItem extends TreeItem {
     public iconPath = this.getThumbnail();
     public description = this.activity.dateAgo;
     public tooltip = this.activity.date.toLocaleString();
