@@ -4,29 +4,40 @@ import Barrel from "../../../common/domain/barrel/Barrel";
 import PinType from "../model/PinType";
 import ComponentPinData from "../model/ComponentPinData";
 import ResponseZeplinComponent from "../../../common/domain/zeplinComponent/model/ResponseZeplinComponent";
-import PinData from "../model/PinData";
 import ScreenPinData from "../model/ScreenPinData";
 import { setContext } from "../../../common/vscode/ide/builtinCommands";
 import BarrelTreeDataProvider from "../../barrel/tree/BarrelTreeDataProvider";
 import PinTreeDataProvider from "../tree/PinTreeDataProvider";
+import BarrelDetails from "../../../common/domain/zeplinComponent/model/BarrelDetails";
+import ResponseScreen from "../../screen/model/ResponseScreen";
 
 const KEY_PINNED_ITEMS = "sidebar.pinnedItems";
 const CONTEXT_KEY_ANY_PINNED_ITEMS = "zeplin:sidebar:anyPinnedItems";
 
-function getPinnedItems(): PinData[] {
+type ConcretePinData = ScreenPinData | ComponentPinData;
+
+function getPinnedItems(): ConcretePinData[] {
     return ContextProvider.get().workspaceState.get(KEY_PINNED_ITEMS) ?? [];
+}
+
+function isComponentPinData(item: ConcretePinData): item is ComponentPinData {
+    return item.type === PinType.Component;
+}
+
+function isScreenPinData(item: ConcretePinData): item is ScreenPinData {
+    return item.type === PinType.Screen;
 }
 
 function updateAnyPinnedItemsContext() {
     setContext(CONTEXT_KEY_ANY_PINNED_ITEMS, !!getPinnedItems().length);
 }
 
-function doesScreenMatchWithPinData(screen: Screen, item: PinData) {
-    return item.type === PinType.Screen && (item as ScreenPinData).screen._id === screen._id;
+function doesScreenMatchWithPinData(screen: Screen, item: ConcretePinData): boolean {
+    return isScreenPinData(item) && item.screen._id === screen._id;
 }
 
-function doesComponentMatchWithPinData(component: ResponseZeplinComponent, item: PinData) {
-    return item.type === PinType.Component && (item as ComponentPinData).component._id === component._id;
+function doesComponentMatchWithPinData(component: ResponseZeplinComponent, item: ConcretePinData): boolean {
+    return isComponentPinData(item) && item.component._id === component._id;
 }
 
 function isScreenPinned(screen: Screen): boolean {
@@ -90,6 +101,47 @@ function removeAllFromPinnedItems() {
     PinTreeDataProvider.refresh();
 }
 
+function removeBarrelItemsFromPinnedItems(barrel: Barrel) {
+    const newPinnedItems = getPinnedItems().filter(item => item.barrel.id !== barrel.id);
+    ContextProvider.get().workspaceState.update(KEY_PINNED_ITEMS, newPinnedItems);
+
+    PinTreeDataProvider.refresh();
+}
+
+function updatePinnedScreens(screens: ResponseScreen[]) {
+    const pinnedItems = getPinnedItems();
+    for (const item of pinnedItems) {
+        if (isScreenPinData(item)) {
+            const updatedScreen = screens.find(screen => screen._id === item.screen._id);
+            if (updatedScreen) {
+                Object.assign(item.screen, updatedScreen);
+            }
+        }
+    }
+    ContextProvider.get().workspaceState.update(KEY_PINNED_ITEMS, pinnedItems);
+
+    PinTreeDataProvider.refresh();
+}
+
+function updatePinnedItems(barrel: BarrelDetails) {
+    const pinnedItems = getPinnedItems();
+    for (const item of pinnedItems) {
+        if (isComponentPinData(item)) {
+            const updatedComponent = barrel.components.find(component => component._id === item.component._id);
+            if (updatedComponent) {
+                Object.assign(item.component, updatedComponent);
+                Object.assign(item.barrel, barrel);
+            }
+        } else if (barrel.screenSections?.some(section => section.screens.includes(item.screen._id))) {
+            Object.assign(item.barrel, barrel);
+            item.screen.jiras = barrel.itemJiras.ofScreens.filter(jira => jira.itemId === item.screen._id);
+        }
+    }
+    ContextProvider.get().workspaceState.update(KEY_PINNED_ITEMS, pinnedItems);
+
+    PinTreeDataProvider.refresh();
+}
+
 export {
     getPinnedItems,
     updateAnyPinnedItemsContext,
@@ -99,5 +151,8 @@ export {
     addComponentToPinnedItems,
     removeScreenFromPinnedItems,
     removeComponentFromPinnedItems,
-    removeAllFromPinnedItems
+    removeAllFromPinnedItems,
+    removeBarrelItemsFromPinnedItems,
+    updatePinnedScreens,
+    updatePinnedItems
 };
