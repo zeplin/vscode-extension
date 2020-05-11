@@ -39,7 +39,7 @@ class ActivityTreeDataProvider extends TreeDataProvider {
 
         roots.push(...Object.keys(slots).map(key => new ActivitySlotTreeItem(key as DateSlot, slots[key])));
         if (!roots.length) {
-            roots.push(new TreeItem(localization.sidebar.activity.noneFound));
+            roots.push(new TreeItem(localization.sidebar.activity.noneFound, undefined));
         }
         return roots;
     }

@@ -8,6 +8,7 @@ import RefreshSidebarCommand from "../../../sidebar/refresh/command/RefreshSideb
 import AddProjectToSidebarCommand from "../../../sidebar/barrel/command/AddProjectToSidebarCommand";
 import AddStyleguideToSidebarCommand from "../../../sidebar/barrel/command/AddStyleguideToSidebarCommand";
 import RemoveBarrelFromSidebarCommand from "../../../sidebar/barrel/command/RemoveBarrelFromSidebarCommand";
+import JumpToSidebarItemCommand from "../../../sidebar/jumpTo/command/JumpToSidebarItemCommand";
 import OpenInZeplinCommand from "../../../sidebar/openInZeplin/command/OpenInZeplinCommand";
 import OpenJiraLinkCommand from "../../../sidebar/jira/command/OpenJiraLinkCommand";
 import PinToSidebarCommand from "../../../sidebar/pin/command/PinToSidebarCommand";
@@ -59,6 +60,7 @@ export async function activate(context: vscode.ExtensionContext) {
         AddProjectToSidebarCommand,
         AddStyleguideToSidebarCommand,
         RemoveBarrelFromSidebarCommand,
+        JumpToSidebarItemCommand,
         OpenInZeplinCommand,
         OpenJiraLinkCommand,
         PinToSidebarCommand,

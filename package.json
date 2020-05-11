@@ -194,6 +194,11 @@
                 "category": "Zeplin"
             },
             {
+                "command": "zeplin.sidebar.jumpTo",
+                "title": "Jump to screen or component",
+                "category": "Zeplin"
+            },
+            {
                 "command": "zeplin.sidebar.openInZeplin",
                 "title": "Open in Zeplin",
                 "category": "Zeplin",

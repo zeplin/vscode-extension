@@ -9,8 +9,8 @@ export class ActivityTreeItem extends TreeItem {
     public description = this.activity.dateAgo;
     public tooltip = this.activity.date.toLocaleString();
 
-    public constructor(public activity: Activity) {
-        super(localization.sidebar.activity.updated(activity.user.username, activity.itemName));
+    public constructor(public activity: Activity, parent: TreeItem | undefined) {
+        super(localization.sidebar.activity.updated(activity.user.username, activity.itemName), parent);
     }
 
     private getThumbnail(): vscode.Uri | undefined {

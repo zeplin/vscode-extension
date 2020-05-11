@@ -4,6 +4,7 @@ import TreeItemContextProvider from "./TreeItemContextProvider";
 export default class TreeItem extends vscode.TreeItem {
     public constructor(
         label: string,
+        private parent: TreeItem | undefined,
         private contextProvider?: TreeItemContextProvider,
         collapsibleState?: vscode.TreeItemCollapsibleState
     ) {
@@ -15,7 +16,11 @@ export default class TreeItem extends vscode.TreeItem {
         return this.contextProvider?.contains(contextValue) ?? false;
     }
 
-    public getChildren(): Promise<TreeItem[]> {
-        return Promise.resolve([]);
+    public getChildren(): vscode.ProviderResult<TreeItem[]> {
+        return [];
+    }
+
+    public getParent(): TreeItem | undefined {
+        return this.parent;
     }
 }

@@ -4,24 +4,27 @@ import BarrelDetailsResponse from "../../../common/domain/barrel/model/BarrelDet
 
 function getComponentsFromSections(barrel: BarrelDetailsResponse): ZeplinComponent[] {
     return getComponentsFromSectionsAdditive(
+        barrel._id,
         barrel.name,
         barrel.componentSections.map(section => ({
             section,
-            breadcrumbs: []
+            nameBreadcrumbs: [],
+            idBreadcrumbs: []
         } as SectionWithBreadcrumbs)),
         true, // Default section is always the first section
         []
     );
 }
 
-function getComponentsFromSectionsAdditive(
+function getComponentsFromSectionsAdditive( // eslint-disable-line max-params
+    barrelId: string,
     barrelName: string,
     sectionWithBreadcrumbsArray: SectionWithBreadcrumbs[],
     defaultSection: boolean,
     accumulator: ZeplinComponent[]
 ): ZeplinComponent[] {
     if (sectionWithBreadcrumbsArray && sectionWithBreadcrumbsArray.length) {
-        const { section, breadcrumbs } = sectionWithBreadcrumbsArray.shift()!;
+        const { section, nameBreadcrumbs, idBreadcrumbs } = sectionWithBreadcrumbsArray.shift()!;
 
         accumulator.push(
             ...section.components.map(
@@ -30,9 +33,11 @@ function getComponentsFromSectionsAdditive(
                     description: component.description,
                     name: component.name,
                     latestVersion: component.latestVersion,
+                    barrelId,
                     barrelName,
-                    sectionNames: defaultSection ? breadcrumbs : breadcrumbs.concat(section.name)
-                    // Section name is not shown for default section
+                    sectionIds: defaultSection ? idBreadcrumbs : idBreadcrumbs.concat(section._id),
+                    sectionNames: defaultSection ? nameBreadcrumbs : nameBreadcrumbs.concat(section.name)
+                    // Default section components are regarded as sectionless
                 } as ZeplinComponent)
             )
         );
@@ -42,13 +47,14 @@ function getComponentsFromSectionsAdditive(
                 ...section.componentSections.map(
                     subsection => ({
                         section: subsection,
-                        breadcrumbs: breadcrumbs.concat(section.name)
+                        idBreadcrumbs: idBreadcrumbs.concat(section._id),
+                        nameBreadcrumbs: nameBreadcrumbs.concat(section.name)
                     } as SectionWithBreadcrumbs)
                 )
             );
         }
 
-        return getComponentsFromSectionsAdditive(barrelName, sectionWithBreadcrumbsArray, false, accumulator);
+        return getComponentsFromSectionsAdditive(barrelId, barrelName, sectionWithBreadcrumbsArray, false, accumulator);
     }
 
     return accumulator;
@@ -56,7 +62,8 @@ function getComponentsFromSectionsAdditive(
 
 interface SectionWithBreadcrumbs {
     section: ZeplinComponentSection;
-    breadcrumbs: string[];
+    nameBreadcrumbs: string[];
+    idBreadcrumbs: string[];
 }
 
 export {

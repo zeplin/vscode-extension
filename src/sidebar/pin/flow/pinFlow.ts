@@ -122,7 +122,7 @@ async function startPinComponentFlow() {
 
     // Fail if there is no saved barrels
     if (!savedBarrels.length) {
-        MessageBuilder.with(localization.sidebar.pin.noBarrelFound)
+        MessageBuilder.with(localization.sidebar.common.noBarrelFound)
             .addOption(localization.common.barrel.add(BarrelType.Project), startAddProjectToSidebarFlow)
             .addOption(localization.common.barrel.add(BarrelType.Styleguide), startAddStyleguideToSidebarFlow)
             .addOption(localization.common.cancel)
@@ -142,7 +142,7 @@ async function startPinComponentFlow() {
             })
         );
         barrelQuickPickProvider.get().title = localization.sidebar.pin.pinComponent;
-        barrelQuickPickProvider.get().placeholder = localization.sidebar.pin.selectBarrel;
+        barrelQuickPickProvider.get().placeholder = localization.sidebar.common.selectBarrel;
         barrel = await barrelQuickPickProvider.startSingleSelection();
     }
 

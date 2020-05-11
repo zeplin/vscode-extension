@@ -13,12 +13,12 @@ const contextProvider = new TreeItemContextProvider(
 export default class BarrelZeplinComponentsTreeItem extends TreeItem {
     public iconPath = this.barrel.thumbnail ? vscode.Uri.parse(this.barrel.thumbnail, true) : undefined;
 
-    public constructor(public barrel: BarrelDetails, title?: string) {
-        super(title ?? barrel.name, contextProvider, vscode.TreeItemCollapsibleState.Collapsed);
+    public constructor(public barrel: BarrelDetails, title: string | undefined, parent: TreeItem | undefined) {
+        super(title ?? barrel.name, parent, contextProvider, vscode.TreeItemCollapsibleState.Collapsed);
     }
 
-    public getChildren(): Promise<TreeItem[]> {
+    public getChildren(): TreeItem[] {
         const [{ components }, ...sections] = this.barrel.componentSections;
-        return Promise.resolve(createList(components, sections, this.barrel));
+        return createList(components, sections, this.barrel, this);
     }
 }

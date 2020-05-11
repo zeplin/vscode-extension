@@ -9,9 +9,12 @@ import { createList } from "./zeplinComponentTreeUtil";
 import localization from "../../../localization";
 
 export default class ZeplinComponentsTreeItem extends TreeItem {
-    public constructor(private barrel: Barrel) {
+    public constructor(private barrel: Barrel, parent: TreeItem | undefined) {
         super(
-            localization.sidebar.zeplinComponent.zeplinComponents, undefined, vscode.TreeItemCollapsibleState.Collapsed
+            localization.sidebar.zeplinComponent.zeplinComponents,
+            parent,
+            undefined,
+            vscode.TreeItemCollapsibleState.Collapsed
         );
     }
 
@@ -20,19 +23,20 @@ export default class ZeplinComponentsTreeItem extends TreeItem {
 
         if (!data?.length) {
             const error = errors![0];
-            return [new TreeItem(error.message)];
+            return [new TreeItem(error.message, this)];
         } else if (data.length === 1 && !errors?.length) {
             const [{ components }, ...sections] = data[0].componentSections;
-            return createList(components, sections, this.barrel);
+            return createList(components, sections, this.barrel, this);
         } else {
             const error = errors?.[0];
-            const errorItems = error ? [new ExpandedErrorTreeItem(error.id, error.message)] : [];
+            const errorItems = error ? [new ExpandedErrorTreeItem(error.id, error.message, this)] : [];
             return [
                 ...data.map((barrelDetails, index) => new BarrelZeplinComponentsTreeItem(
                     barrelDetails,
                     index === 0 && barrelDetails.type === BarrelType.Project
                         ? localization.sidebar.zeplinComponent.localStyleguide
-                        : undefined
+                        : undefined,
+                    this
                 )),
                 ...errorItems
             ];
