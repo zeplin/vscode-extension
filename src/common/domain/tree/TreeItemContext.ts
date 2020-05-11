@@ -5,6 +5,7 @@ enum TreeItemContext {
     ZeplinComponentBarrel = "zeplinComponentBarrel",
     ZeplinComponent = "zeplinComponent",
     ZeplinComponentSection = "zeplinComponentSection",
+    Activity = "activity",
     ZeplinLink = "zeplinLink",
     Jira = "jira",
     Pinnable = "pinnable",

@@ -1,8 +1,9 @@
 import User from "../../../common/domain/componentLike/model/User";
 import Version from "../../../common/domain/componentLike/model/Version";
 import { getDateAgo } from "../util/activityUtil";
+import ApplicationType from "../../../common/domain/openInZeplin/model/ApplicationType";
 
-export default class Activity {
+export default abstract class Activity {
     public date: Date;
     public dateAgo: string;
     public user: User;
@@ -12,4 +13,6 @@ export default class Activity {
         this.dateAgo = getDateAgo(this.date);
         this.user = version.creator;
     }
+
+    public abstract getZeplinUrl(applicationType: ApplicationType): string;
 }
