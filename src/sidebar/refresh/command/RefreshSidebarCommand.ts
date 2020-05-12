@@ -1,11 +1,11 @@
 import Command from "../../../common/vscode/command/Command";
-import { refreshSidebar } from "../util/refreshUtil";
+import SidebarRefresher from "../util/SidebarRefresher";
 
 class RefreshSidebarCommand implements Command {
     public name = "zeplin.sidebar.refresh";
 
     public execute() {
-        refreshSidebar();
+        SidebarRefresher.refresh();
         return Promise.resolve();
     }
 }
