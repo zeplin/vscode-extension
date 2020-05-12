@@ -1,5 +1,5 @@
 /**
- * Replaces all occurences of a value in a string with another value.
+ * Replaces all occurrences of a value in a string with another value.
  * @param originalString A string which search value is searched on.
  * @param searchValue A value to search in the original string.
  * @param replaceValue A value to replace the search value with.
@@ -9,7 +9,7 @@ function replaceAll(originalString: string, searchValue: string, replaceValue: s
 }
 
 /**
- * Return indices of all occurences of a value in a string.
+ * Return indices of all occurrences of a value in a string.
  * @param originalString A string which search string is searched on.
  * @param searchValue A value to search in original string.
  */
