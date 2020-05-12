@@ -152,8 +152,7 @@ const localization = {
             dateSlot
         },
         barrel: {
-            added: (type: BarrelType) => `Added ${barrelLower(type)} to sidebar.`,
-            emptyInfo: "Add project/styleguide from “…” menu"
+            added: (type: BarrelType) => `Added ${barrelLower(type)} to sidebar.`
         },
         jira: {
             open: "Open JIRA",
