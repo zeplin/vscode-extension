@@ -1,19 +1,7 @@
 import localization from "../../../localization";
-
-const DAYS_IN_WEEK = 7;
-/* eslint-disable @typescript-eslint/no-magic-numbers */
-const MS_IN_MINUTE = 1000 * 60;
-const MS_IN_HOUR = 60 * MS_IN_MINUTE;
-const MS_IN_DAY = 24 * MS_IN_HOUR;
-const MS_IN_MONTH = 30 * MS_IN_DAY;
-/* eslint-enable @typescript-eslint/no-magic-numbers */
-
-/**
- * Returns index of monday-based day
- */
-function getWeekday(date: Date) {
-    return (date.getDay() - 1) % DAYS_IN_WEEK;
-}
+import {
+    DAYS_IN_WEEK, MS_IN_DAY, MS_IN_MONTH, MS_IN_HOUR, MS_IN_MINUTE, getWeekday
+} from "../../../common/general/dateTimeUtil";
 
 function getDateSlot(date: Date): string {
     const now = new Date();
