@@ -6,7 +6,7 @@ import localization from "../../../localization";
 import { getConfig } from "../../config/util/configUtil";
 import { getZeplinComponentDetailRepresentation } from "../../../common/domain/zeplinComponent/util/zeplinComponentUi";
 import { boldenForMarkdown, getMarkdownCommand } from "../../../common/vscode/hover/hoverUtil";
-import { getComponentAppUrl, getComponentWebUrl } from "../../../common/domain/openInZeplin/util/zeplinUrls";
+import { getComponentAppUri, getComponentWebUrl } from "../../../common/domain/openInZeplin/util/zeplinUris";
 import { getOpenInZeplinLinks, getMarkdownRefreshIcon } from "../../../common/domain/hover/zeplinHoverUtil";
 import { getImageSize } from "../../../common/general/imageUtil";
 import ClearCacheCommand from "../../../session/command/ClearCacheCommand";
@@ -31,7 +31,7 @@ class ZeplinComponentHoverCreator implements ConfigHoverCreator {
             const description = component.description && component.description.length > MAX_DESCRIPTION_LENGTH
                 ? `${component.description.substring(0, MAX_DESCRIPTION_LENGTH)}…`
                 : component.description;
-            const appUrl = getComponentAppUrl(providerId, providerType, component._id);
+            const appUri = getComponentAppUri(providerId, providerType, component._id);
             const webUrl = getComponentWebUrl(providerId, providerType, component._id);
 
             const builder = new HoverBuilder()
@@ -50,7 +50,7 @@ class ZeplinComponentHoverCreator implements ConfigHoverCreator {
             return builder.append(getZeplinComponentDetailRepresentation(component))
                 .appendLine()
                 .appendLine()
-                .append(getOpenInZeplinLinks(appUrl, webUrl))
+                .append(getOpenInZeplinLinks(appUri, webUrl))
                 .build();
         }
     }

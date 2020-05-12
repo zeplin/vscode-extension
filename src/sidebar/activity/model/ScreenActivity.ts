@@ -1,6 +1,6 @@
 import Activity from "./Activity";
 import ResponseScreen from "../../screen/model/ResponseScreen";
-import { getScreenUrl } from "../../../common/domain/openInZeplin/util/zeplinUrls";
+import { getScreenUri } from "../../../common/domain/openInZeplin/util/zeplinUris";
 import ApplicationType from "../../../common/domain/openInZeplin/model/ApplicationType";
 
 export default class ScreenActivity extends Activity {
@@ -9,6 +9,6 @@ export default class ScreenActivity extends Activity {
     }
 
     public getZeplinUrl(applicationType: ApplicationType): string {
-        return getScreenUrl(this.projectId, this.screen._id, applicationType);
+        return getScreenUri(this.projectId, this.screen._id, applicationType);
     }
 }
