@@ -1,18 +1,19 @@
 import BarrelType from "../../barrel/BarrelType";
 import ProjectDetailsStore from "../../barrel/data/ProjectDetailsStore";
 import StyleguideDetailsStore from "../../barrel/data/StyleguideDetailsStore";
-import Store from "../../store/Store";
-import BarrelDetails from "../model/BarrelDetails";
 import CacheHolder from "../../store/CacheHolder";
+import BarrelDetailsStore from "../../barrel/data/BarrelDetailsStore";
+import BarrelDetailsResponse from "../../barrel/model/BarrelDetailsResponse";
+import { updateSidebarItems } from "../../../../sidebar/refresh/util/refreshUtil";
 
 class BarrelDetailsStoreProvider implements CacheHolder {
-    private cache: { [id: string]: Store<BarrelDetails> } = {};
+    private cache: { [id: string]: BarrelDetailsStore<BarrelDetailsResponse> } = {};
 
-    public get(id: string, type: BarrelType, childId?: string, childType?: BarrelType): Store<BarrelDetails> {
+    public get(id: string, type: BarrelType, childId?: string, childType?: BarrelType):
+        BarrelDetailsStore<BarrelDetailsResponse> {
         if (!this.cache[id]) {
-            this.cache[id] = type === BarrelType.Project
-                ? new ProjectDetailsStore(id)
-                : new StyleguideDetailsStore(id);
+            this.cache[id] = type === BarrelType.Project ? new ProjectDetailsStore(id) : new StyleguideDetailsStore(id);
+            this.cache[id].onDataReceived(updateSidebarItems);
         }
 
         if (type === BarrelType.Styleguide && childId) {
@@ -23,6 +24,7 @@ class BarrelDetailsStoreProvider implements CacheHolder {
     }
 
     public clearCache() {
+        Object.keys(this.cache).forEach(key => this.cache[key].dispose());
         this.cache = {};
     }
 }
