@@ -4,7 +4,7 @@ import TreeItem from "../../../common/vscode/tree/TreeItem";
 import ActivityStore from "../data/ActivityStore";
 import { getDateSlot } from "../util/activityUtil";
 import Activity from "../model/Activity";
-import { ActivitySlotTreeItem } from "./ActivitySlotTreeItem";
+import ActivitySlotTreeItem from "./ActivitySlotTreeItem";
 import DateSlot from "../model/DateSlot";
 import ActivityErrorsTreeItem from "./ActivityErrorsTreeItem";
 import localization from "../../../localization";

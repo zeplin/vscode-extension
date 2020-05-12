@@ -13,6 +13,7 @@ import { BarrelTreeItem } from "../../barrel/tree/BarrelTreeItem";
 import BarrelZeplinComponentsTreeItem from "../../zeplinComponent/tree/BarrelZeplinComponentsTreeItem";
 import ScreenTreeItem from "../../screen/tree/ScreenTreeItem";
 import ScreenSectionTreeItem from "../../screen/tree/ScreenSectionTreeItem";
+import ActivityTreeItem from "../../activity/tree/ActivityTreeItem";
 
 async function openInZeplin(item: TreeItem) {
     if (!isPreferredAppTypeSelected()) {
@@ -50,6 +51,8 @@ async function openInZeplin(item: TreeItem) {
     } else if (item.containsContext(TreeItemContext.ZeplinComponentSection)) {
         const { section: { _id }, barrel: { id: barrelId, type } } = item as ZeplinComponentSectionTreeItem;
         url = zeplinUrls.getComponentSectionUrl(barrelId, type, _id, applicationType);
+    } else if (item.containsContext(TreeItemContext.Activity)) {
+        url = (item as ActivityTreeItem).activity.getZeplinUrl(applicationType);
     } else {
         throw new Error("Wrong item type for opening in Zeplin");
     }
