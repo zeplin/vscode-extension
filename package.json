@@ -40,7 +40,7 @@
                 {
                     "id": "zeplin",
                     "title": "Zeplin",
-                    "icon": "resources/icon-zeplin.png"
+                    "icon": "resources/icon-sidebar.svg"
                 }
             ]
         },
@@ -193,10 +193,7 @@
                 "command": "zeplin.sidebar.refresh",
                 "title": "Refresh",
                 "category": "Zeplin",
-                "icon": {
-                    "dark": "resources/dark/icon-refresh.svg",
-                    "light": "resources/light/icon-refresh.svg"
-                }
+                "icon": "$(refresh)"
             },
             {
                 "command": "zeplin.sidebar.addProject",
@@ -222,22 +219,28 @@
                 "command": "zeplin.sidebar.openInZeplin",
                 "title": "Open in Zeplin",
                 "category": "Zeplin",
-                "icon": "resources/icon-zeplin.png"
+                "icon": "$(link-external)"
             },
             {
                 "command": "zeplin.sidebar.openJiraLink",
                 "title": "Open JIRA Link",
-                "category": "Zeplin"
+                "category": "Zeplin",
+                "icon": {
+                    "dark": "resources/dark/icon-jira.svg",
+                    "light": "resources/light/icon-jira.svg"
+                }
             },
             {
                 "command": "zeplin.sidebar.pinItem",
                 "title": "Pin",
-                "category": "Zeplin"
+                "category": "Zeplin",
+                "icon": "$(pin)"
             },
             {
                 "command": "zeplin.sidebar.unpinItem",
                 "title": "Unpin",
-                "category": "Zeplin"
+                "category": "Zeplin",
+                "icon": "$(pinned)"
             },
             {
                 "command": "zeplin.sidebar.pinScreen",

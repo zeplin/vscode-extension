@@ -8,9 +8,9 @@ import ScreenTreeItem from "../../screen/tree/ScreenTreeItem";
 import ZeplinComponentTreeItem from "../../zeplinComponent/tree/ZeplinComponentTreeItem";
 import ScreenPinData from "../model/ScreenPinData";
 import ComponentPinData from "../model/ComponentPinData";
-import localization from "../../../localization";
 import Screen from "../../screen/model/Screen";
 import ResponseZeplinComponent from "../../../common/domain/zeplinComponent/model/ResponseZeplinComponent";
+import NoPinnedItemTreeItem from "./NoPinnedItemTreeItem";
 
 class PinTreeDataProvider extends TreeDataProvider {
     protected viewId = "zeplin.views.pinned";
@@ -34,7 +34,7 @@ class PinTreeDataProvider extends TreeDataProvider {
         const pinnedItems = getPinnedItems();
         return pinnedItems.length
             ? pinnedItems.map(this.toTreeItem)
-            : [new TreeItem(localization.sidebar.pin.emptyInfo, undefined)];
+            : [NoPinnedItemTreeItem];
     }
 
     private toTreeItem(pinData: PinData): TreeItem {

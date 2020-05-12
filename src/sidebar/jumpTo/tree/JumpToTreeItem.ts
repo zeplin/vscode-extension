@@ -1,8 +1,10 @@
+import * as vscode from "vscode";
 import TreeItem from "../../../common/vscode/tree/TreeItem";
 import localization from "../../../localization";
 import JumpToSidebarItemCommand from "../command/JumpToSidebarItemCommand";
 
 class JumpToTreeItem extends TreeItem {
+    public iconPath = new vscode.ThemeIcon("search");
     public command = {
         title: localization.sidebar.jumpTo.jumpToItem,
         command: JumpToSidebarItemCommand.name
