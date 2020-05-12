@@ -164,6 +164,18 @@
                 }
             ]
         },
+        "keybindings": [
+            {
+                "command": "zeplin.sidebar.jumpTo",
+                "key": "ctrl+k j",
+                "mac": "cmd+k j"
+            },
+            {
+                "command": "workbench.view.extension.zeplin",
+                "key": "ctrl+k z",
+                "mac": "cmd+k z"
+            }
+        ],
         "commands": [
             {
                 "command": "zeplin.sidebar.refresh",
