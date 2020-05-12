@@ -1,6 +1,5 @@
 import BarrelType from "../common/domain/barrel/BarrelType";
 import RepositoryType from "../coco/repository/model/RepositoryType";
-import DateSlot from "../sidebar/activity/model/DateSlot";
 
 /**
  * Localization object that contains this extension's all user visible texts that may be relative to locale (except
@@ -144,12 +143,17 @@ const localization = {
             componentsError: (barrelId: string) => `Components of ${barrelId} could not be fetched.`,
             screensError: (barrelId: string) => `Screens of ${barrelId} could not be fetched.`,
             updated: (user: string, item: string) => `${user} updated ${item}.`,
-            minutesAgo: (count: number) => `${count}min`,
+            minutesAgo: (count: number) => `${count}m`,
             hoursAgo: (count: number) => `${count}h`,
             daysAgo: (count: number) => `${count}d`,
-            monthsAgo: (count: number) => `${count}mon`,
-            yearsAgo: (count: number) => `${count}y`,
-            dateSlot
+            today: "Today",
+            yesterday: "Yesterday",
+            thisWeek: "This week",
+            lastWeek: "Last week",
+            thisMonth: "This month",
+            lastMonth: "Last month",
+            monthName: (date: Date) => getMonthName(date.getMonth()),
+            monthNameYear: (date: Date) => `${getMonthName(date.getMonth())} ${date.getFullYear()}`
         },
         barrel: {
             added: (type: BarrelType) => `Added ${barrelLower(type)} to sidebar.`
@@ -262,23 +266,11 @@ function repository(type: RepositoryType): string {
     }
 }
 
-function dateSlot(slot: DateSlot) {
-    switch (slot) {
-        case DateSlot.Today:
-            return "Today";
-        case DateSlot.Yesterday:
-            return "Yesterday";
-        case DateSlot.LessThanAWeekAgo:
-            return "Less than a week ago";
-        case DateSlot.OverAWeekAgo:
-            return "Over a week ago";
-        case DateSlot.OverAMonthAgo:
-            return "Over a month ago";
-        case DateSlot.OverAYearAgo:
-            return "Over a year ago";
-        default:
-            throw new Error(`Unhandled date slot: ${slot}`);
-    }
+function getMonthName(month: number) {
+    return [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ][month];
 }
 
 export default localization;
