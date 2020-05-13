@@ -8,7 +8,7 @@ export default class ScreenActivity extends Activity {
         super(screen.name, screen.latestVersion);
     }
 
-    public getZeplinUrl(applicationType: ApplicationType): string {
+    public getZeplinUri(applicationType: ApplicationType): string {
         return getScreenUri(this.projectId, this.screen._id, applicationType);
     }
 }

@@ -9,7 +9,7 @@ export default class ComponentActivity extends Activity {
         super(component.name, component.latestVersion);
     }
 
-    public getZeplinUrl(applicationType: ApplicationType): string {
+    public getZeplinUri(applicationType: ApplicationType): string {
         return getComponentUri(this.barrelId, this.barrelType, this.component._id, applicationType);
     }
 }

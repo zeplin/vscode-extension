@@ -5,14 +5,15 @@ import { getEmotarUrl } from "../../../common/domain/image/zeplinImageUtil";
 import localization from "../../../localization";
 import TreeItemContextProvider from "../../../common/vscode/tree/TreeItemContextProvider";
 import TreeItemContext from "../../../common/domain/tree/TreeItemContext";
-import User from "../../../common/domain/componentLike/model/User";
+import ZeplinUriProvider from "../../openInZeplin/model/ZeplinUriProvider";
+import ApplicationType from "../../../common/domain/openInZeplin/model/ApplicationType";
 
 const contextProvider = new TreeItemContextProvider(
     TreeItemContext.Activity,
     TreeItemContext.ZeplinLink
 );
 
-export default class ActivityTreeItem extends TreeItem {
+export default class ActivityTreeItem extends TreeItem implements ZeplinUriProvider {
     public iconPath = this.getThumbnail();
     public description = this.activity.dateAgo;
     public tooltip = this.activity.date.toLocaleString();
@@ -35,5 +36,9 @@ export default class ActivityTreeItem extends TreeItem {
         } else {
             return undefined;
         }
+    }
+
+    public getZeplinUri(applicationType: ApplicationType): string {
+        return this.activity.getZeplinUri(applicationType);
     }
 }
