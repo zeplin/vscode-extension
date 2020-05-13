@@ -4,6 +4,8 @@ import Activity from "../model/Activity";
 import ActivityTreeItem from "./ActivityTreeItem";
 
 export default class ActivitySlotTreeItem extends TreeItem {
+    public iconPath = new vscode.ThemeIcon("calendar");
+
     public constructor(slot: string, private activities: Activity[]) {
         super(slot, undefined, undefined, vscode.TreeItemCollapsibleState.Collapsed);
     }
