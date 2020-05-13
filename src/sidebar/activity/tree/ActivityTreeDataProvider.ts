@@ -7,6 +7,7 @@ import Activity from "../model/Activity";
 import ActivitySlotTreeItem from "./ActivitySlotTreeItem";
 import ActivityErrorsTreeItem from "./ActivityErrorsTreeItem";
 import localization from "../../../localization";
+import SidebarRefresher from "../../refresh/util/SidebarRefresher";
 
 class ActivityTreeDataProvider extends TreeDataProvider {
     protected viewId = "zeplin.views.activity";
@@ -19,6 +20,18 @@ class ActivityTreeDataProvider extends TreeDataProvider {
 
     public refresh() {
         this.eventEmitter.fire();
+    }
+
+    public register(): vscode.Disposable {
+        const disposables = [super.register()];
+        disposables.push(
+            this.treeView!.onDidChangeVisibility(({ visible }) => {
+                if (visible) {
+                    SidebarRefresher.requestRefresh();
+                }
+            })
+        );
+        return vscode.Disposable.from(...disposables);
     }
 
     public async getRoots(): Promise<TreeItem[]> {

@@ -3,7 +3,6 @@ import TreeDataProvider from "../../../common/vscode/tree/TreeDataProvider";
 import TreeItem from "../../../common/vscode/tree/TreeItem";
 import { getSavedBarrels } from "../util/barrelUtil";
 import { BarrelTreeItem } from "./BarrelTreeItem";
-import localization from "../../../localization";
 import ScreensTreeItem from "../../screen/tree/ScreensTreeItem";
 import ScreenTreeItem from "../../screen/tree/ScreenTreeItem";
 import JumpToTreeItem from "../../jumpTo/tree/JumpToTreeItem";
@@ -15,6 +14,7 @@ import ZeplinComponentsTreeItem from "../../zeplinComponent/tree/ZeplinComponent
 import BarrelZeplinComponentsTreeItem from "../../zeplinComponent/tree/BarrelZeplinComponentsTreeItem";
 import ZeplinComponentSectionTreeItem from "../../zeplinComponent/tree/ZeplinComponentSectionTreeItem";
 import ZeplinComponentTreeItem from "../../zeplinComponent/tree/ZeplinComponentTreeItem";
+import SidebarRefresher from "../../refresh/util/SidebarRefresher";
 
 class BarrelTreeDataProvider extends TreeDataProvider {
     protected viewId = "zeplin.views.barrels";
@@ -27,6 +27,18 @@ class BarrelTreeDataProvider extends TreeDataProvider {
 
     public refresh() {
         this.eventEmitter.fire();
+    }
+
+    public register(): vscode.Disposable {
+        const disposables = [super.register()];
+        disposables.push(
+            this.treeView!.onDidChangeVisibility(({ visible }) => {
+                if (visible) {
+                    SidebarRefresher.requestRefresh();
+                }
+            })
+        );
+        return vscode.Disposable.from(...disposables);
     }
 
     public getRoots(): TreeItem[] {
