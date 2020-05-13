@@ -5,6 +5,9 @@ import Barrel from "../../../common/domain/barrel/Barrel";
 import TreeItemContextProvider from "../../../common/vscode/tree/TreeItemContextProvider";
 import TreeItemContext from "../../../common/domain/tree/TreeItemContext";
 import { isComponentPinned } from "../../pin/util/pinUtil";
+import ZeplinUriProvider from "../../openInZeplin/model/ZeplinUriProvider";
+import ApplicationType from "../../../common/domain/openInZeplin/model/ApplicationType";
+import { getComponentUri } from "../../../common/domain/openInZeplin/util/zeplinUris";
 
 function getContextProvider(zeplinComponent: ResponseZeplinComponent): TreeItemContextProvider {
     return new TreeItemContextProvider(
@@ -14,12 +17,16 @@ function getContextProvider(zeplinComponent: ResponseZeplinComponent): TreeItemC
     );
 }
 
-export default class ZeplinComponentTreeItem extends TreeItem {
+export default class ZeplinComponentTreeItem extends TreeItem implements ZeplinUriProvider {
     public iconPath = vscode.Uri.parse(this.zeplinComponent.latestVersion.snapshot.url);
 
     public constructor(
         public zeplinComponent: ResponseZeplinComponent, public barrel: Barrel, parent: TreeItem | undefined
     ) {
         super(zeplinComponent.name, parent, getContextProvider(zeplinComponent));
+    }
+
+    public getZeplinUri(applicationType: ApplicationType): string {
+        return getComponentUri(this.barrel.id, this.barrel.type, this.zeplinComponent._id, applicationType);
     }
 }
