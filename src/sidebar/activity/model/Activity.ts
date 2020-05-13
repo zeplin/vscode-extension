@@ -6,7 +6,7 @@ import ApplicationType from "../../../common/domain/openInZeplin/model/Applicati
 export default abstract class Activity {
     public date: Date;
     public dateAgo: string;
-    public user: User;
+    public user?: User;
 
     public constructor(public itemName: string, version: Version) {
         this.date = new Date(version.created);
