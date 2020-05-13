@@ -109,14 +109,14 @@
                     "when": "view == zeplin.views.barrels && viewItem =~ /\\bbarrel\\b/"
                 },
                 {
-                    "command": "zeplin.sidebar.openInZeplin",
-                    "when": "viewItem =~ /\\bzeplinLink\\b/",
-                    "group": "inline@2"
-                },
-                {
                     "command": "zeplin.sidebar.openJiraLink",
                     "when": "viewItem =~ /\\bjira\\b/",
                     "group": "inline@1"
+                },
+                {
+                    "command": "zeplin.sidebar.openInZeplin",
+                    "when": "viewItem =~ /\\bzeplinLink\\b/",
+                    "group": "inline@2"
                 },
                 {
                     "command": "zeplin.sidebar.pinItem",
@@ -147,11 +147,11 @@
                     "when": "false"
                 },
                 {
-                    "command": "zeplin.sidebar.openInZeplin",
+                    "command": "zeplin.sidebar.openJiraLink",
                     "when": "false"
                 },
                 {
-                    "command": "zeplin.sidebar.openJiraLink",
+                    "command": "zeplin.sidebar.openInZeplin",
                     "when": "false"
                 },
                 {
