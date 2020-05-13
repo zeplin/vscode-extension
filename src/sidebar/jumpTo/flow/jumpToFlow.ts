@@ -8,13 +8,16 @@ import { startAddProjectToSidebarFlow, startAddStyleguideToSidebarFlow } from ".
 import QuickPickProvider from "../../../common/vscode/quickPick/QuickPickerProvider";
 import StaticStore from "../../../common/domain/store/StaticStore";
 import { getBarrelDetailRepresentationWithType } from "../../../common/domain/barrel/util/barrelUi";
-import BarrelTreeDataProvider from "../../barrel/tree/BarrelTreeDataProvider";
 import { getZeplinComponentDetailRepresentation } from "../../../common/domain/zeplinComponent/util/zeplinComponentUi";
 import Session from "../../../session/Session";
 import JumpablesStore, { Jumpable } from "../data/JumpableItemsStore";
 import ZeplinComponent from "../../../common/domain/zeplinComponent/model/ZeplinComponent";
 import { getScreenDetailRepresentation } from "../../screen/util/screenUi";
 import Barrel from "../../../common/domain/barrel/Barrel";
+import ZeplinUriProvider from "../../openInZeplin/model/ZeplinUriProvider";
+import ApplicationType from "../../../common/domain/openInZeplin/model/ApplicationType";
+import { openInZeplin } from "../../openInZeplin/flow/openInZeplinFlow";
+import { getScreenUri, getComponentUri } from "../../../common/domain/openInZeplin/util/zeplinUris";
 
 async function startJumpToFlow() {
     // Check if user is logged, fail if not so
@@ -56,9 +59,11 @@ async function startJumpToFlow() {
         return;
     }
 
+    const { id: barrelId, type: barrelType } = barrel!;
+
     // Show jumpable picker
     const jumpableQuickPickProvider = new QuickPickProvider(
-        new JumpablesStore(barrel.id, barrel.type),
+        new JumpablesStore(barrelId, barrelType),
         jumpable => getQuickPickItem(jumpable, barrel!),
         localization.sidebar.jumpTo.noItemFound,
         showBarrelError
@@ -72,11 +77,15 @@ async function startJumpToFlow() {
         return;
     }
 
-    if (isComponent(jumpable)) {
-        await BarrelTreeDataProvider.revealComponent(jumpable, barrel);
-    } else {
-        await BarrelTreeDataProvider.revealScreen(jumpable, barrel);
-    }
+    const uriProvider: ZeplinUriProvider = {
+        getZeplinUri(applicationType: ApplicationType): string {
+            return isComponent(jumpable)
+                ? getComponentUri(barrelId, barrelType, jumpable._id, applicationType)
+                : getScreenUri(barrelId, jumpable._id, applicationType);
+        }
+    };
+
+    openInZeplin(uriProvider);
 }
 
 function getQuickPickItem(jumpable: Jumpable, barrel: Barrel): vscode.QuickPickItem {
