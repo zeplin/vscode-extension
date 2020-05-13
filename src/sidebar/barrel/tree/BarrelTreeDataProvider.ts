@@ -6,6 +6,7 @@ import { BarrelTreeItem } from "./BarrelTreeItem";
 import JumpToTreeItem from "../../jumpTo/tree/JumpToTreeItem";
 import Barrel from "../../../common/domain/barrel/Barrel";
 import SidebarRefresher from "../../refresh/util/SidebarRefresher";
+import AddBarrelTreeItem from "./AddBarrelTreeItem";
 
 class BarrelTreeDataProvider extends TreeDataProvider {
     protected viewId = "zeplin.views.barrels";
@@ -34,7 +35,11 @@ class BarrelTreeDataProvider extends TreeDataProvider {
 
     public getRoots(): TreeItem[] {
         const savedBarrels = getSavedBarrels();
-        return savedBarrels.length ? [JumpToTreeItem, ...savedBarrels.map(barrel => new BarrelTreeItem(barrel))] : [];
+        return savedBarrels.length ? [
+            JumpToTreeItem,
+            ...savedBarrels.map(barrel => new BarrelTreeItem(barrel)),
+            AddBarrelTreeItem
+        ] : [];
     }
 
     public revealBarrel(barrel: Barrel) {

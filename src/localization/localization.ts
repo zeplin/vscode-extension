@@ -157,6 +157,10 @@ const localization = {
             monthNameYear: (date: Date) => `${getMonthName(date.getMonth())} ${date.getFullYear()}`
         },
         barrel: {
+            addAnother: "Add another project/styleguide",
+            selectType: "Please select if you would like to add project or styleguide",
+            addProject: "Add project",
+            addStyleguide: "Add styleguide",
             added: (type: BarrelType) => `Added ${barrelLower(type)} to sidebar.`
         },
         jira: {

@@ -8,6 +8,26 @@ import Session from "../../../session/Session";
 import { pickBarrel } from "../../../common/domain/barrel/flow/barrelFlow";
 import BarrelTreeDataProvider from "../tree/BarrelTreeDataProvider";
 
+async function startAddBarrelToSidebarFlowWithTypeSelection() {
+    // Check if user is logged, fail if not so
+    if (!Session.isLoggedIn()) {
+        showNotLoggedInError();
+        return;
+    }
+
+    const result = await MessageBuilder.with(localization.sidebar.barrel.selectType)
+        .setModal(true)
+        .addOption(localization.sidebar.barrel.addProject)
+        .addOption(localization.sidebar.barrel.addStyleguide)
+        .show();
+    if (!result) {
+        return;
+    }
+
+    const type = result === localization.sidebar.barrel.addProject ? BarrelType.Project : BarrelType.Styleguide;
+    return startAddBarrelToSidebarFlow(type);
+}
+
 function startAddProjectToSidebarFlow() {
     return startAddBarrelToSidebarFlow(BarrelType.Project);
 }
@@ -46,6 +66,7 @@ async function startAddBarrelToSidebarFlow(type: BarrelType) {
 }
 
 export {
+    startAddBarrelToSidebarFlowWithTypeSelection,
     startAddProjectToSidebarFlow,
     startAddStyleguideToSidebarFlow
 };

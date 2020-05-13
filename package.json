@@ -147,6 +147,10 @@
                     "when": "false"
                 },
                 {
+                    "command": "zeplin.sidebar.addBarrel",
+                    "when": "false"
+                },
+                {
                     "command": "zeplin.sidebar.openJiraLink",
                     "when": "false"
                 },
@@ -213,6 +217,11 @@
             {
                 "command": "zeplin.sidebar.jumpTo",
                 "title": "Jump to screen or component",
+                "category": "Zeplin"
+            },
+            {
+                "command": "zeplin.sidebar.addBarrel",
+                "title": "Add another project/styleguide",
                 "category": "Zeplin"
             },
             {
