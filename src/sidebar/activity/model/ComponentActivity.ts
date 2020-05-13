@@ -1,6 +1,6 @@
 import ZeplinComponent from "../../../common/domain/zeplinComponent/model/ZeplinComponent";
 import Activity from "./Activity";
-import { getComponentUrl } from "../../../common/domain/openInZeplin/util/zeplinUrls";
+import { getComponentUri } from "../../../common/domain/openInZeplin/util/zeplinUris";
 import ApplicationType from "../../../common/domain/openInZeplin/model/ApplicationType";
 import BarrelType from "../../../common/domain/barrel/BarrelType";
 
@@ -10,6 +10,6 @@ export default class ComponentActivity extends Activity {
     }
 
     public getZeplinUrl(applicationType: ApplicationType): string {
-        return getComponentUrl(this.barrelId, this.barrelType, this.component._id, applicationType);
+        return getComponentUri(this.barrelId, this.barrelType, this.component._id, applicationType);
     }
 }

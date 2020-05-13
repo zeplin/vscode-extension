@@ -3,11 +3,11 @@ import configuration from "../../extension/configuration";
 import ApplicationType from "../model/ApplicationType";
 
 /**
- * Returns a project's Windows and Mac app url.
+ * Returns a project's Windows and Mac app uri.
  * @param projectId A project id.
  */
-function getProjectAppUrl(projectId: string): string {
-    return `${configuration.appUrl}project?pid=${projectId}`;
+function getProjectAppUri(projectId: string): string {
+    return `${configuration.appUri}project?pid=${projectId}`;
 }
 
 /**
@@ -19,11 +19,11 @@ function getProjectWebUrl(projectId: string): string {
 }
 
 /**
- * Returns a styleguide's Windows and Mac app url.
+ * Returns a styleguide's Windows and Mac app uri.
  * @param styleguideId A styleguides id.
  */
-function getStyleguideAppUrl(styleguideId: string): string {
-    return `${configuration.appUrl}styleguide?stid=${styleguideId}`;
+function getStyleguideAppUri(styleguideId: string): string {
+    return `${configuration.appUri}styleguide?stid=${styleguideId}`;
 }
 
 /**
@@ -34,19 +34,19 @@ function getStyleguideWebUrl(styleguideId: string): string {
     return `${configuration.webUrl}/styleguide/${styleguideId}`;
 }
 
-function getBarrelUrl(barrelId: string, barrelType: BarrelType, applicationType: ApplicationType) {
+function getBarrelUri(barrelId: string, barrelType: BarrelType, applicationType: ApplicationType) {
     return applicationType === ApplicationType.Web
         ? getBarrelWebUrl(barrelId, barrelType)
-        : getBarrelAppUrl(barrelId, barrelType);
+        : getBarrelAppUri(barrelId, barrelType);
 }
 
 /**
- * Returns a barrel's Windows and Mac app url.
+ * Returns a barrel's Windows and Mac app uri.
  * @param barrelId A barrel id.
  * @param barrelType A barrel type.
  */
-function getBarrelAppUrl(barrelId: string, barrelType: BarrelType): string {
-    return barrelType === BarrelType.Project ? getProjectAppUrl(barrelId) : getStyleguideAppUrl(barrelId);
+function getBarrelAppUri(barrelId: string, barrelType: BarrelType): string {
+    return barrelType === BarrelType.Project ? getProjectAppUri(barrelId) : getStyleguideAppUri(barrelId);
 }
 
 /**
@@ -58,23 +58,23 @@ function getBarrelWebUrl(barrelId: string, barrelType: BarrelType): string {
     return barrelType === BarrelType.Project ? getProjectWebUrl(barrelId) : getStyleguideWebUrl(barrelId);
 }
 
-function getComponentUrl(
+function getComponentUri(
     barrelId: string, barrelType: BarrelType, componentId: string, applicationType: ApplicationType
 ) {
     return applicationType === ApplicationType.Web
         ? getComponentWebUrl(barrelId, barrelType, componentId)
-        : getComponentAppUrl(barrelId, barrelType, componentId);
+        : getComponentAppUri(barrelId, barrelType, componentId);
 }
 
 /**
- * Returns a component's Windows and Mac app url.
+ * Returns a component's Windows and Mac app uri.
  * @param barrelId A barrel id.
  * @param barrelType A barrel type.
  * @param componentId A component id.
  */
-function getComponentAppUrl(barrelId: string, barrelType: BarrelType, componentId: string): string {
+function getComponentAppUri(barrelId: string, barrelType: BarrelType, componentId: string): string {
     const barrelIdKey = barrelType === BarrelType.Project ? "pid" : "stid";
-    return `${configuration.appUrl}components?coids=${componentId}&${barrelIdKey}=${barrelId}`;
+    return `${configuration.appUri}components?coids=${componentId}&${barrelIdKey}=${barrelId}`;
 }
 
 /**
@@ -88,12 +88,12 @@ function getComponentWebUrl(barrelId: string, barrelType: BarrelType, componentI
     return `${getBarrelWebUrl(barrelId, barrelType)}${styleguideLabel}/components?coid=${componentId}`;
 }
 
-function getComponentSectionUrl(
+function getComponentSectionUri(
     barrelId: string, barrelType: BarrelType, componentSectionId: string, applicationType: ApplicationType
 ) {
     return applicationType === ApplicationType.Web
         ? getComponentSectionWebUrl(barrelId, barrelType, componentSectionId)
-        : getComponentSectionAppUrl(barrelId, barrelType, componentSectionId);
+        : getComponentSectionAppUri(barrelId, barrelType, componentSectionId);
 }
 
 function getComponentSectionWebUrl(barrelId: string, barrelType: BarrelType, componentSectionId: string) {
@@ -101,21 +101,21 @@ function getComponentSectionWebUrl(barrelId: string, barrelType: BarrelType, com
     return `${getBarrelWebUrl(barrelId, barrelType)}${styleguideLabel}/components?seid=${componentSectionId}`;
 }
 
-function getComponentSectionAppUrl(barrelId: string, barrelType: BarrelType, componentSectionId: string) {
+function getComponentSectionAppUri(barrelId: string, barrelType: BarrelType, componentSectionId: string) {
     const barrelIdKey = barrelType === BarrelType.Project ? "pid" : "stid";
-    return `${configuration.appUrl}components?cseid=${componentSectionId}&${barrelIdKey}=${barrelId}`;
+    return `${configuration.appUri}components?cseid=${componentSectionId}&${barrelIdKey}=${barrelId}`;
 }
 
 /**
- * Returns a screen's app url
+ * Returns a screen's app uri
  * @param projectId A project id.
  * @param screenId A screen id.
- * @param applicationType Type of app to create url of.
+ * @param applicationType Type of app to create uri of.
  */
-function getScreenUrl(projectId: string, screenId: string, applicationType: ApplicationType): string {
+function getScreenUri(projectId: string, screenId: string, applicationType: ApplicationType): string {
     return applicationType === ApplicationType.Web
         ? getScreenWebUrl(projectId, screenId)
-        : getScreenAppUrl(projectId, screenId);
+        : getScreenAppUri(projectId, screenId);
 }
 
 /**
@@ -128,24 +128,24 @@ function getScreenWebUrl(projectId: string, screenId: string): string {
 }
 
 /**
- * Returns a screen's Mac app url
+ * Returns a screen's Mac app uri
  * @param projectId A project id.
  * @param screenId A screen id.
  */
-function getScreenAppUrl(projectId: string, screenId: string): string {
-    return `${configuration.appUrl}screen?pid=${projectId}&sid=${screenId}`;
+function getScreenAppUri(projectId: string, screenId: string): string {
+    return `${configuration.appUri}screen?pid=${projectId}&sid=${screenId}`;
 }
 
 /**
- * Returns a screen section's app url
+ * Returns a screen section's app uri
  * @param projectId A project id.
  * @param screenSectionId A screen section id.
- * @param applicationType Type of app to create url of.
+ * @param applicationType Type of app to create uri of.
  */
-function getScreenSectionUrl(projectId: string, screenSectionId: string, applicationType: ApplicationType): string {
+function getScreenSectionUri(projectId: string, screenSectionId: string, applicationType: ApplicationType): string {
     return applicationType === ApplicationType.Web
         ? getScreenSectionWebUrl(projectId, screenSectionId)
-        : getScreenSectionAppUrl(projectId, screenSectionId);
+        : getScreenSectionAppUri(projectId, screenSectionId);
 }
 
 /**
@@ -158,22 +158,22 @@ function getScreenSectionWebUrl(projectId: string, screenSectionId: string): str
 }
 
 /**
- * Returns a screen section's Mac app url
+ * Returns a screen section's Mac app uri
  * @param projectId A project id.
  * @param screenSectionId A screen section id.
  */
-function getScreenSectionAppUrl(projectId: string, screenSectionId: string): string {
-    return `${configuration.appUrl}project?pid=${projectId}&seid=${screenSectionId}`;
+function getScreenSectionAppUri(projectId: string, screenSectionId: string): string {
+    return `${configuration.appUri}project?pid=${projectId}&seid=${screenSectionId}`;
 }
 
 export {
-    getBarrelUrl,
-    getBarrelAppUrl,
+    getBarrelUri,
+    getBarrelAppUri,
     getBarrelWebUrl,
-    getComponentUrl,
-    getComponentAppUrl,
+    getComponentUri,
+    getComponentAppUri,
     getComponentWebUrl,
-    getComponentSectionUrl,
-    getScreenUrl,
-    getScreenSectionUrl
+    getComponentSectionUri,
+    getScreenUri,
+    getScreenSectionUri
 };

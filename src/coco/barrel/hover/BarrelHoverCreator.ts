@@ -6,7 +6,7 @@ import { getBarrelDetailRepresentation } from "../../../common/domain/barrel/uti
 import HoverBuilder from "../../../common/vscode/hover/HoverBuilder";
 import { getConfig } from "../../config/util/configUtil";
 import localization from "../../../localization";
-import { getBarrelAppUrl, getBarrelWebUrl } from "../../../common/domain/openInZeplin/util/zeplinUrls";
+import { getBarrelAppUri, getBarrelWebUrl } from "../../../common/domain/openInZeplin/util/zeplinUris";
 import { boldenForMarkdown, getMarkdownCommand } from "../../../common/vscode/hover/hoverUtil";
 import BaseError from "../../../common/domain/error/BaseError";
 import { ErrorCodes } from "../../../common/domain/error/errorUi";
@@ -28,7 +28,7 @@ class BarrelHoverCreator implements ConfigHoverCreator {
     public async create(configPath: string, barrelId: string): Promise<vscode.Hover> {
         const { data, errors } = await BarrelDetailsStoreProvider.get(barrelId, this.barrelType).get();
 
-        const appUrl = getBarrelAppUrl(barrelId, this.barrelType);
+        const appUri = getBarrelAppUri(barrelId, this.barrelType);
         const webUrl = getBarrelWebUrl(barrelId, this.barrelType);
         if (errors && errors.length) {
             const builder = new HoverBuilder().append(this.getErrorMessage(errors[0]));
@@ -36,7 +36,7 @@ class BarrelHoverCreator implements ConfigHoverCreator {
                 builder
                     .appendLine()
                     .appendLine()
-                    .append(getOpenInZeplinLinks(appUrl, webUrl));
+                    .append(getOpenInZeplinLinks(appUri, webUrl));
             }
             return builder.build();
         } else {
@@ -60,7 +60,7 @@ class BarrelHoverCreator implements ConfigHoverCreator {
                 .append(detail)
                 .appendLine()
                 .appendLine()
-                .append(getOpenInZeplinLinks(appUrl, webUrl))
+                .append(getOpenInZeplinLinks(appUri, webUrl))
                 .build();
         }
     }

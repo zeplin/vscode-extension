@@ -1,5 +1,5 @@
 declare let WPC__API_URL: string;
-declare let WPC__APP_URL: string;
+declare let WPC__APP_URI: string;
 declare let WPC__WEB_URL: string;
 declare let WPC__IMAGE_SERVER_URL: string;
 declare let WPC__OAUTH_CLIENT_ID: string;
@@ -11,9 +11,9 @@ export default {
      */
     apiUrl: WPC__API_URL,
     /**
-     * Zeplin Windows and Mac app url.
+     * Zeplin Windows and Mac app uri.
      */
-    appUrl: WPC__APP_URL,
+    appUri: WPC__APP_URI,
     /**
      * Zepin Web app url.
      */
