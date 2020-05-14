@@ -1,4 +1,3 @@
-import * as vscode from "vscode";
 import MessageBuilder from "../../../common/vscode/message/MessageBuilder";
 import { showNotLoggedInError, showBarrelError } from "../../../common/domain/error/errorUi";
 import { getSavedBarrels } from "../../barrel/util/barrelUtil";
@@ -13,7 +12,6 @@ import Session from "../../../session/Session";
 import JumpablesStore, { Jumpable } from "../data/JumpableItemsStore";
 import ZeplinComponent from "../../../common/domain/zeplinComponent/model/ZeplinComponent";
 import { getScreenDetailRepresentation } from "../../screen/util/screenUi";
-import Barrel from "../../../common/domain/barrel/Barrel";
 import ZeplinUriProvider from "../../openInZeplin/model/ZeplinUriProvider";
 import ApplicationType from "../../../common/domain/openInZeplin/model/ApplicationType";
 import { openInZeplin } from "../../openInZeplin/flow/openInZeplinFlow";
@@ -64,7 +62,12 @@ async function startJumpToFlow() {
     // Show jumpable picker
     const jumpableQuickPickProvider = new QuickPickProvider(
         new JumpablesStore(barrelId, barrelType),
-        jumpable => getQuickPickItem(jumpable, barrel!),
+        jumpable => ({
+            label: jumpable.name,
+            detail: isComponent(jumpable)
+                ? getZeplinComponentDetailRepresentation(jumpable, true)
+                : getScreenDetailRepresentation(jumpable, barrel!)
+        }),
         localization.sidebar.jumpTo.noItemFound,
         showBarrelError
     );
@@ -86,22 +89,6 @@ async function startJumpToFlow() {
     };
 
     openInZeplin(uriProvider);
-}
-
-function getQuickPickItem(jumpable: Jumpable, barrel: Barrel): vscode.QuickPickItem {
-    if (!isComponent(jumpable)) {
-        return {
-            label: jumpable.name,
-            description: localization.sidebar.jumpTo.screen,
-            detail: getScreenDetailRepresentation(jumpable, barrel)
-        };
-    } else {
-        return {
-            label: jumpable.name,
-            description: localization.sidebar.jumpTo.component,
-            detail: getZeplinComponentDetailRepresentation(jumpable)
-        };
-    }
 }
 
 /**

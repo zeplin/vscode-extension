@@ -170,9 +170,7 @@ const localization = {
         jumpTo: {
             jumpToItem: "Jump to screen or component",
             selectItem: "Select screen or component",
-            noItemFound: "No screen or component found",
-            screen: "Screen",
-            component: "Component"
+            noItemFound: "No screen or component found"
         },
         openInZeplin: {
             selectPreferred: "Select preferred application type to open items in Zeplin",
@@ -194,7 +192,6 @@ const localization = {
             noneFound: "No screen found"
         },
         zeplinComponent: {
-            zeplinComponents: "Components",
             localStyleguide: "Local Styleguide",
             noneFound: "No component found"
         },
@@ -212,6 +209,9 @@ const localization = {
             add: (type: BarrelType) => `Add ${barrelLower(type)}`,
             alreadyAdded: (type: BarrelType) => `Selected ${barrelLower(type)} is already added.`,
             barrel
+        },
+        zeplinComponent: {
+            zeplinComponents: "Components"
         },
         ok: "OK",
         cancel: "Cancel",
