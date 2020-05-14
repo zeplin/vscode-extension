@@ -11,7 +11,7 @@ import localization from "../../../localization";
 export default class ZeplinComponentsTreeItem extends TreeItem {
     public constructor(private barrel: Barrel, parent: TreeItem | undefined) {
         super(
-            localization.sidebar.zeplinComponent.zeplinComponents,
+            localization.common.zeplinComponent.zeplinComponents,
             parent,
             undefined,
             vscode.TreeItemCollapsibleState.Collapsed
