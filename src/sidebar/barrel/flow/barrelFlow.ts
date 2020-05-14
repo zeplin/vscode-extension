@@ -7,6 +7,20 @@ import { showNotLoggedInError } from "../../../common/domain/error/errorUi";
 import Session from "../../../session/Session";
 import { pickBarrel } from "../../../common/domain/barrel/flow/barrelFlow";
 import BarrelTreeDataProvider from "../tree/BarrelTreeDataProvider";
+import StaticStore from "../../../common/domain/store/StaticStore";
+import QuickPickProvider from "../../../common/vscode/quickPick/QuickPickerProvider";
+
+type BarrelTypeLabel = { label: string; type: BarrelType };
+
+function getBarrelTypeStore(): StaticStore<BarrelTypeLabel[]> {
+    return new StaticStore<BarrelTypeLabel[]>([{
+        label: localization.sidebar.barrel.addProject,
+        type: BarrelType.Project
+    }, {
+        label: localization.sidebar.barrel.addStyleguide,
+        type: BarrelType.Styleguide
+    }]);
+}
 
 async function startAddBarrelToSidebarFlowWithTypeSelection() {
     // Check if user is logged, fail if not so
@@ -15,17 +29,21 @@ async function startAddBarrelToSidebarFlowWithTypeSelection() {
         return;
     }
 
-    const result = await MessageBuilder.with(localization.sidebar.barrel.selectType)
-        .setModal(true)
-        .addOption(localization.sidebar.barrel.addProject)
-        .addOption(localization.sidebar.barrel.addStyleguide)
-        .show();
-    if (!result) {
+    // Show barrel type picker
+    const barrelTypeQuickPickProvider = new QuickPickProvider(
+        getBarrelTypeStore(),
+        ({ label }) => ({ label })
+    );
+    barrelTypeQuickPickProvider.get().title = localization.sidebar.barrel.addAnother;
+    barrelTypeQuickPickProvider.get().placeholder = localization.sidebar.barrel.selectType;
+    const barrelTypeLabel = await barrelTypeQuickPickProvider.startSingleSelection();
+
+    // Fail if no barrel type is selected
+    if (!barrelTypeLabel) {
         return;
     }
 
-    const type = result === localization.sidebar.barrel.addProject ? BarrelType.Project : BarrelType.Styleguide;
-    return startAddBarrelToSidebarFlow(type);
+    return startAddBarrelToSidebarFlow(barrelTypeLabel.type);
 }
 
 function startAddProjectToSidebarFlow() {
