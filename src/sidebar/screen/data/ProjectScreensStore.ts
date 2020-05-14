@@ -6,15 +6,15 @@ import BarrelType from "../../../common/domain/barrel/BarrelType";
 import ResponseScreenSection from "../../../common/domain/screen/model/ResponseScreenSection";
 import Screen from "../model/Screen";
 import ProjectScreens from "../model/ProjectScreens";
-import Jira from "../../../common/domain/jira/model/Jira";
 import ResponseScreen from "../model/ResponseScreen";
+import BarrelDetails from "../../../common/domain/zeplinComponent/model/BarrelDetails";
 
 export default class ProjectScreensStore implements Store<ProjectScreens> {
     public constructor(private projectId: string) { }
 
     public get = async (): Promise<Result<ProjectScreens>> => {
         const [
-            { data: barrelDetails, errors: barrelErrors },
+            { data: barrel, errors: barrelErrors },
             { data: screens, errors: screensErrors }
         ] = await Promise.all([
             BarrelDetailsStoreProvider.get(this.projectId, BarrelType.Project).get(),
@@ -26,17 +26,17 @@ export default class ProjectScreensStore implements Store<ProjectScreens> {
                 errors: barrelErrors ?? screensErrors
             };
         } else {
-            const [defaultSection, ...sections] = barrelDetails!.screenSections!;
-            const { ofScreenSections: screenSectionJiras, ofScreens: screenJiras } = barrelDetails!.itemJiras;
+            const [defaultSection, ...sections] = barrel!.screenSections!;
+            const { ofScreenSections: screenSectionJiras } = barrel!.itemJiras;
 
             return {
                 data: {
-                    screens: this.getSectionScreens(defaultSection, screens!, screenJiras, true),
+                    screens: this.getSectionScreens(defaultSection, screens!, barrel!, true),
                     sections: sections.map(section => ({
                         id: section._id,
                         name: section.name,
                         description: section.description,
-                        screens: this.getSectionScreens(section, screens!, screenJiras, false),
+                        screens: this.getSectionScreens(section, screens!, barrel!, false),
                         jiras: screenSectionJiras.filter(jira => jira.itemId === section._id)
                     }))
                 }
@@ -45,8 +45,10 @@ export default class ProjectScreensStore implements Store<ProjectScreens> {
     };
 
     private getSectionScreens(
-        section: ResponseScreenSection, screens: ResponseScreen[], jiras: Jira[], defaultSection: boolean
+        section: ResponseScreenSection, screens: ResponseScreen[], barrel: BarrelDetails, defaultSection: boolean
     ): Screen[] {
+        const { id: barrelId, name: barrelName, itemJiras: { ofScreens: jiras } } = barrel;
+
         return section.screens
             .map(screenId => screens.findIndex(screen => screen._id === screenId))
             .filter(index => index >= 0)
@@ -55,6 +57,8 @@ export default class ProjectScreensStore implements Store<ProjectScreens> {
                 _id: screen._id,
                 description: screen.description,
                 name: screen.name,
+                barrelId,
+                barrelName,
                 sectionId: defaultSection ? undefined : section._id,
                 sectionName: defaultSection ? undefined : section.name,
                 // Default section screens are regarded as sectionless
