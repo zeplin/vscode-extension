@@ -19,10 +19,9 @@ function getContextProvider(barrel: Barrel): TreeItemContextProvider {
 }
 
 export class BarrelTreeItem extends TreeItem implements ZeplinUriProvider {
-    public iconPath = this.barrel.thumbnail ? vscode.Uri.parse(this.barrel.thumbnail, true) : undefined;
-
     public constructor(public barrel: Barrel) {
         super(barrel.name, undefined, getContextProvider(barrel), vscode.TreeItemCollapsibleState.Collapsed);
+        this.setRemoteIconPath(barrel.thumbnail);
     }
 
     public getChildren(): TreeItem[] {

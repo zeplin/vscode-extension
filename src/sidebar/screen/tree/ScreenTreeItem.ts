@@ -1,4 +1,3 @@
-import * as vscode from "vscode";
 import Screen from "../model/Screen";
 import TreeItem from "../../../common/vscode/tree/TreeItem";
 import TreeItemContextProvider from "../../../common/vscode/tree/TreeItemContextProvider";
@@ -22,10 +21,9 @@ function getContextProvider(screen: Screen): TreeItemContextProvider {
 }
 
 export default class ScreenTreeItem extends TreeItem implements ZeplinUriProvider {
-    public iconPath = vscode.Uri.parse(this.screen.latestVersion.snapshot.url, true);
-
     public constructor(public screen: Screen, public project: Barrel, parent: TreeItem | undefined) {
         super(screen.name, parent, getContextProvider(screen));
+        this.setRemoteIconPath(screen.latestVersion.snapshot.url);
     }
 
     public getZeplinUri(applicationType: ApplicationType): string {

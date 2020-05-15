@@ -14,10 +14,9 @@ const contextProvider = new TreeItemContextProvider(
 );
 
 export default class BarrelZeplinComponentsTreeItem extends TreeItem implements ZeplinUriProvider {
-    public iconPath = this.barrel.thumbnail ? vscode.Uri.parse(this.barrel.thumbnail, true) : undefined;
-
     public constructor(public barrel: BarrelDetails, title: string | undefined, parent: TreeItem | undefined) {
         super(title ?? barrel.name, parent, contextProvider, vscode.TreeItemCollapsibleState.Collapsed);
+        this.setRemoteIconPath(barrel.thumbnail);
     }
 
     public getChildren(): TreeItem[] {
