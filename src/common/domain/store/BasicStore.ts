@@ -40,6 +40,10 @@ implements Store<TData, TError>, CacheHolder, vscode.Disposable {
         }
     };
 
+    public getCache() {
+        return this.cache;
+    }
+
     private async getResultFromFetchPromise(): Promise<Result<TData, TError>> {
         const result = await this.fetchPromise!;
         if (result instanceof BaseError) {

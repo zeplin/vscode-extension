@@ -18,6 +18,11 @@ class ScreensStoreProvider implements CacheHolder {
         Object.keys(this.cache).forEach(key => this.cache[key].dispose());
         this.cache = {};
     }
+
+    public clearCacheFor(id: string) {
+        this.cache[id]?.dispose();
+        delete this.cache[id];
+    }
 }
 
 export default new ScreensStoreProvider();

@@ -27,6 +27,16 @@ class BarrelDetailsStoreProvider implements CacheHolder {
         Object.keys(this.cache).forEach(key => this.cache[key].dispose());
         this.cache = {};
     }
+
+    public clearCacheFor(id: string) {
+        let currentId: string | undefined = id;
+        while (currentId && this.cache[currentId]) {
+            const nextId: string | undefined = this.cache[currentId].getCache()?.data?.parentId;
+            this.cache[currentId].dispose();
+            delete this.cache[currentId];
+            currentId = nextId;
+        }
+    }
 }
 
 export default new BarrelDetailsStoreProvider();
