@@ -63,12 +63,12 @@
         "viewsWelcome": [
             {
                 "view": "zeplin.views.barrels",
-                "contents": "You are not logged in\n[Connect Zeplin account](command:zeplin.login)\n[Connect with token](command:zeplin.manualLogin)",
+                "contents": "Login to access your Zeplin resources here.\n[Login to Zeplin](command:zeplin.login)\n[Login with token](command:zeplin.manualLogin)",
                 "when": "!zeplin:loggedIn"
             },
             {
                 "view": "zeplin.views.barrels",
-                "contents": "No projects or styleguides added\n[Add project](command:zeplin.sidebar.addProject)\n[Add styleguide](command:zeplin.sidebar.addStyleguide)",
+                "contents": "To get started, add a project or styleguide.\n[Add project](command:zeplin.sidebar.addProject)\n[Add styleguide](command:zeplin.sidebar.addStyleguide)",
                 "when": "zeplin:loggedIn"
             }
         ],
@@ -201,12 +201,12 @@
             },
             {
                 "command": "zeplin.sidebar.addProject",
-                "title": "Add project",
+                "title": "Add Project",
                 "category": "Zeplin"
             },
             {
                 "command": "zeplin.sidebar.addStyleguide",
-                "title": "Add styleguide",
+                "title": "Add Styleguide",
                 "category": "Zeplin"
             },
             {
@@ -253,17 +253,17 @@
             },
             {
                 "command": "zeplin.sidebar.pinScreen",
-                "title": "Add screen",
+                "title": "Add Screen",
                 "category": "Zeplin"
             },
             {
                 "command": "zeplin.sidebar.pinComponent",
-                "title": "Add component",
+                "title": "Add Component",
                 "category": "Zeplin"
             },
             {
                 "command": "zeplin.sidebar.unpinAll",
-                "title": "Remove all",
+                "title": "Remove All",
                 "category": "Zeplin"
             },
             {
