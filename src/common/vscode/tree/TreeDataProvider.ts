@@ -16,6 +16,10 @@ export default abstract class TreeDataProvider implements vscode.TreeDataProvide
         this.eventEmitter.fire();
     }
 
+    public refreshItem(item?: TreeItem) {
+        this.eventEmitter.fire(item);
+    }
+
     public getTreeItem(item: TreeItem): TreeItem {
         return item;
     }

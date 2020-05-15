@@ -2,12 +2,21 @@ import fetch from "node-fetch";
 import configuration from "../extension/configuration";
 import { snakeCaseToPascalCase } from "../../general/stringUtil";
 
+const cache: { [key: string]: string | undefined } = {};
+
+function getCachedCroppedImageUrl(url: string): string | undefined {
+    return cache[url];
+}
+
 async function getCroppedImageUrl(url: string, width: number, height: number): Promise<string | undefined> {
     try {
-        return (await fetch(
+        const response = (await fetch(
             `${configuration.imageServerUrl}/${encodeURIComponent(url)}` +
             `?w=${width}&cropTop=0&cropLeft=0&cropWidth=${width}&cropHeight=${height}`
-        )).url;
+        ));
+
+        cache[url] = response.ok ? response.url : undefined;
+        return cache[url];
     } catch {
         return undefined;
     }
@@ -21,6 +30,7 @@ function getEmotarUrl(emotar: string) {
 }
 
 export {
+    getCachedCroppedImageUrl,
     getCroppedImageUrl,
     getEmotarUrl
 };
