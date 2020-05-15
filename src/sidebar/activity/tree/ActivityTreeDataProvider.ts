@@ -12,15 +12,6 @@ import SidebarRefresher from "../../refresh/util/SidebarRefresher";
 class ActivityTreeDataProvider extends TreeDataProvider {
     protected viewId = "zeplin.views.activity";
     protected showCollapseAll = true;
-    private eventEmitter = new vscode.EventEmitter<TreeItem>();
-
-    public get onDidChangeTreeData(): vscode.Event<TreeItem> {
-        return this.eventEmitter.event;
-    }
-
-    public refresh() {
-        this.eventEmitter.fire();
-    }
 
     public register(): vscode.Disposable {
         const disposables = [super.register()];

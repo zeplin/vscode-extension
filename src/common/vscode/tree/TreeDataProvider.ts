@@ -6,6 +6,15 @@ export default abstract class TreeDataProvider implements vscode.TreeDataProvide
     protected treeView?: vscode.TreeView<TreeItem>;
     protected abstract viewId: string;
     protected showCollapseAll = false;
+    private eventEmitter = new vscode.EventEmitter<TreeItem>();
+
+    public get onDidChangeTreeData(): vscode.Event<TreeItem> {
+        return this.eventEmitter.event;
+    }
+
+    public refresh() {
+        this.eventEmitter.fire();
+    }
 
     public getTreeItem(item: TreeItem): TreeItem {
         return item;

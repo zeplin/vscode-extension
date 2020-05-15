@@ -11,15 +11,6 @@ import AddBarrelTreeItem from "./AddBarrelTreeItem";
 class BarrelTreeDataProvider extends TreeDataProvider {
     protected viewId = "zeplin.views.barrels";
     protected showCollapseAll = true;
-    private eventEmitter = new vscode.EventEmitter<TreeItem>();
-
-    public get onDidChangeTreeData(): vscode.Event<TreeItem> {
-        return this.eventEmitter.event;
-    }
-
-    public refresh() {
-        this.eventEmitter.fire();
-    }
 
     public register(): vscode.Disposable {
         const disposables = [super.register()];
