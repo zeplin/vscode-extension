@@ -1,4 +1,3 @@
-import * as vscode from "vscode";
 import TreeItem from "../../../common/vscode/tree/TreeItem";
 import ResponseZeplinComponent from "../../../common/domain/zeplinComponent/model/ResponseZeplinComponent";
 import Barrel from "../../../common/domain/barrel/Barrel";
@@ -18,12 +17,11 @@ function getContextProvider(zeplinComponent: ResponseZeplinComponent): TreeItemC
 }
 
 export default class ZeplinComponentTreeItem extends TreeItem implements ZeplinUriProvider {
-    public iconPath = vscode.Uri.parse(this.zeplinComponent.latestVersion.snapshot.url);
-
     public constructor(
         public zeplinComponent: ResponseZeplinComponent, public barrel: Barrel, parent: TreeItem | undefined
     ) {
         super(zeplinComponent.name, parent, getContextProvider(zeplinComponent));
+        this.setRemoteIconPath(zeplinComponent.latestVersion.snapshot.url);
     }
 
     public getZeplinUri(applicationType: ApplicationType): string {

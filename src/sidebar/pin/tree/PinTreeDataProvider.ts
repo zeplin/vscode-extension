@@ -14,15 +14,10 @@ import NoPinnedItemTreeItem from "./NoPinnedItemTreeItem";
 
 class PinTreeDataProvider extends TreeDataProvider {
     protected viewId = "zeplin.views.pinned";
-    private eventEmitter = new vscode.EventEmitter<TreeItem>();
-
-    public get onDidChangeTreeData(): vscode.Event<TreeItem> {
-        return this.eventEmitter.event;
-    }
 
     public refresh() {
         updateAnyPinnedItemsContext();
-        this.eventEmitter.fire();
+        super.refresh();
     }
 
     public register(): vscode.Disposable {
