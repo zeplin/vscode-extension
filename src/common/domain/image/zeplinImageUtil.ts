@@ -2,14 +2,14 @@ import fetch from "node-fetch";
 import configuration from "../extension/configuration";
 import { snakeCaseToPascalCase } from "../../general/stringUtil";
 
-const cache: { [key: string]: string | undefined } = {};
-
-function getCachedCroppedImageUrl(url: string): string | undefined {
-    return cache[url];
-}
+let cache: { [key: string]: string | undefined } = {};
 
 async function getCroppedImageUrl(url: string, width: number, height: number): Promise<string | undefined> {
     try {
+        if (cache[url]) {
+            return cache[url];
+        }
+
         const response = (await fetch(
             `${configuration.imageServerUrl}/${encodeURIComponent(url)}` +
             `?w=${width}&cropTop=0&cropLeft=0&cropWidth=${width}&cropHeight=${height}`
@@ -22,6 +22,10 @@ async function getCroppedImageUrl(url: string, width: number, height: number): P
     }
 }
 
+function resetCroppedImageUrlCache() {
+    cache = {};
+}
+
 function getEmotarUrl(emotar: string) {
     const emotarFileName = emotar === "random"
         ? "icRandom.svg"
@@ -30,7 +34,7 @@ function getEmotarUrl(emotar: string) {
 }
 
 export {
-    getCachedCroppedImageUrl,
     getCroppedImageUrl,
+    resetCroppedImageUrlCache,
     getEmotarUrl
 };

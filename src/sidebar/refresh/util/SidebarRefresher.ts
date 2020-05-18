@@ -3,6 +3,7 @@ import ScreensStoreProvider from "../../screen/data/ScreensStoreProvider";
 import BarrelTreeDataProvider from "../../barrel/tree/BarrelTreeDataProvider";
 import ActivityTreeDataProvider from "../../activity/tree/ActivityTreeDataProvider";
 import { MS_IN_HOUR } from "../../../common/general/dateTimeUtil";
+import { resetCroppedImageUrlCache } from "../../../common/domain/image/zeplinImageUtil";
 
 class SidebarRefresher {
     private lastRefreshRequested?: number;
@@ -12,6 +13,7 @@ class SidebarRefresher {
 
         BarrelDetailsStoreProvider.clearCache();
         ScreensStoreProvider.clearCache();
+        resetCroppedImageUrlCache();
 
         BarrelTreeDataProvider.refresh();
         ActivityTreeDataProvider.refresh();

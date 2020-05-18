@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 import TreeItemContextProvider from "./TreeItemContextProvider";
-import { getCroppedImageUrl, getCachedCroppedImageUrl } from "../../domain/image/zeplinImageUtil";
+import { getCroppedImageUrl } from "../../domain/image/zeplinImageUtil";
 import { refreshItem } from "../../../sidebar/refresh/util/refreshUtil";
 
 const ICON_SIZE = 32;
@@ -30,11 +30,6 @@ export default class TreeItem extends vscode.TreeItem {
 
     protected async setRemoteIconPath(path: string | undefined) {
         if (path) {
-            const cachedCroppedImageUrl = getCachedCroppedImageUrl(path);
-            if (cachedCroppedImageUrl) {
-                this.iconPath = vscode.Uri.parse(cachedCroppedImageUrl);
-            }
-
             const croppedImageUrl = await getCroppedImageUrl(path, ICON_SIZE, ICON_SIZE);
             this.iconPath = croppedImageUrl ? vscode.Uri.parse(croppedImageUrl) : undefined;
 
