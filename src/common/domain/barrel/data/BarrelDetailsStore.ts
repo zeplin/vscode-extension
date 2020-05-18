@@ -31,7 +31,7 @@ export default abstract class BarrelDetailsStore<T extends BarrelDetailsResponse
             thumbnail: response.thumbnail,
             parentId: this.getParent(response),
             description: response.description,
-            components: getComponentsFromSections(response),
+            components: getComponentsFromSections(response, this.type),
             componentSections: response.componentSections,
             screenSections: response.sections,
             jiras: getProjectJiras(response),

@@ -1,11 +1,12 @@
 import ZeplinComponentSection from "../../../common/domain/zeplinComponent/model/ZeplinComponentSection";
 import ZeplinComponent from "../../../common/domain/zeplinComponent/model/ZeplinComponent";
 import BarrelDetailsResponse from "../../../common/domain/barrel/model/BarrelDetailsResponse";
+import BarrelType from "../../../common/domain/barrel/BarrelType";
 
-function getComponentsFromSections(barrel: BarrelDetailsResponse): ZeplinComponent[] {
+function getComponentsFromSections(barrel: BarrelDetailsResponse, barrelType: BarrelType): ZeplinComponent[] {
     return getComponentsFromSectionsAdditive(
-        barrel._id,
-        barrel.name,
+        barrel,
+        barrelType,
         barrel.componentSections.map(section => ({
             section,
             nameBreadcrumbs: [],
@@ -17,13 +18,14 @@ function getComponentsFromSections(barrel: BarrelDetailsResponse): ZeplinCompone
 }
 
 function getComponentsFromSectionsAdditive( // eslint-disable-line max-params
-    barrelId: string,
-    barrelName: string,
+    barrel: BarrelDetailsResponse,
+    barrelType: BarrelType,
     sectionWithBreadcrumbsArray: SectionWithBreadcrumbs[],
     defaultSection: boolean,
     accumulator: ZeplinComponent[]
 ): ZeplinComponent[] {
     if (sectionWithBreadcrumbsArray && sectionWithBreadcrumbsArray.length) {
+        const { _id: barrelId, name: barrelName } = barrel;
         const { section, nameBreadcrumbs, idBreadcrumbs } = sectionWithBreadcrumbsArray.shift()!;
 
         accumulator.push(
@@ -34,6 +36,7 @@ function getComponentsFromSectionsAdditive( // eslint-disable-line max-params
                     name: component.name,
                     latestVersion: component.latestVersion,
                     barrelId,
+                    barrelType,
                     barrelName,
                     sectionIds: defaultSection ? idBreadcrumbs : idBreadcrumbs.concat(section._id),
                     sectionNames: defaultSection ? nameBreadcrumbs : nameBreadcrumbs.concat(section.name)
@@ -54,7 +57,7 @@ function getComponentsFromSectionsAdditive( // eslint-disable-line max-params
             );
         }
 
-        return getComponentsFromSectionsAdditive(barrelId, barrelName, sectionWithBreadcrumbsArray, false, accumulator);
+        return getComponentsFromSectionsAdditive(barrel, barrelType, sectionWithBreadcrumbsArray, false, accumulator);
     }
 
     return accumulator;
