@@ -3,6 +3,8 @@ import ContextProvider from "../../../common/vscode/extension/ContextProvider";
 import BarrelTreeDataProvider from "../tree/BarrelTreeDataProvider";
 import ActivityTreeDataProvider from "../../activity/tree/ActivityTreeDataProvider";
 import { removeBarrelItemsFromPinnedItems } from "../../pin/util/pinUtil";
+import ScreensStoreProvider from "../../screen/data/ScreensStoreProvider";
+import BarrelDetailsStoreProvider from "../../../common/domain/zeplinComponent/data/BarrelDetailsStoreProvider";
 
 const KEY_SAVED_BARRELS = "sidebar.savedBarrels";
 
@@ -35,6 +37,8 @@ function saveBarrel(barrel: Barrel) {
 function removeBarrel(barrel: Barrel) {
     const barrels = getSavedBarrels().filter(savedBarrel => savedBarrel.id !== barrel.id);
     saveBarrels(barrels);
+    ScreensStoreProvider.clearCacheFor(barrel.id);
+    BarrelDetailsStoreProvider.clearCacheFor(barrel.id);
     removeBarrelItemsFromPinnedItems(barrel);
 }
 
