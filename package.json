@@ -363,8 +363,14 @@
                 "zeplin.preferredApplicationType": {
                     "type": "string",
                     "default": "Web",
-                    "enum": ["Web", "App"],
-                    "enumDescriptions": ["Open in Web", "Open in App"],
+                    "enum": [
+                        "Web",
+                        "App"
+                    ],
+                    "enumDescriptions": [
+                        "Open in Web",
+                        "Open in App"
+                    ],
                     "markdownDescription": "Specifies where to open Zeplin resources",
                     "scope": "resource"
                 },
@@ -469,7 +475,7 @@
         "eslint-import-resolver-typescript": "^1.1.1",
         "glob": "^7.1.6",
         "husky": "^3.1.0",
-        "mocha": "^6.2.2",
+        "mocha": "^7.1.2",
         "node-loader": "^0.6.0",
         "ts-loader": "^6.2.1",
         "typescript": "^3.7.4",
