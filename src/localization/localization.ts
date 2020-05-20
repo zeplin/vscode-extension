@@ -157,6 +157,8 @@ const localization = {
             monthNameYear: (date: Date) => `${getMonthName(date.getMonth())} ${date.getFullYear()}`
         },
         barrel: {
+            projects: "Projects",
+            styleguides: "Styleguides",
             addAnother: "Add another project/styleguide",
             selectType: "Please select if you would like to add project or styleguide",
             addProject: "Add project",

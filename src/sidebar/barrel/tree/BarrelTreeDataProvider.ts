@@ -7,6 +7,8 @@ import JumpToTreeItem from "../../jumpTo/tree/JumpToTreeItem";
 import Barrel from "../../../common/domain/barrel/Barrel";
 import SidebarRefresher from "../../refresh/util/SidebarRefresher";
 import AddBarrelTreeItem from "./AddBarrelTreeItem";
+import BarrelType from "../../../common/domain/barrel/BarrelType";
+import localization from "../../../localization";
 
 class BarrelTreeDataProvider extends TreeDataProvider {
     protected viewId = "zeplin.views.barrels";
@@ -26,10 +28,21 @@ class BarrelTreeDataProvider extends TreeDataProvider {
 
     public getRoots(): TreeItem[] {
         const savedBarrels = getSavedBarrels();
+        const savedProjects = savedBarrels.filter(barrel => barrel.type === BarrelType.Project);
+        const savedStyleguides = savedBarrels.filter(barrel => barrel.type === BarrelType.Styleguide);
+
         return savedBarrels.length ? [
             JumpToTreeItem,
-            ...savedBarrels.map(barrel => new BarrelTreeItem(barrel)),
-            AddBarrelTreeItem
+            AddBarrelTreeItem,
+            ...this.getBarrelTreeItems(savedProjects, localization.sidebar.barrel.projects),
+            ...this.getBarrelTreeItems(savedStyleguides, localization.sidebar.barrel.styleguides)
+        ] : [];
+    }
+
+    private getBarrelTreeItems(barrels: Barrel[], title: string): TreeItem[] {
+        return barrels.length ? [
+            new TreeItem(`• ${title}`, undefined),
+            ...barrels.map(barrel => new BarrelTreeItem(barrel))
         ] : [];
     }
 
