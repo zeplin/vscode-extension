@@ -6,7 +6,9 @@ import TreeItemContextProvider from "../../../common/vscode/tree/TreeItemContext
 import TreeItemContext from "../../../common/domain/tree/TreeItemContext";
 import ZeplinUriProvider from "../../openInZeplin/model/ZeplinUriProvider";
 import ApplicationType from "../../../common/domain/openInZeplin/model/ApplicationType";
-import { getBarrelUri } from "../../../common/domain/openInZeplin/util/zeplinUris";
+import { getComponentsUri } from "../../../common/domain/openInZeplin/util/zeplinUris";
+import BarrelType from "../../../common/domain/barrel/BarrelType";
+import localization from "../../../localization";
 
 const contextProvider = new TreeItemContextProvider(
     TreeItemContext.ZeplinComponentBarrel,
@@ -14,8 +16,13 @@ const contextProvider = new TreeItemContextProvider(
 );
 
 export default class BarrelZeplinComponentsTreeItem extends TreeItem implements ZeplinUriProvider {
-    public constructor(public barrel: BarrelDetails, title: string | undefined, parent: TreeItem | undefined) {
-        super(title ?? barrel.name, parent, contextProvider, vscode.TreeItemCollapsibleState.Collapsed);
+    public constructor(public barrel: BarrelDetails, parent: TreeItem | undefined) {
+        super(
+            barrel.type === BarrelType.Project ? localization.sidebar.zeplinComponent.localStyleguide : barrel.name,
+            parent,
+            contextProvider,
+            vscode.TreeItemCollapsibleState.Collapsed
+        );
         this.setRemoteIconPath(barrel.thumbnail);
     }
 
@@ -25,6 +32,6 @@ export default class BarrelZeplinComponentsTreeItem extends TreeItem implements 
     }
 
     public getZeplinUri(applicationType: ApplicationType): string {
-        return getBarrelUri(this.barrel.id, this.barrel.type, applicationType);
+        return getComponentsUri(this.barrel.id, this.barrel.type, applicationType);
     }
 }
