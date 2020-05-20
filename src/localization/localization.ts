@@ -138,11 +138,11 @@ const localization = {
     },
     sidebar: {
         activity: {
-            noneFound: "No activity found",
+            noneFound: "No activity yet.",
             errors: "Errors",
-            componentsError: (barrelId: string) => `Components of ${barrelId} could not be fetched.`,
-            screensError: (barrelId: string) => `Screens of ${barrelId} could not be fetched.`,
-            updated: (item: string) => `${item} is updated.`,
+            componentsError: (barrelId: string) => `Fetching components (${barrelId}) failed.`,
+            screensError: (barrelId: string) => `Fetching screens (${barrelId}) failed.`,
+            updated: (item: string) => `${item} updated.`,
             updatedByUser: (user: string, item: string) => `${user} updated ${item}.`,
             minutesAgo: (count: number) => `${count}m`,
             hoursAgo: (count: number) => `${count}h`,
@@ -157,15 +157,15 @@ const localization = {
             monthNameYear: (date: Date) => `${getMonthName(date.getMonth())} ${date.getFullYear()}`
         },
         barrel: {
-            addAnother: "Add another project/styleguide",
-            selectType: "Please select if you would like to add project or styleguide",
+            addAnother: "Add another project or styleguide",
+            selectType: "Add project or styleguide?",
             addProject: "Add project",
             addStyleguide: "Add styleguide",
-            added: (type: BarrelType) => `Added ${barrelLower(type)} to sidebar.`
+            added: (type: BarrelType) => `Added ${barrelLower(type)}.`
         },
         jira: {
-            open: "Open JIRA",
-            select: "Select JIRA"
+            open: "Open Jira issue",
+            select: "Select Jira issue"
         },
         jumpTo: {
             jumpToItem: "Jump to screen or component",
@@ -173,31 +173,31 @@ const localization = {
             noItemFound: "No screen or component found"
         },
         openInZeplin: {
-            selectPreferred: "Select preferred application type to open items in Zeplin",
-            web: "Open in Web App",
-            app: "Open in Native App"
+            selectPreferred: "Select where to open Zeplin resources",
+            web: "Open in Web",
+            app: "Open in App"
         },
         pin: {
             selectProject: "Select project",
-            noProjectFound: "Please add a project to sidebar first.",
+            noProjectFound: "Please add a project or styleguide first.",
             pinScreen: "Pin screen",
             pinComponent: "Pin component",
             selectScreen: "Select screen",
             selectComponent: "Select component",
             askUnpinAll: "Unpin all items?",
-            emptyInfo: "Pin screens/components you frequently use from “…” menu"
+            emptyInfo: "Pin screens or components from “…” menu."
         },
         screen: {
             screens: "Screens",
-            noneFound: "No screen found"
+            noneFound: "No screen yet."
         },
         zeplinComponent: {
             localStyleguide: "Local Styleguide",
-            noneFound: "No component found"
+            noneFound: "No component yet."
         },
         common: {
             selectBarrel: "Select project or styleguide",
-            noBarrelFound: "Please add a project or styleguide to sidebar first."
+            noBarrelFound: "Please add a project or styleguide first."
         }
     },
     common: {
