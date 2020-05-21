@@ -58,6 +58,38 @@ function getBarrelWebUrl(barrelId: string, barrelType: BarrelType): string {
     return barrelType === BarrelType.Project ? getProjectWebUrl(barrelId) : getStyleguideWebUrl(barrelId);
 }
 
+/**
+ * Returns a barrel's components' app uri
+ * @param barrelId A barrel id.
+ * @param barrelType A barrel type.
+ * @param applicationType Type of app to create uri of.
+ */
+function getComponentsUri(barrelId: string, barrelType: BarrelType, applicationType: ApplicationType): string {
+    return applicationType === ApplicationType.Web
+        ? getComponentsWebUrl(barrelId, barrelType)
+        : getComponentsAppUri(barrelId, barrelType);
+}
+
+/**
+ * Returns a barrel's components' Web app url
+ * @param barrelId A barrel id.
+ * @param barrelType A barrel type.
+ */
+function getComponentsWebUrl(barrelId: string, barrelType: BarrelType): string {
+    const styleguideLabel = barrelType === BarrelType.Project ? "/styleguide" : "";
+    return `${getBarrelWebUrl(barrelId, barrelType)}${styleguideLabel}/components`;
+}
+
+/**
+ * Returns a barrel's components' Mac app uri
+ * @param barrelId A barrel id.
+ * @param barrelType A barrel type.
+ */
+function getComponentsAppUri(barrelId: string, barrelType: BarrelType): string {
+    const barrelIdKey = barrelType === BarrelType.Project ? "pid" : "stid";
+    return `${configuration.appUri}components?${barrelIdKey}=${barrelId}`;
+}
+
 function getComponentUri(
     barrelId: string, barrelType: BarrelType, componentId: string, applicationType: ApplicationType
 ) {
@@ -73,8 +105,7 @@ function getComponentUri(
  * @param componentId A component id.
  */
 function getComponentAppUri(barrelId: string, barrelType: BarrelType, componentId: string): string {
-    const barrelIdKey = barrelType === BarrelType.Project ? "pid" : "stid";
-    return `${configuration.appUri}components?coids=${componentId}&${barrelIdKey}=${barrelId}`;
+    return `${getComponentsAppUri(barrelId, barrelType)}&coids=${componentId}`;
 }
 
 /**
@@ -84,8 +115,7 @@ function getComponentAppUri(barrelId: string, barrelType: BarrelType, componentI
  * @param componentId A component id.
  */
 function getComponentWebUrl(barrelId: string, barrelType: BarrelType, componentId: string): string {
-    const styleguideLabel = barrelType === BarrelType.Project ? "/styleguide" : "";
-    return `${getBarrelWebUrl(barrelId, barrelType)}${styleguideLabel}/components?coid=${componentId}`;
+    return `${getComponentsWebUrl(barrelId, barrelType)}?coid=${componentId}`;
 }
 
 function getComponentSectionUri(
@@ -170,6 +200,7 @@ export {
     getBarrelUri,
     getBarrelAppUri,
     getBarrelWebUrl,
+    getComponentsUri,
     getComponentUri,
     getComponentAppUri,
     getComponentWebUrl,

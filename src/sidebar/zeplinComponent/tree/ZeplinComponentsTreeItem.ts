@@ -1,6 +1,5 @@
 import * as vscode from "vscode";
 import Barrel from "../../../common/domain/barrel/Barrel";
-import BarrelType from "../../../common/domain/barrel/BarrelType";
 import TreeItem from "../../../common/vscode/tree/TreeItem";
 import CumulativeBarrelDetailsStore from "../data/CumulativeBarrelDetailsStore";
 import ExpandedErrorTreeItem from "../../../common/vscode/tree/ExpandedErrorTreeItem";
@@ -31,13 +30,7 @@ export default class ZeplinComponentsTreeItem extends TreeItem {
             const error = errors?.[0];
             const errorItems = error ? [new ExpandedErrorTreeItem(error.id, error.message, this)] : [];
             return [
-                ...data.map((barrelDetails, index) => new BarrelZeplinComponentsTreeItem(
-                    barrelDetails,
-                    index === 0 && barrelDetails.type === BarrelType.Project
-                        ? localization.sidebar.zeplinComponent.localStyleguide
-                        : undefined,
-                    this
-                )),
+                ...data.map(barrelDetails => new BarrelZeplinComponentsTreeItem(barrelDetails, this)),
                 ...errorItems
             ];
         }
