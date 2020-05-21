@@ -179,7 +179,7 @@ const localization = {
         },
         pin: {
             selectProject: "Select project",
-            noProjectFound: "Please add a project or styleguide first.",
+            noProjectFound: "Please add a project first.",
             pinScreen: "Pin screen",
             pinComponent: "Pin component",
             selectScreen: "Select screen",
