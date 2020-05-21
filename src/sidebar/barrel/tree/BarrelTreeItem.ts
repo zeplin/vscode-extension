@@ -9,6 +9,7 @@ import BarrelType from "../../../common/domain/barrel/BarrelType";
 import ZeplinUriProvider from "../../openInZeplin/model/ZeplinUriProvider";
 import ApplicationType from "../../../common/domain/openInZeplin/model/ApplicationType";
 import { getBarrelUri } from "../../../common/domain/openInZeplin/util/zeplinUris";
+import ZeplinLinkType from "../../openInZeplin/model/ZeplinLinkType";
 
 function getContextProvider(barrel: Barrel): TreeItemContextProvider {
     const contexts = [TreeItemContext.Barrel, TreeItemContext.ZeplinLink];
@@ -35,5 +36,9 @@ export class BarrelTreeItem extends TreeItem implements ZeplinUriProvider {
 
     public getZeplinUri(applicationType: ApplicationType): string {
         return getBarrelUri(this.barrel.id, this.barrel.type, applicationType);
+    }
+
+    public getZeplinLinkType(): ZeplinLinkType {
+        return this.barrel.type === BarrelType.Project ? ZeplinLinkType.Project : ZeplinLinkType.Styleguide;
     }
 }

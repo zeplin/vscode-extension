@@ -9,6 +9,7 @@ import Jira from "../../../common/domain/jira/model/Jira";
 import QuickPickProvider from "../../../common/vscode/quickPick/QuickPickerProvider";
 import StaticStore from "../../../common/domain/store/StaticStore";
 import localization from "../../../localization";
+import Analytics from "../../../analytics/Analytics";
 
 async function startOpenJiraLinkFlow(item: TreeItem) {
     let jiraAttachable: JiraAttachable;
@@ -49,6 +50,7 @@ async function startOpenJiraLinkFlow(item: TreeItem) {
     }
 
     vscode.env.openExternal(vscode.Uri.parse(jira.issueUrl));
+    Analytics.jiraLinkOpened(jira.type);
 }
 
 export {

@@ -7,6 +7,7 @@ import { isComponentPinned } from "../../pin/util/pinUtil";
 import ZeplinUriProvider from "../../openInZeplin/model/ZeplinUriProvider";
 import ApplicationType from "../../../common/domain/openInZeplin/model/ApplicationType";
 import { getComponentUri } from "../../../common/domain/openInZeplin/util/zeplinUris";
+import ZeplinLinkType from "../../openInZeplin/model/ZeplinLinkType";
 
 function getContextProvider(zeplinComponent: ResponseZeplinComponent): TreeItemContextProvider {
     return new TreeItemContextProvider(
@@ -26,5 +27,9 @@ export default class ZeplinComponentTreeItem extends TreeItem implements ZeplinU
 
     public getZeplinUri(applicationType: ApplicationType): string {
         return getComponentUri(this.barrel.id, this.barrel.type, this.zeplinComponent._id, applicationType);
+    }
+
+    public getZeplinLinkType(): ZeplinLinkType {
+        return ZeplinLinkType.Component;
     }
 }

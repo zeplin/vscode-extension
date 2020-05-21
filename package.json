@@ -360,6 +360,11 @@
         "configuration": {
             "title": "Zeplin",
             "properties": {
+                "zeplin.enableTelemetry": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Enable usage data to be sent to a Zeplin online service"
+                },
                 "zeplin.preferredApplicationType": {
                     "type": "string",
                     "default": "Web",
@@ -484,8 +489,12 @@
         "webpack-cli": "^3.3.10"
     },
     "dependencies": {
+        "@types/jsonwebtoken": "8.5.0",
+        "@types/mixpanel": "2.14.2",
         "abort-controller": "3.0.0",
         "image-size": "0.8.3",
+        "jsonwebtoken": "8.5.1",
+        "mixpanel": "0.11.0",
         "node-fetch": "^2.6.0"
     }
 }

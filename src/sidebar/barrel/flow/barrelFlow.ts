@@ -9,6 +9,7 @@ import { pickBarrel } from "../../../common/domain/barrel/flow/barrelFlow";
 import BarrelTreeDataProvider from "../tree/BarrelTreeDataProvider";
 import StaticStore from "../../../common/domain/store/StaticStore";
 import QuickPickProvider from "../../../common/vscode/quickPick/QuickPickerProvider";
+import Analytics from "../../../analytics/Analytics";
 
 type BarrelTypeLabel = { label: string; type: BarrelType };
 
@@ -81,6 +82,7 @@ async function startAddBarrelToSidebarFlow(type: BarrelType) {
     sidebarUtil.saveBarrel(barrel);
     BarrelTreeDataProvider.revealBarrel(barrel);
     MessageBuilder.with(localization.sidebar.barrel.added(type)).setType(MessageType.Info).show();
+    Analytics.resourceAdded(barrel.type);
 }
 
 export {

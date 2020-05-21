@@ -7,6 +7,7 @@ import TreeItemContextProvider from "../../../common/vscode/tree/TreeItemContext
 import TreeItemContext from "../../../common/domain/tree/TreeItemContext";
 import ZeplinUriProvider from "../../openInZeplin/model/ZeplinUriProvider";
 import ApplicationType from "../../../common/domain/openInZeplin/model/ApplicationType";
+import ZeplinLinkType from "../../openInZeplin/model/ZeplinLinkType";
 
 const contextProvider = new TreeItemContextProvider(
     TreeItemContext.Activity,
@@ -40,5 +41,9 @@ export default class ActivityTreeItem extends TreeItem implements ZeplinUriProvi
 
     public getZeplinUri(applicationType: ApplicationType): string {
         return this.activity.getZeplinUri(applicationType);
+    }
+
+    public getZeplinLinkType(): ZeplinLinkType {
+        return this.activity.getZeplinLinkType();
     }
 }

@@ -13,6 +13,7 @@ import MessageBuilder from "../../common/vscode/message/MessageBuilder";
 import MessageType from "../../common/vscode/message/MessageType";
 import CacheHolder from "../../common/domain/store/CacheHolder";
 import ScreensStoreProvider from "../../sidebar/screen/data/ScreensStoreProvider";
+import Analytics from "../../analytics/Analytics";
 
 const CACHE_HOLDERS: CacheHolder[] =
     [WorkspacesStore, BarrelsStoreProvider, BarrelDetailsStoreProvider, ScreensStoreProvider];
@@ -52,6 +53,7 @@ async function completeLogin(token: string) {
     clearCache();
     ConfigCodeLensProvider.refresh();
     MessageBuilder.with(localization.session.loggedIn).setType(MessageType.Info).show();
+    Analytics.authenticated();
 }
 
 function tryLogout() {

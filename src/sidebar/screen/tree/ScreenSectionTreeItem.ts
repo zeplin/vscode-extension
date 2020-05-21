@@ -8,6 +8,7 @@ import Barrel from "../../../common/domain/barrel/Barrel";
 import ZeplinUriProvider from "../../openInZeplin/model/ZeplinUriProvider";
 import ApplicationType from "../../../common/domain/openInZeplin/model/ApplicationType";
 import { getScreenSectionUri } from "../../../common/domain/openInZeplin/util/zeplinUris";
+import ZeplinLinkType from "../../openInZeplin/model/ZeplinLinkType";
 
 function getContextProvider(section: ScreenSection): TreeItemContextProvider {
     const contexts = [TreeItemContext.ScreenSection, TreeItemContext.ZeplinLink];
@@ -28,5 +29,9 @@ export default class ScreenSectionTreeItem extends TreeItem implements ZeplinUri
 
     public getZeplinUri(applicationType: ApplicationType): string {
         return getScreenSectionUri(this.project.id, this.section.id, applicationType);
+    }
+
+    public getZeplinLinkType(): ZeplinLinkType {
+        return ZeplinLinkType.ScreenSection;
     }
 }
