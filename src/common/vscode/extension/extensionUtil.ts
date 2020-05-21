@@ -28,14 +28,14 @@ function getExtensionVersion(): string {
  * Checks whether this extension is initialized.
  */
 function isInitialized(): boolean {
-    return ContextProvider.get().workspaceState.get(KEY_INITIALIZED) ?? false;
+    return ContextProvider.get().globalState.get(KEY_INITIALIZED) ?? false;
 }
 
 /**
  * Sets this extension is initialized.
  */
 function initialized() {
-    return ContextProvider.get().workspaceState.update(KEY_INITIALIZED, true);
+    return ContextProvider.get().globalState.update(KEY_INITIALIZED, true);
 }
 
 /**

@@ -50,8 +50,6 @@ const localization = {
         },
         config: {
             create: {
-                askAfterInstall: "Create Zeplin configuration file?",
-                create: "Create",
                 selectFolder: "Select folder to create Zeplin configuration file",
                 noWorkspaceFound: "Please open a workspace first to create a Zeplin configuration file.",
                 allFoldersHaveConfig: "All folders already have a Zeplin configuration file."
