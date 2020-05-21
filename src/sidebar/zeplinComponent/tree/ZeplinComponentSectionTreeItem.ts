@@ -8,6 +8,7 @@ import TreeItemContext from "../../../common/domain/tree/TreeItemContext";
 import ZeplinUriProvider from "../../openInZeplin/model/ZeplinUriProvider";
 import ApplicationType from "../../../common/domain/openInZeplin/model/ApplicationType";
 import { getComponentSectionUri } from "../../../common/domain/openInZeplin/util/zeplinUris";
+import ZeplinLinkType from "../../openInZeplin/model/ZeplinLinkType";
 
 const contextProvider = new TreeItemContextProvider(
     TreeItemContext.ZeplinComponentSection,
@@ -25,5 +26,9 @@ export default class ZeplinComponentSectionTreeItem extends TreeItem implements 
 
     public getZeplinUri(applicationType: ApplicationType): string {
         return getComponentSectionUri(this.barrel.id, this.barrel.type, this.section._id, applicationType);
+    }
+
+    public getZeplinLinkType(): ZeplinLinkType {
+        return ZeplinLinkType.ComponentSection;
     }
 }

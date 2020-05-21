@@ -7,6 +7,7 @@ import { isScreenPinned } from "../../pin/util/pinUtil";
 import ZeplinUriProvider from "../../openInZeplin/model/ZeplinUriProvider";
 import ApplicationType from "../../../common/domain/openInZeplin/model/ApplicationType";
 import { getScreenUri } from "../../../common/domain/openInZeplin/util/zeplinUris";
+import ZeplinLinkType from "../../openInZeplin/model/ZeplinLinkType";
 
 function getContextProvider(screen: Screen): TreeItemContextProvider {
     const contexts = [
@@ -28,5 +29,9 @@ export default class ScreenTreeItem extends TreeItem implements ZeplinUriProvide
 
     public getZeplinUri(applicationType: ApplicationType): string {
         return getScreenUri(this.project.id, this.screen._id, applicationType);
+    }
+
+    public getZeplinLinkType(): ZeplinLinkType {
+        return ZeplinLinkType.Screen;
     }
 }

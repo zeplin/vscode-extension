@@ -14,6 +14,7 @@ import ZeplinUriProvider from "../../openInZeplin/model/ZeplinUriProvider";
 import ApplicationType from "../../../common/domain/openInZeplin/model/ApplicationType";
 import { openInZeplin } from "../../openInZeplin/flow/openInZeplinFlow";
 import { getScreenUri, getComponentUri } from "../../../common/domain/openInZeplin/util/zeplinUris";
+import ZeplinLinkType from "../../openInZeplin/model/ZeplinLinkType";
 
 async function startJumpToFlow() {
     // Check if user is logged, fail if not so
@@ -60,6 +61,10 @@ async function startJumpToFlow() {
             return isComponent(jumpable)
                 ? getComponentUri(jumpable.barrelId, jumpable.barrelType, jumpable._id, applicationType)
                 : getScreenUri(jumpable.barrelId, jumpable._id, applicationType);
+        },
+
+        getZeplinLinkType(): ZeplinLinkType {
+            return isComponent(jumpable) ? ZeplinLinkType.Component : ZeplinLinkType.Screen;
         }
     };
 
