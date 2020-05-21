@@ -3,6 +3,7 @@ import ContextProvider from "../common/vscode/extension/ContextProvider";
 import { EXTENSION_NAME } from "../common/vscode/extension/extensionUtil";
 import { normalizePaths } from "../common/general/pathUtil";
 import { filterPreferredAppType } from "../common/domain/openInZeplin/util/openInZeplinUtil";
+import { isTrue } from "../common/general/booleanUtil";
 
 /**
  * Preference holder with lazy loading.
@@ -64,6 +65,7 @@ const Preferences = {
     IgnoredComponentPathsStartWith: new PreferenceHolder("connectedComponents.ignoredPathsStartWith", normalizePaths),
     IgnoredComponentPathsInclude: new PreferenceHolder("connectedComponents.ignoredPathsInclude", normalizePaths),
     PreferredApplicationType: new PreferenceHolder("preferredApplicationType", filterPreferredAppType),
+    EnableTelemetry: new PreferenceHolder("enableTelemetry", isTrue),
     initialize
 };
 

@@ -4,11 +4,16 @@ import { getExtensionVersion } from "../../common/vscode/extension/extensionUtil
 import Session from "../../session/Session";
 import Logger from "../../log/Logger";
 import configuration from "../../common/domain/extension/configuration";
+import Preferences from "../../preferences/Preferences";
 
 class MixpanelHelper {
     private readonly mixpanel = Mixpanel.init(configuration.mixpanelToken);
 
     public async track(event: string, additionalProperties?: Mixpanel.PropertyDict, callback?: Mixpanel.Callback) {
+        if (!Preferences.EnableTelemetry.get()) {
+            return;
+        }
+
         const properties: Mixpanel.PropertyDict = {
             "Client": "VS Code extension",
             "Client Version": getExtensionVersion(),

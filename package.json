@@ -360,6 +360,11 @@
         "configuration": {
             "title": "Zeplin",
             "properties": {
+                "zeplin.enableTelemetry": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Enable usage data to be sent to a Zeplin online service"
+                },
                 "zeplin.preferredApplicationType": {
                     "type": "string",
                     "default": "Web",
