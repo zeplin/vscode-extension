@@ -63,12 +63,12 @@
         "viewsWelcome": [
             {
                 "view": "zeplin.views.barrels",
-                "contents": "Login to access your Zeplin resources here.\n[Login to Zeplin](command:zeplin.login)\n[Login with token](command:zeplin.manualLogin)",
+                "contents": "Welcome to Zeplin for Visual Studio Code. 👋\n\nLet's start by logging in:\n[Login to Zeplin](command:zeplin.login)\nYou can also [authenticate with a token](command:zeplin.manualLogin).",
                 "when": "!zeplin:loggedIn"
             },
             {
                 "view": "zeplin.views.barrels",
-                "contents": "To get started, add a project or styleguide.\n[Add project](command:zeplin.sidebar.addProject)\n[Add styleguide](command:zeplin.sidebar.addStyleguide)",
+                "contents": "To get started, add a project or styleguide.\n[Add project](command:zeplin.sidebar.addProject)\n[Add styleguide](command:zeplin.sidebar.addStyleguide)\nLearn more about the extension [here](https://zpl.io/vscode).",
                 "when": "zeplin:loggedIn"
             }
         ],
@@ -216,12 +216,12 @@
             },
             {
                 "command": "zeplin.sidebar.jumpTo",
-                "title": "Jump to screen or component",
+                "title": "Jump to Screen or Component",
                 "category": "Zeplin"
             },
             {
                 "command": "zeplin.sidebar.addBarrel",
-                "title": "Add another project/styleguide",
+                "title": "Add Another Project or Styleguide",
                 "category": "Zeplin"
             },
             {
@@ -232,7 +232,7 @@
             },
             {
                 "command": "zeplin.sidebar.openJiraLink",
-                "title": "Open JIRA Link",
+                "title": "Open Jira Issue",
                 "category": "Zeplin",
                 "icon": {
                     "dark": "resources/dark/icon-jira.svg",
@@ -253,12 +253,12 @@
             },
             {
                 "command": "zeplin.sidebar.pinScreen",
-                "title": "Add Screen",
+                "title": "Pin Screen",
                 "category": "Zeplin"
             },
             {
                 "command": "zeplin.sidebar.pinComponent",
-                "title": "Add Component",
+                "title": "Pin Component",
                 "category": "Zeplin"
             },
             {
@@ -293,7 +293,7 @@
             },
             {
                 "command": "zeplin.clearCache",
-                "title": "Clear cache",
+                "title": "Clear Cache",
                 "category": "Zeplin"
             },
             {
@@ -364,8 +364,8 @@
                     "type": "string",
                     "default": "Web",
                     "enum": ["Web", "App"],
-                    "enumDescriptions": ["Open in Web App", "Open in Native App"],
-                    "markdownDescription": "Preferred application type to open items in Zeplin",
+                    "enumDescriptions": ["Open in Web", "Open in App"],
+                    "markdownDescription": "Specifies where to open Zeplin resources",
                     "scope": "resource"
                 },
                 "zeplin.connectedComponents.ignoredExtensions": {
