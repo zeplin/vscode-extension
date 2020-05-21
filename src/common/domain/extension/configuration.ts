@@ -4,6 +4,7 @@ declare let WPC__WEB_URL: string;
 declare let WPC__IMAGE_SERVER_URL: string;
 declare let WPC__OAUTH_CLIENT_ID: string;
 declare let WPC__CONSOLE_LOGS_ENABLED: string;
+declare let WPC__MIXPANEL_TOKEN: string;
 
 export default {
     /**
@@ -29,5 +30,9 @@ export default {
     /**
      * Whether logs are enabled.
      */
-    consoleLogsEnabled: WPC__CONSOLE_LOGS_ENABLED
+    consoleLogsEnabled: WPC__CONSOLE_LOGS_ENABLED,
+    /**
+     * Mixpanel Token
+     */
+    mixpanelToken: WPC__MIXPANEL_TOKEN
 };
