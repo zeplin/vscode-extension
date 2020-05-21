@@ -10,6 +10,7 @@ import BarrelTreeDataProvider from "../../barrel/tree/BarrelTreeDataProvider";
 import PinTreeDataProvider from "../tree/PinTreeDataProvider";
 import BarrelDetails from "../../../common/domain/zeplinComponent/model/BarrelDetails";
 import ResponseScreen from "../../screen/model/ResponseScreen";
+import Analytics from "../../../analytics/Analytics";
 
 const KEY_PINNED_ITEMS = "sidebar.pinnedItems";
 const CONTEXT_KEY_ANY_PINNED_ITEMS = "zeplin:sidebar:anyPinnedItems";
@@ -57,6 +58,7 @@ function addScreenToPinnedItems(screen: Screen, project: Barrel) {
     } as ScreenPinData);
     ContextProvider.get().workspaceState.update(KEY_PINNED_ITEMS, newPinnedItems);
 
+    Analytics.resourcePinned(PinType.Screen);
     BarrelTreeDataProvider.refresh();
     PinTreeDataProvider.refresh();
     PinTreeDataProvider.revealScreen(screen);
@@ -71,6 +73,7 @@ function addComponentToPinnedItems(component: ResponseZeplinComponent, barrel: B
     } as ComponentPinData);
     ContextProvider.get().workspaceState.update(KEY_PINNED_ITEMS, newPinnedItems);
 
+    Analytics.resourcePinned(PinType.Component);
     BarrelTreeDataProvider.refresh();
     PinTreeDataProvider.refresh();
     PinTreeDataProvider.revealComponent(component);

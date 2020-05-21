@@ -5,6 +5,7 @@ import ApplicationType from "../../../common/domain/openInZeplin/model/Applicati
 import Preferences from "../../../preferences/Preferences";
 import localization from "../../../localization";
 import ZeplinUriProvider from "../model/ZeplinUriProvider";
+import Analytics from "../../../analytics/Analytics";
 
 async function openInZeplin(uriProvider: ZeplinUriProvider) {
     if (!isPreferredAppTypeSelected()) {
@@ -25,6 +26,7 @@ async function openInZeplin(uriProvider: ZeplinUriProvider) {
     const applicationType = Preferences.PreferredApplicationType.get();
     const uri = uriProvider.getZeplinUri(applicationType);
     vscode.env.openExternal(vscode.Uri.parse(uri));
+    Analytics.zeplinLinkOpened(uriProvider.getZeplinLinkType());
 }
 
 export {
