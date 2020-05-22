@@ -9,6 +9,9 @@ import SidebarRefresher from "../../refresh/util/SidebarRefresher";
 import AddBarrelTreeItem from "./AddBarrelTreeItem";
 import BarrelType from "../../../common/domain/barrel/BarrelType";
 import localization from "../../../localization";
+import { isVscodeVersionSufficient } from "../../../common/vscode/ide/vscodeUtil";
+
+const VIEWS_WELCOME_MIN_VERSION = "1.44.0";
 
 class BarrelTreeDataProvider extends TreeDataProvider {
     protected viewId = "zeplin.views.barrels";
@@ -31,12 +34,18 @@ class BarrelTreeDataProvider extends TreeDataProvider {
         const savedProjects = savedBarrels.filter(barrel => barrel.type === BarrelType.Project);
         const savedStyleguides = savedBarrels.filter(barrel => barrel.type === BarrelType.Styleguide);
 
-        return savedBarrels.length ? [
-            JumpToTreeItem,
-            AddBarrelTreeItem,
-            ...this.getBarrelTreeItems(savedProjects, localization.sidebar.barrel.projects),
-            ...this.getBarrelTreeItems(savedStyleguides, localization.sidebar.barrel.styleguides)
-        ] : [];
+        if (savedBarrels.length) {
+            return [
+                JumpToTreeItem,
+                AddBarrelTreeItem,
+                ...this.getBarrelTreeItems(savedProjects, localization.sidebar.barrel.projects),
+                ...this.getBarrelTreeItems(savedStyleguides, localization.sidebar.barrel.styleguides)
+            ];
+        } else if (!isVscodeVersionSufficient(VIEWS_WELCOME_MIN_VERSION)) {
+            return [new TreeItem(localization.sidebar.barrel.emptyInfo, undefined)];
+        } else {
+            return [];
+        }
     }
 
     private getBarrelTreeItems(barrels: Barrel[], title: string): TreeItem[] {

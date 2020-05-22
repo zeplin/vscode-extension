@@ -161,7 +161,8 @@ const localization = {
             selectType: "Add project or styleguide?",
             addProject: "Add project",
             addStyleguide: "Add styleguide",
-            added: (type: BarrelType) => `Added ${barrelLower(type)}.`
+            added: (type: BarrelType) => `Added ${barrelLower(type)}.`,
+            emptyInfo: "Add project/styleguide from “…” menu"
         },
         jira: {
             open: "Open Jira issue",
