@@ -9,6 +9,7 @@ import SidebarRefresher from "../../refresh/util/SidebarRefresher";
 import AddBarrelTreeItem from "./AddBarrelTreeItem";
 import BarrelType from "../../../common/domain/barrel/BarrelType";
 import localization from "../../../localization";
+import NoBarrelTreeItem from "./NoBarrelTreeItem";
 import { isVscodeVersionSufficient } from "../../../common/vscode/ide/vscodeUtil";
 
 const VIEWS_WELCOME_MIN_VERSION = "1.44.0";
@@ -36,13 +37,13 @@ class BarrelTreeDataProvider extends TreeDataProvider {
 
         if (savedBarrels.length) {
             return [
-                JumpToTreeItem,
-                AddBarrelTreeItem,
+                new JumpToTreeItem(),
+                new AddBarrelTreeItem(),
                 ...this.getBarrelTreeItems(savedProjects, localization.sidebar.barrel.projects),
                 ...this.getBarrelTreeItems(savedStyleguides, localization.sidebar.barrel.styleguides)
             ];
         } else if (!isVscodeVersionSufficient(VIEWS_WELCOME_MIN_VERSION)) {
-            return [new TreeItem(localization.sidebar.barrel.emptyInfo, undefined)];
+            return [new NoBarrelTreeItem()];
         } else {
             return [];
         }

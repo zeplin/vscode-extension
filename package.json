@@ -197,7 +197,10 @@
                 "command": "zeplin.sidebar.refresh",
                 "title": "Refresh",
                 "category": "Zeplin",
-                "icon": "$(refresh)"
+                "icon": {
+                    "dark": "resources/dark/icon-refresh.svg",
+                    "light": "resources/light/icon-refresh.svg"
+                }
             },
             {
                 "command": "zeplin.sidebar.addProject",
@@ -228,7 +231,10 @@
                 "command": "zeplin.sidebar.openInZeplin",
                 "title": "Open in Zeplin",
                 "category": "Zeplin",
-                "icon": "$(link-external)"
+                "icon": {
+                    "dark": "resources/dark/icon-link-external.svg",
+                    "light": "resources/light/icon-link-external.svg"
+                }
             },
             {
                 "command": "zeplin.sidebar.openJiraLink",
@@ -243,13 +249,19 @@
                 "command": "zeplin.sidebar.pinItem",
                 "title": "Pin",
                 "category": "Zeplin",
-                "icon": "$(pin)"
+                "icon": {
+                    "dark": "resources/dark/icon-pin.svg",
+                    "light": "resources/light/icon-pin.svg"
+                }
             },
             {
                 "command": "zeplin.sidebar.unpinItem",
                 "title": "Unpin",
                 "category": "Zeplin",
-                "icon": "$(pinned)"
+                "icon": {
+                    "dark": "resources/dark/icon-pinned.svg",
+                    "light": "resources/light/icon-pinned.svg"
+                }
             },
             {
                 "command": "zeplin.sidebar.pinScreen",
