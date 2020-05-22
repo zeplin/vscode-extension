@@ -11,8 +11,7 @@ import BarrelType from "../../../common/domain/barrel/BarrelType";
 import localization from "../../../localization";
 import NoBarrelTreeItem from "./NoBarrelTreeItem";
 import { isVscodeVersionSufficient } from "../../../common/vscode/ide/vscodeUtil";
-
-const VIEWS_WELCOME_MIN_VERSION = "1.44.0";
+import { VIEWS_WELCOME_MIN_VERSION } from "../../../common/vscode/ide/vscodefeatureVersions";
 
 class BarrelTreeDataProvider extends TreeDataProvider {
     protected viewId = "zeplin.views.barrels";
