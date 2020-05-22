@@ -1,5 +1,5 @@
 import ConfigPropertyHoverData from "../../../common/domain/hover/ConfigPropertyHoverData";
-import BarrelType from "../model/BarrelType";
+import BarrelType from "../../../common/domain/barrel/BarrelType";
 import AddProjectCommand from "../command/AddProjectCommand";
 import AddStyleguideCommand from "../command/AddStyleguideCommand";
 import Command from "../../../common/vscode/command/Command";
@@ -14,7 +14,7 @@ class BarrelsPropertyHoverData implements ConfigPropertyHoverData {
     public constructor(private type: BarrelType, public key: string, command: Command) {
         this.command = {
             name: command.name,
-            text: localization.coco.barrel.add(type)
+            text: localization.common.barrel.add(type)
         };
     }
 }

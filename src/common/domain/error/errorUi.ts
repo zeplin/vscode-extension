@@ -1,11 +1,11 @@
 import * as vscode from "vscode";
-import BarrelError from "../../../coco/zeplinComponent/model/BarrelError";
+import BarrelError from "../zeplinComponent/model/BarrelError";
 import LoginCommand from "../../../session/command/LoginCommand";
 import ManualLoginCommand from "../../../session/command/ManualLoginCommand";
 import BaseError from "./BaseError";
 import localization from "../../../localization";
 import { tryCreateConfig } from "../../../coco/config/flow/configFlow";
-import { getBarrelWebUrl } from "../uri/zeplinUrls";
+import { getBarrelWebUrl } from "../openInZeplin/util/zeplinUris";
 import MessageBuilder from "../../vscode/message/MessageBuilder";
 
 enum ErrorCodes {
@@ -68,6 +68,7 @@ function showBarrelError(error: BarrelError): boolean {
                 )
                 .addOption(localization.common.cancel)
                 .show();
+            return true;
         }
         default:
             return showGeneralError(error);

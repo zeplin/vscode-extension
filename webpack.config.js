@@ -8,11 +8,12 @@ const TerserPlugin = require("terser-webpack-plugin"); // eslint-disable-line @t
 
 const WEBPACK_CONSTANTS = {};
 WEBPACK_CONSTANTS.WPC__API_URL = '"https://api.zeplin.io"';
-WEBPACK_CONSTANTS.WPC__APP_URL = '"zpl://"';
+WEBPACK_CONSTANTS.WPC__APP_URI = '"zpl://"';
 WEBPACK_CONSTANTS.WPC__WEB_URL = '"https://app.zeplin.io"';
 WEBPACK_CONSTANTS.WPC__IMAGE_SERVER_URL = '"https://img.zeplin.io"';
 WEBPACK_CONSTANTS.WPC__OAUTH_CLIENT_ID = '"5dc51cd876f8bf00163de1e5"';
 WEBPACK_CONSTANTS.WPC__CONSOLE_LOGS_ENABLED = "false";
+WEBPACK_CONSTANTS.WPC__MIXPANEL_TOKEN = '" "';
 
 const plugins = [
     new webpack.DefinePlugin(WEBPACK_CONSTANTS)

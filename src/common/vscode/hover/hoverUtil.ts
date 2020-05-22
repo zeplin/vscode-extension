@@ -3,15 +3,15 @@ const MAX_IMAGE_HEIGHT = 480;
 const MAX_IMAGE_WIDTH = 480;
 
 /**
- * Returns markdown for an image url. Restricts width and height wrt maxWidth and maxHeight if provided.
- * @param url Url of an image.
+ * Returns markdown for an image uri. Restricts width and height wrt maxWidth and maxHeight if provided.
+ * @param uri Uri of an image.
  * @param width Width of an image.
  * @param height Height of an image.
  * @param maxWidth Max width of an image.
  * @param maxHeigth Max height of an image.
  */
 function getMarkdownImage( // eslint-disable-line max-params
-    url: string,
+    uri: string,
     width?: number,
     height?: number,
     maxWidth: number = MAX_IMAGE_WIDTH,
@@ -19,22 +19,22 @@ function getMarkdownImage( // eslint-disable-line max-params
 ): string {
     // Normalizes height to compare with width
     if (width && (!height || width > height * maxWidth / maxHeight)) {
-        return `![](${url}|width=${Math.min(width, maxWidth)})`;
+        return `![](${uri}|width=${Math.min(width, maxWidth)})`;
     } else if (height) {
-        return `![](${url}|height=${Math.min(height, maxHeight)})`;
+        return `![](${uri}|height=${Math.min(height, maxHeight)})`;
     } else {
-        return `![](${url})`;
+        return `![](${uri})`;
     }
 }
 
 /**
  * Returns a markdown link.
- * @param url Url of a link.
+ * @param uri Uri of a link.
  * @param text Text of a link.
  * @param info Information to be shown when hovered on a link.
  */
-function getMarkdownLink(url: string, text: string, info: string = url): string {
-    return `[${text}](${url} "${info}")`;
+function getMarkdownLink(uri: string, text: string, info: string = uri): string {
+    return `[${text}](${uri} "${info}")`;
 }
 
 /**

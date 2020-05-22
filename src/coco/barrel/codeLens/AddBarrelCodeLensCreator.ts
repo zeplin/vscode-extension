@@ -6,7 +6,7 @@ import localization from "../../../localization";
 import AddStyleguideCommand from "../command/AddStyleguideCommand";
 import { getPositionsOfProperty } from "../../../common/vscode/editor/textDocumentUtil";
 import { createCodeLenses } from "../../../common/vscode/codeLens/codeLensUtil";
-import BarrelType from "../model/BarrelType";
+import BarrelType from "../../../common/domain/barrel/BarrelType";
 
 const KEY_PROJECTS = "projects";
 const KEY_STYLEGUIDES = "styleguides";
@@ -20,14 +20,14 @@ class AddBarrelCodeLensCreator implements CodeLensCreator {
                 getPositionsOfProperty(KEY_PROJECTS, document),
                 {
                     command: AddProjectCommand.name,
-                    title: localization.coco.barrel.add(BarrelType.Project)
+                    title: localization.common.barrel.add(BarrelType.Project)
                 }
             );
             const styleguideCodeLenses = createCodeLenses(
                 getPositionsOfProperty(KEY_STYLEGUIDES, document),
                 {
                     command: AddStyleguideCommand.name,
-                    title: localization.coco.barrel.add(BarrelType.Styleguide)
+                    title: localization.common.barrel.add(BarrelType.Styleguide)
                 }
             );
 

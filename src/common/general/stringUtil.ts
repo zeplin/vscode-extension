@@ -30,7 +30,24 @@ function allIndicesOf(originalString: string, searchValue: string): number[] {
     return foundIndices;
 }
 
+/**
+ * Converts given snake_case string to PascalCase
+ * @param str A string to be converted
+ */
+function snakeCaseToPascalCase(str: string): string {
+    return uppercaseFirst(str.replace(/_\w/g, word => word.charAt(1).toUpperCase()));
+}
+
+/**
+ * Returns given string as its first character uppercased
+ * @param str A string to be converted
+ */
+function uppercaseFirst(str: string) {
+    return !str.length ? str : str.charAt(0).toUpperCase() + str.substring(1);
+}
+
 export {
     replaceAll,
-    allIndicesOf
+    allIndicesOf,
+    snakeCaseToPascalCase
 };

@@ -4,16 +4,19 @@ import Session from "../Session";
 import UriHandler from "../../common/domain/uri/UriHandler";
 import { isUri } from "../../common/vscode/uri/uriUtil";
 import ConfigCodeLensProvider from "../../coco/config/codeLens/ConfigCodeLensProvider";
-import BarrelDetailsStoreProvider from "../../coco/zeplinComponent/data/BarrelDetailsStoreProvider";
-import BarrelsStoreProvider from "../../coco/barrel/data/BarrelsStoreProvider";
-import WorkspacesStore from "../../coco/barrel/data/WorkspacesStore";
+import BarrelDetailsStoreProvider from "../../common/domain/zeplinComponent/data/BarrelDetailsStoreProvider";
+import BarrelsStoreProvider from "../../common/domain/barrel/data/BarrelsStoreProvider";
+import WorkspacesStore from "../../common/domain/barrel/data/WorkspacesStore";
 import configuration from "../../common/domain/extension/configuration";
 import { showNotLoggedInError } from "../../common/domain/error/errorUi";
 import MessageBuilder from "../../common/vscode/message/MessageBuilder";
 import MessageType from "../../common/vscode/message/MessageType";
 import CacheHolder from "../../common/domain/store/CacheHolder";
+import ScreensStoreProvider from "../../sidebar/screen/data/ScreensStoreProvider";
+import Analytics from "../../analytics/Analytics";
 
-const CACHE_HOLDERS: CacheHolder[] = [WorkspacesStore, BarrelsStoreProvider, BarrelDetailsStoreProvider];
+const CACHE_HOLDERS: CacheHolder[] =
+    [WorkspacesStore, BarrelsStoreProvider, BarrelDetailsStoreProvider, ScreensStoreProvider];
 
 function showLoginWarningAfterInstall() {
     MessageBuilder.with(localization.session.askLogin)
@@ -50,6 +53,7 @@ async function completeLogin(token: string) {
     clearCache();
     ConfigCodeLensProvider.refresh();
     MessageBuilder.with(localization.session.loggedIn).setType(MessageType.Info).show();
+    Analytics.authenticated();
 }
 
 function tryLogout() {

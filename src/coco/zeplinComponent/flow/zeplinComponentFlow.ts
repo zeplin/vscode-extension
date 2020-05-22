@@ -4,18 +4,18 @@ import QuickPickProvider from "../../../common/vscode/quickPick/QuickPickerProvi
 import { ComponentStore } from "../data/ComponentStore";
 import { showInEditor } from "../../../common/vscode/editor/editorUtil";
 import ConfigBarrelsStore from "../data/ConfigBarrelsStore";
-import ZeplinComponentsStore from "../data/ZeplinComponentsStore";
+import ZeplinComponentsStore from "../../../common/domain/zeplinComponent/data/ZeplinComponentsStore";
 import { selectAndValidateConfig } from "../../common/flow/commonFlow";
-import { getBarrelDetailRepresentationWithType } from "../../barrel/util/barrelUi";
-import { getZeplinComponentDetailRepresentation } from "../util/zeplinComponentUi";
+import { getBarrelDetailRepresentationWithType } from "../../../common/domain/barrel/util/barrelUi";
+import { getZeplinComponentDetailRepresentation } from "../../../common/domain/zeplinComponent/util/zeplinComponentUi";
 import { showBarrelError } from "../../../common/domain/error/errorUi";
 import { startAddProjectFlow, startAddStyleguideFlow } from "../../barrel/flow/barrelFlow";
 import { startAddComponentFlow } from "../../component/flow/componentFlow";
 import MessageBuilder from "../../../common/vscode/message/MessageBuilder";
 import MessageType from "../../../common/vscode/message/MessageType";
-import ZeplinComponent from "../model/ZeplinComponent";
-import BarrelError from "../model/BarrelError";
-import BarrelType from "../../barrel/model/BarrelType";
+import ZeplinComponent from "../../../common/domain/zeplinComponent/model/ZeplinComponent";
+import BarrelError from "../../../common/domain/zeplinComponent/model/BarrelError";
+import BarrelType from "../../../common/domain/barrel/BarrelType";
 import Component from "../../component/model/Component";
 
 type PrecheckResult = {
@@ -36,8 +36,8 @@ async function precheckAddZeplinComponentRequirements(pickerTitle: string, compo
     if (!configUtil.hasBarrelsWithValidFormat(configPath)) {
         showInEditor(configPath);
         MessageBuilder.with(localization.coco.zeplinComponent.noValidBarrelFound)
-            .addOption(localization.coco.barrel.add(BarrelType.Project), startAddProjectFlow)
-            .addOption(localization.coco.barrel.add(BarrelType.Styleguide), startAddStyleguideFlow)
+            .addOption(localization.common.barrel.add(BarrelType.Project), startAddProjectFlow)
+            .addOption(localization.common.barrel.add(BarrelType.Styleguide), startAddStyleguideFlow)
             .addOption(localization.common.cancel)
             .show();
         return;

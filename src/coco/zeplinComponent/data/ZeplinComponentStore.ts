@@ -1,11 +1,11 @@
 import BaseError from "../../../common/domain/error/BaseError";
 import Store from "../../../common/domain/store/Store";
-import ZeplinComponent from "../model/ZeplinComponent";
+import ZeplinComponent from "../../../common/domain/zeplinComponent/model/ZeplinComponent";
 import Result from "../../../common/domain/store/Result";
-import BarrelDetailsStoreProvider from "./BarrelDetailsStoreProvider";
+import BarrelDetailsStoreProvider from "../../../common/domain/zeplinComponent/data/BarrelDetailsStoreProvider";
 import { getConfig } from "../../config/util/configUtil";
-import BarrelType from "../../barrel/model/BarrelType";
-import BarrelDetails from "../model/BarrelDetails";
+import BarrelType from "../../../common/domain/barrel/BarrelType";
+import BarrelDetails from "../../../common/domain/zeplinComponent/model/BarrelDetails";
 import { promiseAny } from "../../../common/general/promiseUtil";
 
 type ZeplinComponentData = { component: ZeplinComponent; providerId: string; providerType: BarrelType };

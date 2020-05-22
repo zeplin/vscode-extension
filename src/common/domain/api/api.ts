@@ -1,14 +1,15 @@
 import Session from "../../../session/Session";
 import fetch, { Headers } from "node-fetch";
-import OrganizationsResponse from "../../../coco/barrel/model/OrganizationsResponse";
-import ProjectsResponse from "../../../coco/barrel/model/ProjectsResponse";
-import StyleguidesResponse from "../../../coco/barrel/model/StyleguidesResponse";
-import ProjectDetailsResponse from "../../../coco/zeplinComponent/model/ProjectDetailsResponse";
-import StyleguideDetailsResponse from "../../../coco/zeplinComponent/model/StyleguideDetailsResponse";
+import OrganizationsResponse from "../barrel/model/OrganizationsResponse";
+import ProjectsResponse from "../barrel/model/ProjectsResponse";
+import StyleguidesResponse from "../barrel/model/StyleguidesResponse";
+import ProjectDetailsResponse from "../barrel/model/ProjectDetailsResponse";
+import StyleguideDetailsResponse from "../barrel/model/StyleguideDetailsResponse";
 import BaseError from "../error/BaseError";
-import BarrelType from "../../../coco/barrel/model/BarrelType";
+import BarrelType from "../barrel/BarrelType";
 import configuration from "../extension/configuration";
 import Logger from "../../../log/Logger";
+import ScreensResponse from "../../../sidebar/screen/model/ScreensResponse";
 
 const HEADER_KEY_CONTENT_TYPE = "Content-Type";
 const HEADER_KEY_ACCESS_TOKEN = "Zeplin-Access-Token";
@@ -115,6 +116,14 @@ function getStyleguideDetails(styleguideId: string, childId?: string, childType?
     return get(`/public/vscodeextension/styleguides/${styleguideId}`, headers);
 }
 
+/**
+ * Fetches a project's screens.
+ * @param projectId A project id
+ */
+function getScreens(projectId: string): ApiResult<ScreensResponse> {
+    return get(`/public/vscodeextension/projects/${projectId}/screens`);
+}
+
 export {
     getOrganizations,
     getOrganizationProjects,
@@ -122,5 +131,6 @@ export {
     getPersonalProjects,
     getPersonalStyleguides,
     getProjectDetails,
-    getStyleguideDetails
+    getStyleguideDetails,
+    getScreens
 };

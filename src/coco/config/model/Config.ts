@@ -1,4 +1,4 @@
-import BarrelType from "../../barrel/model/BarrelType";
+import BarrelType from "../../../common/domain/barrel/BarrelType";
 import Component from "../../component/model/Component";
 import { flatten } from "../../../common/general/arrayUtil";
 import Repository from "../../repository/model/Repository";

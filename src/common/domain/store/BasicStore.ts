@@ -1,3 +1,4 @@
+import * as vscode from "vscode";
 import Store from "./Store";
 import BaseError from "../error/BaseError";
 import Result from "./Result";
@@ -8,9 +9,18 @@ import CacheHolder from "./CacheHolder";
  * Helper base for getting, refreshing data from a source and extracting useful data from it.
  */
 export default abstract class BasicStore<TResponse, TData, TError extends BaseError = BaseError>
-implements Store<TData, TError>, CacheHolder {
+implements Store<TData, TError>, CacheHolder, vscode.Disposable {
     private cache?: Result<TData, TError>;
-    private fetchPromise?: Promise<TResponse | BaseError>;
+    private fetchPromise?: Promise<TResponse | TError>;
+    private eventEmitter = new vscode.EventEmitter<TData>();
+
+    public get onDataReceived(): vscode.Event<TData> {
+        return this.eventEmitter.event;
+    }
+
+    public dispose() {
+        this.eventEmitter.dispose();
+    }
 
     public get = async (): Promise<Result<TData, TError>> => {
         if (this.fetchPromise) {
@@ -22,10 +32,17 @@ implements Store<TData, TError>, CacheHolder {
         } else {
             this.fetchPromise = this.fetchData();
             this.cache = await this.getResultFromFetchPromise();
+            if (this.cache.data) {
+                this.eventEmitter.fire(this.cache.data);
+            }
             this.fetchPromise = undefined;
             return this.cache;
         }
     };
+
+    public getCache() {
+        return this.cache;
+    }
 
     private async getResultFromFetchPromise(): Promise<Result<TData, TError>> {
         const result = await this.fetchPromise!;
@@ -50,7 +67,7 @@ implements Store<TData, TError>, CacheHolder {
         this.cache = undefined;
     }
 
-    protected abstract fetchData(): Promise<TResponse | BaseError>;
+    protected abstract fetchData(): Promise<TResponse | TError>;
 
     protected abstract extractData(response: TResponse): TData;
 }

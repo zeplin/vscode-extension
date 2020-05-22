@@ -6,12 +6,12 @@ import {
     getRootFolderPaths, getRootFolderPathForFile, getRelativePathToRootFolder, isInWorkspace
 } from "../../../common/vscode/workspace/workspaceUtil";
 import { Config } from "../model/Config";
-import Barrel from "../../barrel/model/Barrel";
-import BarrelType from "../../barrel/model/BarrelType";
+import Barrel from "../../../common/domain/barrel/Barrel";
+import BarrelType from "../../../common/domain/barrel/BarrelType";
 import Component from "../../component/model/Component";
-import ZeplinComponent from "../../zeplinComponent/model/ZeplinComponent";
+import ZeplinComponent from "../../../common/domain/zeplinComponent/model/ZeplinComponent";
 import { flatten, sum } from "../../../common/general/arrayUtil";
-import { isBarrelIdFormatValid } from "../../barrel/util/barrelUtil";
+import { isBarrelIdFormatValid } from "../../../common/domain/barrel/util/barrelUtil";
 import Logger from "../../../log/Logger";
 import RepositoryType from "../../repository/model/RepositoryType";
 import Repository from "../../repository/model/Repository";

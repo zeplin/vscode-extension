@@ -1,12 +1,12 @@
 import Store from "../../../common/domain/store/Store";
 import { getConfig } from "../../config/util/configUtil";
-import BarrelDetailsStoreProvider from "./BarrelDetailsStoreProvider";
-import BarrelType from "../../barrel/model/BarrelType";
-import BarrelDetails from "../model/BarrelDetails";
+import BarrelDetailsStoreProvider from "../../../common/domain/zeplinComponent/data/BarrelDetailsStoreProvider";
+import BarrelType from "../../../common/domain/barrel/BarrelType";
+import BarrelDetails from "../../../common/domain/zeplinComponent/model/BarrelDetails";
 import Result from "../../../common/domain/store/Result";
 import { flatten } from "../../../common/general/arrayUtil";
-import BarrelError from "../model/BarrelError";
-import { convertBarrelResult, isBarrelIdFormatValid } from "../../barrel/util/barrelUtil";
+import BarrelError from "../../../common/domain/zeplinComponent/model/BarrelError";
+import { convertBarrelResult, isBarrelIdFormatValid } from "../../../common/domain/barrel/util/barrelUtil";
 
 export default class ConfigBarrelsStore implements Store<BarrelDetails[], BarrelError> {
     public constructor(private path: string) { }

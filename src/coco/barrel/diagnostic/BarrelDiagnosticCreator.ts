@@ -2,10 +2,10 @@ import * as vscode from "vscode";
 import DiagnosticCreator from "../../../common/vscode/diagnostic/DiagnosticCreator";
 import { getConfig } from "../../config/util/configUtil";
 import { isFirstOccurence } from "../../../common/general/arrayUtil";
-import { isBarrelIdFormatValid } from "../util/barrelUtil";
+import { isBarrelIdFormatValid } from "../../../common/domain/barrel/util/barrelUtil";
 import localization from "../../../localization";
 import { createDiagnostics } from "../../../common/vscode/diagnostic/diagnosticsUtil";
-import BarrelType from "../model/BarrelType";
+import BarrelType from "../../../common/domain/barrel/BarrelType";
 import { Config } from "../../config/model/Config";
 
 class BarrelDiagnosticCreator implements DiagnosticCreator {

@@ -45,25 +45,25 @@ export default class HoverBuilder {
 
     /**
      * Appends a link to current markdown.
-     * @param url Url of a link.
+     * @param uri Uri of a link.
      * @param text Text of a link.
      */
-    public appendLink(url: string, text: string): HoverBuilder {
-        return this.append(getMarkdownLink(url, text));
+    public appendLink(uri: string, text: string): HoverBuilder {
+        return this.append(getMarkdownLink(uri, text));
     }
 
     /**
      * Appends an image to current markdown. Restricts width and height wrt. maxWidth and maxHeight if provided.
-     * @param url Url of an image.
+     * @param uri Uri of an image.
      * @param width Width of an image.
      * @param height Height of an image.
      * @param maxWidth Max width of an image.
      * @param maxHeigth Max height of an image.
      */
     public appendImage( // eslint-disable-line max-params
-        url: string, width?: number, height?: number, maxWidth?: number, maxHeigth?: number
+        uri: string, width?: number, height?: number, maxWidth?: number, maxHeigth?: number
     ): HoverBuilder {
-        return this.append(getMarkdownImage(url, width, height, maxWidth, maxHeigth));
+        return this.append(getMarkdownImage(uri, width, height, maxWidth, maxHeigth));
     }
 
     /**

@@ -6,15 +6,6 @@ import { Config } from "../model/Config";
 import localization from "../../../localization";
 import { showNoConfigError } from "../../../common/domain/error/errorUi";
 import MessageBuilder from "../../../common/vscode/message/MessageBuilder";
-import MessageType from "../../../common/vscode/message/MessageType";
-
-function showCreateConfigWarningAfterInstall() {
-    MessageBuilder.with(localization.coco.config.create.askAfterInstall)
-        .setType(MessageType.Info)
-        .addOption(localization.coco.config.create.create, tryCreateConfig)
-        .addOption(localization.common.cancel)
-        .show();
-}
 
 async function tryCreateConfig() {
     if (!areThereAnyRootFolders()) {
@@ -67,7 +58,6 @@ async function askOpenConfig() {
 }
 
 export {
-    showCreateConfigWarningAfterInstall,
     tryCreateConfig,
     tryOpenConfig,
     createConfig

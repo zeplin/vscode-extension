@@ -1,4 +1,4 @@
-import BarrelType from "../coco/barrel/model/BarrelType";
+import BarrelType from "../common/domain/barrel/BarrelType";
 import RepositoryType from "../coco/repository/model/RepositoryType";
 
 /**
@@ -8,14 +8,8 @@ import RepositoryType from "../coco/repository/model/RepositoryType";
 const localization = {
     coco: {
         barrel: {
-            noWorkspaceFound: "No workspace found",
-            selectWorkspace: "Select Zeplin workspace",
             personalWorkspace: "Personal Workspace",
-            noneFound: (type: BarrelType) => `No ${barrelLower(type)} found`,
-            select: (type: BarrelType, workspace: string) => `Select ${barrelLower(type)} from ${workspace}`,
-            alreadyAdded: (type: BarrelType) => `Selected ${barrelLower(type)} is already added.`,
             added: (type: BarrelType) => `Added ${barrelLower(type)} to configuration file.`,
-            add: (type: BarrelType) => `Add ${barrelLower(type)}`,
             notFound: (type: BarrelType) => `${barrel(type)} not found, make sure the identifier is correct`,
             formatNotValid: (type: BarrelType) =>
                 `${barrel(type)} ids must be exactly 24 characters long and hexadecimal.`,
@@ -56,8 +50,6 @@ const localization = {
         },
         config: {
             create: {
-                askAfterInstall: "Create Zeplin configuration file?",
-                create: "Create",
                 selectFolder: "Select folder to create Zeplin configuration file",
                 noWorkspaceFound: "Please open a workspace first to create a Zeplin configuration file.",
                 allFoldersHaveConfig: "All folders already have a Zeplin configuration file."
@@ -142,7 +134,86 @@ const localization = {
         clearCache: "Clear Cache",
         cacheCleared: "Cache cleared."
     },
+    sidebar: {
+        activity: {
+            noneFound: "No activity yet.",
+            errors: "Errors",
+            componentsError: (barrelId: string) => `Fetching components (${barrelId}) failed.`,
+            screensError: (barrelId: string) => `Fetching screens (${barrelId}) failed.`,
+            updated: (item: string) => `${item} updated.`,
+            updatedByUser: (user: string, item: string) => `${user} updated ${item}.`,
+            minutesAgo: (count: number) => `${count}m`,
+            hoursAgo: (count: number) => `${count}h`,
+            daysAgo: (count: number) => `${count}d`,
+            today: "Today",
+            yesterday: "Yesterday",
+            thisWeek: "This week",
+            lastWeek: "Last week",
+            thisMonth: "This month",
+            lastMonth: "Last month",
+            monthName: (date: Date) => getMonthName(date.getMonth()),
+            monthNameYear: (date: Date) => `${getMonthName(date.getMonth())} ${date.getFullYear()}`
+        },
+        barrel: {
+            projects: "Projects",
+            styleguides: "Styleguides",
+            addAnother: "Add another project or styleguide",
+            selectType: "Add project or styleguide?",
+            addProject: "Add project",
+            addStyleguide: "Add styleguide",
+            added: (type: BarrelType) => `Added ${barrelLower(type)}.`,
+            emptyInfo: "Add project/styleguide from “…” menu"
+        },
+        jira: {
+            open: "Open Jira issue",
+            select: "Select Jira issue"
+        },
+        jumpTo: {
+            jumpToItem: "Jump to screen or component",
+            selectItem: "Select screen or component",
+            noItemFound: "No screen or component found"
+        },
+        openInZeplin: {
+            selectPreferred: "Select where to open Zeplin resources",
+            web: "Open in Web",
+            app: "Open in App"
+        },
+        pin: {
+            selectProject: "Select project",
+            noProjectFound: "Please add a project first.",
+            pinScreen: "Pin screen",
+            pinComponent: "Pin component",
+            selectScreen: "Select screen",
+            selectComponent: "Select component",
+            askUnpinAll: "Unpin all items?",
+            emptyInfo: "Pin screens or components from “…” menu."
+        },
+        screen: {
+            screens: "Screens",
+            noneFound: "No screen yet."
+        },
+        zeplinComponent: {
+            localStyleguide: "Local Styleguide",
+            noneFound: "No component yet."
+        },
+        common: {
+            selectBarrel: "Select project or styleguide",
+            noBarrelFound: "Please add a project or styleguide first."
+        }
+    },
     common: {
+        barrel: {
+            noWorkspaceFound: "No workspace found",
+            selectWorkspace: "Select Zeplin workspace",
+            noneFound: (type: BarrelType) => `No ${barrelLower(type)} found`,
+            select: (type: BarrelType, workspace: string) => `Select ${barrelLower(type)} from ${workspace}`,
+            add: (type: BarrelType) => `Add ${barrelLower(type)}`,
+            alreadyAdded: (type: BarrelType) => `Selected ${barrelLower(type)} is already added.`,
+            barrel
+        },
+        zeplinComponent: {
+            zeplinComponents: "Components"
+        },
         ok: "OK",
         cancel: "Cancel",
         wrongUri: "Handling URI failed.",
@@ -151,7 +222,6 @@ const localization = {
         refresh: "Refresh",
         noItemFound: "No item found",
         clickToRefresh: "Click to refresh",
-        barrel,
         restrictedMember: "Organization member is restricted. Please contact your organization admins.",
         openInZeplin: "Open in Zeplin ",
         app: "App",
@@ -200,6 +270,13 @@ function repository(type: RepositoryType): string {
         default:
             throw new Error(`Unhandled repository type: ${type}`);
     }
+}
+
+function getMonthName(month: number) {
+    return [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ][month];
 }
 
 export default localization;

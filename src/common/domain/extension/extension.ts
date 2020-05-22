@@ -4,6 +4,19 @@ import Logger from "../../../log/Logger";
 import { initializeSession } from "../../../session/util/SessionInitializer";
 import { showWarningsAtStartUp } from "./zeplinExtensionUtil";
 import Preferences from "../../../preferences/Preferences";
+import RefreshSidebarCommand from "../../../sidebar/refresh/command/RefreshSidebarCommand";
+import AddProjectToSidebarCommand from "../../../sidebar/barrel/command/AddProjectToSidebarCommand";
+import AddStyleguideToSidebarCommand from "../../../sidebar/barrel/command/AddStyleguideToSidebarCommand";
+import RemoveBarrelFromSidebarCommand from "../../../sidebar/barrel/command/RemoveBarrelFromSidebarCommand";
+import JumpToSidebarItemCommand from "../../../sidebar/jumpTo/command/JumpToSidebarItemCommand";
+import AddBarrelToSidebarCommand from "../../../sidebar/barrel/command/AddBarrelToSidebarCommand";
+import OpenInZeplinCommand from "../../../sidebar/openInZeplin/command/OpenInZeplinCommand";
+import OpenJiraLinkCommand from "../../../sidebar/jira/command/OpenJiraLinkCommand";
+import PinToSidebarCommand from "../../../sidebar/pin/command/PinToSidebarCommand";
+import UnpinFromSidebarCommand from "../../../sidebar/pin/command/UnpinFromSidebarCommand";
+import PinScreenToSidebarCommand from "../../../sidebar/pin/command/PinScreenToSidebarCommand";
+import PinComponentToSidebarCommand from "../../../sidebar/pin/command/PinComponentToSidebarCommand";
+import UnpinAllFromSidebarCommand from "../../../sidebar/pin/command/UnpinAllFromSidebarCommand";
 import CreateConfigCommand from "../../../coco/config/command/CreateConfigCommand";
 import OpenConfigCommand from "../../../coco/config/command/OpenConfigCommand";
 import LoginCommand from "../../../session/command/LoginCommand";
@@ -20,7 +33,7 @@ import AddBitbucketCommand from "../../../coco/repository/command/AddBitbucketCo
 import AddPluginCommand from "../../../coco/plugin/command/AddPluginCommand";
 import AddLinkCommand from "../../../coco/link/command/AddLinkCommand";
 import SaveLogsCommand from "../../../log/command/SaveLogsCommand";
-import OpenExternalUrlCommand from "../../vscode/command/OpenExternalUrlCommand";
+import OpenExternalUriCommand from "../../vscode/command/OpenExternalUriCommand";
 import ShowComponentInConfigCommand from "../../../coco/component/command/ShowComponentInConfigCommand";
 import UriHandler from "../uri/UriHandler";
 import ConfigCodeLensProvider from "../../../coco/config/codeLens/ConfigCodeLensProvider";
@@ -32,6 +45,9 @@ import ComponentLinkProvider from "../../../coco/component/documentLink/Componen
 import ConfigDiagnosticsProvider from "../../../coco/config/diagnostic/ConfigDiagnosticsProvider";
 import AddMultipleComponentsCommand from "../../../coco/component/command/AddMultipleComponentsCommand";
 import AddMultipleZeplinComponentsCommand from "../../../coco/zeplinComponent/command/AddMultipleZeplinComponentsCommand";
+import BarrelTreeDataProvider from "../../../sidebar/barrel/tree/BarrelTreeDataProvider";
+import PinTreeDataProvider from "../../../sidebar/pin/tree/PinTreeDataProvider";
+import ActivityTreeDataProvider from "../../../sidebar/activity/tree/ActivityTreeDataProvider";
 
 export async function activate(context: vscode.ExtensionContext) {
     ContextProvider.initialize(context);
@@ -41,6 +57,19 @@ export async function activate(context: vscode.ExtensionContext) {
     Preferences.initialize();
 
     const commands = [
+        RefreshSidebarCommand,
+        AddProjectToSidebarCommand,
+        AddStyleguideToSidebarCommand,
+        RemoveBarrelFromSidebarCommand,
+        JumpToSidebarItemCommand,
+        AddBarrelToSidebarCommand,
+        OpenInZeplinCommand,
+        OpenJiraLinkCommand,
+        PinToSidebarCommand,
+        UnpinFromSidebarCommand,
+        PinScreenToSidebarCommand,
+        PinComponentToSidebarCommand,
+        UnpinAllFromSidebarCommand,
         CreateConfigCommand,
         OpenConfigCommand,
         LoginCommand,
@@ -59,7 +88,7 @@ export async function activate(context: vscode.ExtensionContext) {
         AddPluginCommand,
         AddLinkCommand,
         SaveLogsCommand,
-        OpenExternalUrlCommand,
+        OpenExternalUriCommand,
         ShowComponentInConfigCommand
     ];
     const codeLensProviders = [
@@ -89,6 +118,13 @@ export async function activate(context: vscode.ExtensionContext) {
         )
     );
     context.subscriptions.push(ConfigDiagnosticsProvider.register());
+
+    const treeDataProviders = [
+        BarrelTreeDataProvider,
+        PinTreeDataProvider,
+        ActivityTreeDataProvider
+    ];
+    treeDataProviders.forEach(provider => context.subscriptions.push(provider.register()));
 
     Logger.log("Extension activated");
 }

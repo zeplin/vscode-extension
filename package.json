@@ -2,7 +2,7 @@
     "name": "zeplin",
     "displayName": "Zeplin",
     "publisher": "Zeplin",
-    "description": "Zeplin’s official Visual Studio Code extension to connect your components to their design counterparts",
+    "description": "Quickly access designs you’re working on in Zeplin",
     "icon": "resources/icon-zeplin.png",
     "version": "1.1.0",
     "galleryBanner": {
@@ -35,7 +35,249 @@
     ],
     "main": "./dist/extension.js",
     "contributes": {
+        "viewsContainers": {
+            "activitybar": [
+                {
+                    "id": "zeplin",
+                    "title": "Zeplin",
+                    "icon": "resources/icon-sidebar.svg"
+                }
+            ]
+        },
+        "views": {
+            "zeplin": [
+                {
+                    "id": "zeplin.views.barrels",
+                    "name": "Projects and Styleguides"
+                },
+                {
+                    "id": "zeplin.views.pinned",
+                    "name": "Pinned"
+                },
+                {
+                    "id": "zeplin.views.activity",
+                    "name": "Activity"
+                }
+            ]
+        },
+        "viewsWelcome": [
+            {
+                "view": "zeplin.views.barrels",
+                "contents": "Welcome to Zeplin for Visual Studio Code. 👋\n\nLet's start by logging in:\n[Login to Zeplin](command:zeplin.login)\nYou can also [authenticate with a token](command:zeplin.manualLogin).",
+                "when": "!zeplin:loggedIn"
+            },
+            {
+                "view": "zeplin.views.barrels",
+                "contents": "To get started, add a project or styleguide.\n[Add project](command:zeplin.sidebar.addProject)\n[Add styleguide](command:zeplin.sidebar.addStyleguide)\nLearn more about the extension [here](https://zpl.io/vscode).",
+                "when": "zeplin:loggedIn"
+            }
+        ],
+        "menus": {
+            "view/title": [
+                {
+                    "command": "zeplin.sidebar.refresh",
+                    "when": "view == zeplin.views.barrels || view == zeplin.views.activity",
+                    "group": "navigation"
+                },
+                {
+                    "command": "zeplin.sidebar.addProject",
+                    "when": "view == zeplin.views.barrels"
+                },
+                {
+                    "command": "zeplin.sidebar.addStyleguide",
+                    "when": "view == zeplin.views.barrels"
+                },
+                {
+                    "command": "zeplin.sidebar.pinScreen",
+                    "when": "view == zeplin.views.pinned",
+                    "group": "zeplin.sidebar.pinned_1@1"
+                },
+                {
+                    "command": "zeplin.sidebar.pinComponent",
+                    "when": "view == zeplin.views.pinned",
+                    "group": "zeplin.sidebar.pinned_1@2"
+                },
+                {
+                    "command": "zeplin.sidebar.unpinAll",
+                    "when": "view == zeplin.views.pinned && zeplin:sidebar:anyPinnedItems",
+                    "group": "zeplin.sidebar.pinned_2"
+                }
+            ],
+            "view/item/context": [
+                {
+                    "command": "zeplin.sidebar.removeBarrel",
+                    "when": "view == zeplin.views.barrels && viewItem =~ /\\bbarrel\\b/"
+                },
+                {
+                    "command": "zeplin.sidebar.openJiraLink",
+                    "when": "viewItem =~ /\\bjira\\b/",
+                    "group": "inline@1"
+                },
+                {
+                    "command": "zeplin.sidebar.openInZeplin",
+                    "when": "viewItem =~ /\\bzeplinLink\\b/",
+                    "group": "inline@2"
+                },
+                {
+                    "command": "zeplin.sidebar.pinItem",
+                    "when": "view == zeplin.views.barrels && viewItem =~ /\\bpinnable\\b/",
+                    "group": "inline@3"
+                },
+                {
+                    "command": "zeplin.sidebar.unpinItem",
+                    "when": "viewItem =~ /\\bpinned\\b/",
+                    "group": "inline@3"
+                }
+            ],
+            "commandPalette": [
+                {
+                    "command": "zeplin.sidebar.refresh",
+                    "when": "false"
+                },
+                {
+                    "command": "zeplin.sidebar.addProject",
+                    "when": "false"
+                },
+                {
+                    "command": "zeplin.sidebar.addStyleguide",
+                    "when": "false"
+                },
+                {
+                    "command": "zeplin.sidebar.removeBarrel",
+                    "when": "false"
+                },
+                {
+                    "command": "zeplin.sidebar.addBarrel",
+                    "when": "false"
+                },
+                {
+                    "command": "zeplin.sidebar.openJiraLink",
+                    "when": "false"
+                },
+                {
+                    "command": "zeplin.sidebar.openInZeplin",
+                    "when": "false"
+                },
+                {
+                    "command": "zeplin.sidebar.pinItem",
+                    "when": "false"
+                },
+                {
+                    "command": "zeplin.sidebar.unpinItem",
+                    "when": "false"
+                },
+                {
+                    "command": "zeplin.sidebar.pinScreen",
+                    "when": "false"
+                },
+                {
+                    "command": "zeplin.sidebar.pinComponent",
+                    "when": "false"
+                },
+                {
+                    "command": "zeplin.sidebar.unpinAll",
+                    "when": "false"
+                }
+            ]
+        },
+        "keybindings": [
+            {
+                "command": "zeplin.sidebar.jumpTo",
+                "key": "ctrl+k j",
+                "mac": "cmd+k j"
+            },
+            {
+                "command": "workbench.view.extension.zeplin",
+                "key": "ctrl+k z",
+                "mac": "cmd+k z"
+            }
+        ],
         "commands": [
+            {
+                "command": "zeplin.sidebar.refresh",
+                "title": "Refresh",
+                "category": "Zeplin",
+                "icon": {
+                    "dark": "resources/dark/icon-refresh.svg",
+                    "light": "resources/light/icon-refresh.svg"
+                }
+            },
+            {
+                "command": "zeplin.sidebar.addProject",
+                "title": "Add Project",
+                "category": "Zeplin"
+            },
+            {
+                "command": "zeplin.sidebar.addStyleguide",
+                "title": "Add Styleguide",
+                "category": "Zeplin"
+            },
+            {
+                "command": "zeplin.sidebar.removeBarrel",
+                "title": "Remove",
+                "category": "Zeplin"
+            },
+            {
+                "command": "zeplin.sidebar.jumpTo",
+                "title": "Jump to Screen or Component",
+                "category": "Zeplin"
+            },
+            {
+                "command": "zeplin.sidebar.addBarrel",
+                "title": "Add Another Project or Styleguide",
+                "category": "Zeplin"
+            },
+            {
+                "command": "zeplin.sidebar.openInZeplin",
+                "title": "Open in Zeplin",
+                "category": "Zeplin",
+                "icon": {
+                    "dark": "resources/dark/icon-link-external.svg",
+                    "light": "resources/light/icon-link-external.svg"
+                }
+            },
+            {
+                "command": "zeplin.sidebar.openJiraLink",
+                "title": "Open Jira Issue",
+                "category": "Zeplin",
+                "icon": {
+                    "dark": "resources/dark/icon-jira.svg",
+                    "light": "resources/light/icon-jira.svg"
+                }
+            },
+            {
+                "command": "zeplin.sidebar.pinItem",
+                "title": "Pin",
+                "category": "Zeplin",
+                "icon": {
+                    "dark": "resources/dark/icon-pin.svg",
+                    "light": "resources/light/icon-pin.svg"
+                }
+            },
+            {
+                "command": "zeplin.sidebar.unpinItem",
+                "title": "Unpin",
+                "category": "Zeplin",
+                "icon": {
+                    "dark": "resources/dark/icon-pinned.svg",
+                    "light": "resources/light/icon-pinned.svg"
+                }
+            },
+            {
+                "command": "zeplin.sidebar.pinScreen",
+                "title": "Pin Screen",
+                "category": "Zeplin"
+            },
+            {
+                "command": "zeplin.sidebar.pinComponent",
+                "title": "Pin Component",
+                "category": "Zeplin"
+            },
+            {
+                "command": "zeplin.sidebar.unpinAll",
+                "title": "Remove All",
+                "category": "Zeplin"
+            },
             {
                 "command": "zeplin.createConfig",
                 "title": "Create Zeplin Configuration File",
@@ -63,7 +305,7 @@
             },
             {
                 "command": "zeplin.clearCache",
-                "title": "Clear cache",
+                "title": "Clear Cache",
                 "category": "Zeplin"
             },
             {
@@ -130,6 +372,25 @@
         "configuration": {
             "title": "Zeplin",
             "properties": {
+                "zeplin.enableTelemetry": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Enable usage data to be sent to a Zeplin online service"
+                },
+                "zeplin.preferredApplicationType": {
+                    "type": "string",
+                    "default": "Web",
+                    "enum": [
+                        "Web",
+                        "App"
+                    ],
+                    "enumDescriptions": [
+                        "Open in Web",
+                        "Open in App"
+                    ],
+                    "markdownDescription": "Specifies where to open Zeplin resources",
+                    "scope": "resource"
+                },
                 "zeplin.connectedComponents.ignoredExtensions": {
                     "type": "array",
                     "uniqueItems": true,
@@ -231,7 +492,7 @@
         "eslint-import-resolver-typescript": "^1.1.1",
         "glob": "^7.1.6",
         "husky": "^3.1.0",
-        "mocha": "^6.2.2",
+        "mocha": "^7.1.2",
         "node-loader": "^0.6.0",
         "ts-loader": "^6.2.1",
         "typescript": "^3.7.4",
@@ -240,8 +501,12 @@
         "webpack-cli": "^3.3.10"
     },
     "dependencies": {
+        "@types/jsonwebtoken": "8.5.0",
+        "@types/mixpanel": "2.14.2",
         "abort-controller": "3.0.0",
         "image-size": "0.8.3",
+        "jsonwebtoken": "8.5.1",
+        "mixpanel": "0.11.0",
         "node-fetch": "^2.6.0"
     }
 }
