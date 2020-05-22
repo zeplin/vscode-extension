@@ -24,7 +24,9 @@ class MixpanelHelper {
             const token = (await Session.getToken())!;
             const decodedToken = decode(token) as { sub: string } | null;
             if (decodedToken) {
-                properties.distinct_id = decodedToken.sub;
+                const userId = decodedToken.sub;
+                properties.distinct_id = userId;
+                properties.$user_id = userId;
             }
         }
 
