@@ -29,7 +29,7 @@ class PinTreeDataProvider extends TreeDataProvider {
         const pinnedItems = getPinnedItems();
         return pinnedItems.length
             ? pinnedItems.map(this.toTreeItem)
-            : [NoPinnedItemTreeItem];
+            : [new NoPinnedItemTreeItem()];
     }
 
     private toTreeItem(pinData: PinData): TreeItem {
