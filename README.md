@@ -2,6 +2,8 @@
 
 Zeplin for Visual Studio Code lets you quickly access the designs you’re working on, follow design changes, open the Jira issues they’re attached to —all from within VS Code. 🔌
 
+![Preview](resources/docs/sample.gif)
+
 ## Installation
 
 1. [Install](https://marketplace.visualstudio.com/items?itemName=zeplin.zeplin) Zeplin from Visual Studio Code extension marketplace.
