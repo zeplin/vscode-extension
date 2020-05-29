@@ -50,6 +50,10 @@ function isComponentPinned(component: ResponseZeplinComponent) {
 }
 
 function addScreenToPinnedItems(screen: Screen, project: Barrel) {
+    if (isScreenPinned(screen)) {
+        return;
+    }
+
     const pinnedItems = getPinnedItems();
     const newPinnedItems = pinnedItems.concat({
         type: PinType.Screen,
@@ -65,6 +69,10 @@ function addScreenToPinnedItems(screen: Screen, project: Barrel) {
 }
 
 function addComponentToPinnedItems(component: ResponseZeplinComponent, barrel: Barrel) {
+    if (isComponentPinned(component)) {
+        return;
+    }
+
     const pinnedItems = getPinnedItems();
     const newPinnedItems = pinnedItems.concat({
         type: PinType.Component,
