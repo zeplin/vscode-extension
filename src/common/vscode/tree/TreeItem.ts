@@ -2,6 +2,8 @@ import * as vscode from "vscode";
 import TreeItemContextProvider from "./TreeItemContextProvider";
 import { getCroppedImageUrl } from "../../domain/image/zeplinImageUtil";
 import { refreshItem } from "../../../sidebar/refresh/util/refreshUtil";
+import TreeItemContext from "../../domain/tree/TreeItemContext";
+import OpenInZeplinOnDoubleClickCommand from "../../../sidebar/openInZeplin/command/OpenInZeplinOnDoubleClickCommand";
 
 const ICON_SIZE = 32;
 
@@ -14,6 +16,13 @@ export default class TreeItem extends vscode.TreeItem {
     ) {
         super(label, collapsibleState);
         this.contextValue = this.contextProvider?.get();
+        if (contextProvider?.contains(TreeItemContext.ZeplinLink)) {
+            this.command = {
+                command: OpenInZeplinOnDoubleClickCommand.name,
+                title: "",
+                arguments: [this]
+            };
+        }
     }
 
     public containsContext(contextValue: string): boolean {

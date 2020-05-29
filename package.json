@@ -155,6 +155,10 @@
                     "when": "false"
                 },
                 {
+                    "command": "zeplin.sidebar.openInZeplinOnDoubleClick",
+                    "when": "false"
+                },
+                {
                     "command": "zeplin.sidebar.openInZeplin",
                     "when": "false"
                 },
@@ -225,6 +229,11 @@
             {
                 "command": "zeplin.sidebar.addBarrel",
                 "title": "Add Another Project or Styleguide",
+                "category": "Zeplin"
+            },
+            {
+                "command": "zeplin.sidebar.openInZeplinOnDoubleClick",
+                "title": "None",
                 "category": "Zeplin"
             },
             {
