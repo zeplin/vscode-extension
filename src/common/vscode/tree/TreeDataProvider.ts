@@ -29,10 +29,15 @@ export default abstract class TreeDataProvider implements vscode.TreeDataProvide
     }
 
     public register(): vscode.Disposable {
-        return (this.treeView = vscode.window.createTreeView(this.viewId, {
+        this.treeView = vscode.window.createTreeView(this.viewId, {
             treeDataProvider: this,
             showCollapseAll: this.showCollapseAll
-        }));
+        });
+        const visibilityChangeLogger = this.treeView!.onDidChangeVisibility(({ visible }) => {
+            Logger.log(`Tree "${this.viewId}" visibility changed: ${visible}`);
+        });
+
+        return vscode.Disposable.from(this.treeView, visibilityChangeLogger);
     }
 
     public abstract getRoots(): vscode.ProviderResult<TreeItem[]>;
