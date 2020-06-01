@@ -119,11 +119,13 @@ function removeBarrelItemsFromPinnedItems(barrel: Barrel) {
     PinTreeDataProvider.refresh();
 }
 
-function updatePinnedScreens(screens: ResponseScreen[]) {
+function updatePinnedScreens(projectId: string, screens: ResponseScreen[]) {
     const pinnedItems = getPinnedItems();
     for (const item of pinnedItems) {
         if (isScreenPinData(item)) {
-            const updatedScreen = screens.find(screen => screen._id === item.screen._id);
+            const updatedScreen =
+                screens.find(screen => screen._id === item.screen._id) ??
+                screens.find(screen => screen.name === item.screen.name && item.barrel.id === projectId);
             if (updatedScreen) {
                 Object.assign(item.screen, updatedScreen);
             }
@@ -135,15 +137,19 @@ function updatePinnedScreens(screens: ResponseScreen[]) {
 }
 
 function updatePinnedItems(barrel: BarrelDetails) {
+    const { id: barrelId, components, screenSections } = barrel;
     const pinnedItems = getPinnedItems();
     for (const item of pinnedItems) {
         if (isComponentPinData(item)) {
-            const updatedComponent = barrel.components.find(component => component._id === item.component._id);
+            const updatedComponent =
+                components.find(component => component._id === item.component._id) ??
+                components.find(component => component.name === item.component.name && item.barrel.id === barrelId);
+
             if (updatedComponent) {
                 Object.assign(item.component, updatedComponent);
                 Object.assign(item.barrel, barrel);
             }
-        } else if (barrel.screenSections?.some(section => section.screens.includes(item.screen._id))) {
+        } else if (screenSections?.some(section => section.screens.includes(item.screen._id))) {
             Object.assign(item.barrel, barrel);
             item.screen.jiras = barrel.itemJiras.ofScreens.filter(jira => jira.itemId === item.screen._id);
         }

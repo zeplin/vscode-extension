@@ -8,7 +8,7 @@ class ScreensStoreProvider implements CacheHolder {
     public get(id: string): ScreensStore {
         if (!this.cache[id]) {
             this.cache[id] = new ScreensStore(id);
-            this.cache[id].onDataReceived(updateSidebarScreens);
+            this.cache[id].onDataReceived(screens => updateSidebarScreens(id, screens));
         }
 
         return this.cache[id];
