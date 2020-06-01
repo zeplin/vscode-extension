@@ -7,25 +7,45 @@ import RepositoryType from "../model/RepositoryType";
 import localization from "../../../localization";
 import { getRootFolderPathForFile } from "../../../common/vscode/workspace/workspaceUtil";
 import { getRepositoryForType } from "../util/repositoryUtil";
+import StaticStore from "../../../common/domain/store/StaticStore";
+import QuickPickProvider from "../../../common/vscode/quickPick/QuickPickerProvider";
 
-function startAddGithubFlow() {
-    return startAddRepositoryFlow(RepositoryType.Github);
+type RepositoryTypeLabel = { label: string; type: RepositoryType };
+
+function getRepositoryTypeLabel(type: RepositoryType): RepositoryTypeLabel {
+    return {
+        label: localization.coco.repository.type(type),
+        type
+    };
 }
 
-function startAddGitlabFlow() {
-    return startAddRepositoryFlow(RepositoryType.Gitlab);
-}
+async function startAddRepositoryFlow() {
+    const repositoryTypeQuickPickProvider = new QuickPickProvider(
+        new StaticStore([
+            getRepositoryTypeLabel(RepositoryType.Github),
+            getRepositoryTypeLabel(RepositoryType.Gitlab),
+            getRepositoryTypeLabel(RepositoryType.Bitbucket)
+        ]),
+        ({ label }) => ({ label })
+    );
+    repositoryTypeQuickPickProvider.get().title = localization.coco.repository.add;
+    repositoryTypeQuickPickProvider.get().placeholder = localization.coco.repository.selectType;
+    const repositoryTypeLabel = await repositoryTypeQuickPickProvider.startSingleSelection();
 
-function startAddBitbucketFlow() {
-    return startAddRepositoryFlow(RepositoryType.Bitbucket);
-}
+    // Fail if no barrel type is selected
+    if (!repositoryTypeLabel) {
+        return;
+    }
 
-async function startAddRepositoryFlow(type: RepositoryType) {
-    const configPath = await selectAndValidateConfig(localization.coco.repository.add(type), false);
+    const type = repositoryTypeLabel.type;
+
+    // Select config, fail if a modifiable config is not selected
+    const configPath = await selectAndValidateConfig(localization.coco.repository.add, false);
     if (!configPath) {
         return;
     }
 
+    // Fail if selected repository type is already added to config
     if (hasRepository(configPath, type)) {
         MessageBuilder.with(localization.coco.repository.alreadyAdded(type)).show();
         showInEditor(configPath, { text: getRepositoryFieldName(type) });
@@ -53,7 +73,5 @@ function getRepositoryFieldName(type: RepositoryType): string {
 }
 
 export {
-    startAddGithubFlow,
-    startAddGitlabFlow,
-    startAddBitbucketFlow
+    startAddRepositoryFlow
 };

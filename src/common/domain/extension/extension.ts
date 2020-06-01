@@ -29,9 +29,7 @@ import AddStyleguideCommand from "../../../coco/barrel/command/AddStyleguideComm
 import AddComponentCommand from "../../../coco/component/command/AddComponentCommand";
 import AddComponentsCommand from "../../../coco/component/command/AddComponentsCommand";
 import AddZeplinComponentsCommand from "../../../coco/zeplinComponent/command/AddZeplinComponentsCommand";
-import AddGithubCommand from "../../../coco/repository/command/AddGithubCommand";
-import AddGitlabCommand from "../../../coco/repository/command/AddGitlabCommand";
-import AddBitbucketCommand from "../../../coco/repository/command/AddBitbucketCommand";
+import AddRepositoryCommand from "../../../coco/repository/command/AddRepositoryCommand";
 import AddPluginCommand from "../../../coco/plugin/command/AddPluginCommand";
 import AddLinkCommand from "../../../coco/link/command/AddLinkCommand";
 import SaveLogsCommand from "../../../log/command/SaveLogsCommand";
@@ -82,9 +80,7 @@ export async function activate(context: vscode.ExtensionContext) {
         AddComponentCommand,
         AddComponentsCommand,
         AddZeplinComponentsCommand,
-        AddGithubCommand,
-        AddGitlabCommand,
-        AddBitbucketCommand,
+        AddRepositoryCommand,
         AddPluginCommand,
         AddLinkCommand,
         SaveLogsCommand,

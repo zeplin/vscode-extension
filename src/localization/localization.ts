@@ -85,7 +85,9 @@ const localization = {
             propUrlInfo: "Base url for the link."
         },
         repository: {
-            add: (type: RepositoryType) => `Add ${repository(type)} repository`,
+            type: (type: RepositoryType) => repository(type),
+            selectType: "Select repository type",
+            add: "Add repository",
             alreadyAdded: (type: RepositoryType) => `${repository(type)} repository is already added.`,
             added: (type: RepositoryType) => `Added ${repository(type)} repository to configuration file.`,
             propInfo: (type: RepositoryType) => `${repository(type)} specific information for all components.`,
