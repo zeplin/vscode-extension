@@ -324,18 +324,13 @@
                 "category": "Zeplin"
             },
             {
-                "command": "zeplin.addMultipleComponents",
-                "title": "Add Multiple Components to Zeplin Configuration",
+                "command": "zeplin.addComponents",
+                "title": "Add Components to Zeplin Configuration",
                 "category": "Zeplin"
             },
             {
-                "command": "zeplin.addZeplinComponent",
-                "title": "Connect Zeplin Component to Component in Configuration",
-                "category": "Zeplin"
-            },
-            {
-                "command": "zeplin.addMultipleZeplinComponents",
-                "title": "Connect Multiple Zeplin Components to Component in Configuration",
+                "command": "zeplin.addZeplinComponents",
+                "title": "Connect Zeplin Components to Component in Configuration",
                 "category": "Zeplin"
             },
             {

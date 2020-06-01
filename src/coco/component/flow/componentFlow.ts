@@ -80,7 +80,7 @@ async function startAddComponentFlow(selectedFilePath: string | undefined = unde
     MessageBuilder.with(localization.coco.component.added).setType(MessageType.Info).show();
 }
 
-async function startAddMultipleComponentsFlow(selectedFilePaths: string[] | undefined = undefined) {
+async function startAddComponentsFlow(selectedFilePaths: string[] | undefined = undefined) {
     // Check if there are no configs to add component to, fail if so
     if (!configUtil.areThereAnyConfigs()) {
         showNoConfigError();
@@ -118,7 +118,7 @@ async function startAddMultipleComponentsFlow(selectedFilePaths: string[] | unde
             .with(localization.coco.component.configsNotFound)
             .addOption(localization.coco.component.createConfigsAndAdd, () => {
                 rootPathsWithNoConfig.forEach(createConfig);
-                startAddMultipleComponentsFlow(filePaths);
+                startAddComponentsFlow(filePaths);
             })
             .addOption(localization.common.cancel)
             .show();
@@ -158,6 +158,6 @@ function showComponentInConfig(filePath: string) {
 
 export {
     startAddComponentFlow,
-    startAddMultipleComponentsFlow,
+    startAddComponentsFlow,
     showComponentInConfig
 };
