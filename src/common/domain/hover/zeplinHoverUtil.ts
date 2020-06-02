@@ -2,8 +2,8 @@ import localization from "../../../localization";
 import OpenExternalUriCommand from "../../vscode/command/OpenExternalUriCommand";
 import { getMarkdownLink, getMarkdownImage } from "../../vscode/hover/hoverUtil";
 import { isVscodeVersionSufficient } from "../../vscode/ide/vscodeUtil";
-import ContextProvider from "../../vscode/extension/ContextProvider";
 import { HOVER_CODICONS_MIN_VERSION } from "../../vscode/ide/vscodefeatureVersions";
+import { IconTheme, getIconPath } from "../../general/iconPathUtil";
 
 function getOpenInZeplinLinks(appUri: string, webUrl: string) {
     return localization.common.openInZeplin +
@@ -19,7 +19,7 @@ function getExternalLinkViaCommand(uri: string) {
 function getMarkdownRefreshIcon(): string {
     return isVscodeVersionSufficient(HOVER_CODICONS_MIN_VERSION)
         ? "$(refresh)"
-        : getMarkdownImage(`${ContextProvider.get().asAbsolutePath("resources/dark/icon-refresh.svg")}`);
+        : getMarkdownImage(getIconPath("icon-refresh.svg", IconTheme.Dark));
 }
 
 export {
