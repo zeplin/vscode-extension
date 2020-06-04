@@ -16,18 +16,10 @@ import MessageType from "../../../common/vscode/message/MessageType";
 import ZeplinComponent from "../../../common/domain/zeplinComponent/model/ZeplinComponent";
 import BarrelError from "../../../common/domain/zeplinComponent/model/BarrelError";
 import BarrelType from "../../../common/domain/barrel/BarrelType";
-import Component from "../../component/model/Component";
 
-type PrecheckResult = {
-    configPath: string;
-    component: Component;
-    zeplinComponentQuickPickProvider: QuickPickProvider<ZeplinComponent, BarrelError>;
-};
-
-async function precheckAddZeplinComponentRequirements(pickerTitle: string, componentIndex?: number):
-    Promise<PrecheckResult | undefined> {
+async function startAddZeplinComponentsFlow(componentIndex?: number) {
     // Validate login and select config, fail if a modifiable config is not selected
-    const configPath = await selectAndValidateConfig(pickerTitle);
+    const configPath = await selectAndValidateConfig(localization.coco.zeplinComponent.connect);
     if (!configPath) {
         return;
     }
@@ -43,6 +35,7 @@ async function precheckAddZeplinComponentRequirements(pickerTitle: string, compo
         return;
     }
 
+    // Check if config has any components, fail if not so
     if (!configUtil.hasComponents(configPath)) {
         showInEditor(configPath);
         MessageBuilder.with(localization.coco.zeplinComponent.noComponentFound)
@@ -84,7 +77,7 @@ async function precheckAddZeplinComponentRequirements(pickerTitle: string, compo
             localization.coco.zeplinComponent.noBarrelFound,
             showBarrelError
         );
-        barrelQuickPickProvider.get().title = pickerTitle;
+        barrelQuickPickProvider.get().title = localization.coco.zeplinComponent.connect;
         barrelQuickPickProvider.get().placeholder = localization.coco.zeplinComponent.selectBarrel;
         barrel = await barrelQuickPickProvider.startSingleSelection();
     }
@@ -106,43 +99,8 @@ async function precheckAddZeplinComponentRequirements(pickerTitle: string, compo
         localization.coco.zeplinComponent.noZeplinComponentFound,
         showBarrelError
     );
-    zeplinComponentQuickPickProvider.get().title = pickerTitle;
+    zeplinComponentQuickPickProvider.get().title = localization.coco.zeplinComponent.connect;
     zeplinComponentQuickPickProvider.get().placeholder = localization.coco.zeplinComponent.selectZeplinComponent;
-
-    return { configPath, component, zeplinComponentQuickPickProvider };
-}
-
-async function startAddZeplinComponentFlow(componentIndex?: number) {
-    // Precheck add zeplin component flow requirements, fail if not fulfilled
-    const precheckResult =
-        await precheckAddZeplinComponentRequirements(localization.coco.zeplinComponent.connect, componentIndex);
-    if (!precheckResult) {
-        return;
-    }
-    const { configPath, component, zeplinComponentQuickPickProvider } = precheckResult;
-
-    // Show Zeplin component picker
-    const zeplinComponent = await zeplinComponentQuickPickProvider.startSingleSelection();
-
-    // Fail if no Zeplin component name is selected
-    if (!zeplinComponent) {
-        return;
-    }
-
-    // Add Zeplin component
-    configUtil.addZeplinComponent(configPath, component.path, zeplinComponent.name);
-    showInEditor(configPath, { text: zeplinComponent.name, onAdd: true });
-    MessageBuilder.with(localization.coco.zeplinComponent.connected).setType(MessageType.Info).show();
-}
-
-async function startAddMultipleZeplinComponentsFlow(componentIndex?: number) {
-    // Precheck add zeplin component flow requirements, fail if not fulfilled
-    const precheckResult =
-        await precheckAddZeplinComponentRequirements(localization.coco.zeplinComponent.connect, componentIndex);
-    if (!precheckResult) {
-        return;
-    }
-    const { configPath, component, zeplinComponentQuickPickProvider } = precheckResult;
 
     // Show Zeplin component picker
     const zeplinComponents = await zeplinComponentQuickPickProvider.startMultipleSelection();
@@ -158,12 +116,11 @@ async function startAddMultipleZeplinComponentsFlow(componentIndex?: number) {
     );
     showInEditor(configPath);
     MessageBuilder
-        .with(localization.coco.zeplinComponent.connectedMultiple(zeplinComponents.length))
+        .with(localization.coco.zeplinComponent.connected(zeplinComponents.length))
         .setType(MessageType.Info)
         .show();
 }
 
 export {
-    startAddZeplinComponentFlow,
-    startAddMultipleZeplinComponentsFlow
+    startAddZeplinComponentsFlow
 };

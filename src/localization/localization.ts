@@ -27,7 +27,7 @@ const localization = {
             alreadyAdded: "Selected component file is already added.",
             add: "Add component",
             added: "Component added to configuration file.",
-            addMultiple: "Add multiple components",
+            addMultiple: "Add components",
             addedMultiple: (count: number) => `${pluralize(count, "component")} added to configuration file.`,
             goToFile: "Go to component file",
             zeplinComponentCount: (count: number) => `Connected to ${pluralize(count, "Zeplin Component")}`,
@@ -105,10 +105,8 @@ const localization = {
             selectComponent: "Select component file",
             joinBarrel: "Please join first.",
             join: "Join",
-            connected: "Connected to Zeplin component.",
-            connect: "Connect to Zeplin component",
-            connectedMultiple: (count: number) => `Connected to ${pluralize(count, "Zeplin Component")}.`,
-            connectMultiple: "Connect to multiple Zeplin components",
+            connected: (count: number) => `Connected to ${pluralize(count, "Zeplin Component")}.`,
+            connect: "Connect to Zeplin components",
             notFound: (name: string) => `No component named “${name}” in projects/styleguides you’re a member of`
         },
         common: {

@@ -27,7 +27,8 @@ import ClearCacheCommand from "../../../session/command/ClearCacheCommand";
 import AddProjectCommand from "../../../coco/barrel/command/AddProjectCommand";
 import AddStyleguideCommand from "../../../coco/barrel/command/AddStyleguideCommand";
 import AddComponentCommand from "../../../coco/component/command/AddComponentCommand";
-import AddZeplinComponentCommand from "../../../coco/zeplinComponent/command/AddZeplinComponentCommand";
+import AddComponentsCommand from "../../../coco/component/command/AddComponentsCommand";
+import AddZeplinComponentsCommand from "../../../coco/zeplinComponent/command/AddZeplinComponentsCommand";
 import AddGithubCommand from "../../../coco/repository/command/AddGithubCommand";
 import AddGitlabCommand from "../../../coco/repository/command/AddGitlabCommand";
 import AddBitbucketCommand from "../../../coco/repository/command/AddBitbucketCommand";
@@ -44,8 +45,6 @@ import { updateConfigOnComponentRename } from "../../../coco/component/fileChang
 import { registerCommand } from "../../vscode/extension/extensionUtil";
 import ComponentLinkProvider from "../../../coco/component/documentLink/ComponentLinkProvider";
 import ConfigDiagnosticsProvider from "../../../coco/config/diagnostic/ConfigDiagnosticsProvider";
-import AddMultipleComponentsCommand from "../../../coco/component/command/AddMultipleComponentsCommand";
-import AddMultipleZeplinComponentsCommand from "../../../coco/zeplinComponent/command/AddMultipleZeplinComponentsCommand";
 import BarrelTreeDataProvider from "../../../sidebar/barrel/tree/BarrelTreeDataProvider";
 import PinTreeDataProvider from "../../../sidebar/pin/tree/PinTreeDataProvider";
 import ActivityTreeDataProvider from "../../../sidebar/activity/tree/ActivityTreeDataProvider";
@@ -81,9 +80,8 @@ export async function activate(context: vscode.ExtensionContext) {
         AddProjectCommand,
         AddStyleguideCommand,
         AddComponentCommand,
-        AddMultipleComponentsCommand,
-        AddZeplinComponentCommand,
-        AddMultipleZeplinComponentsCommand,
+        AddComponentsCommand,
+        AddZeplinComponentsCommand,
         AddGithubCommand,
         AddGitlabCommand,
         AddBitbucketCommand,

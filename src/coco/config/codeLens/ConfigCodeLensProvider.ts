@@ -5,11 +5,9 @@ import ClearCacheCodeLensCreator from "../../../session/codeLens/ClearCacheCodeL
 import LoginCodeLensCreator from "../../../session/codeLens/LoginCodeLensCreator";
 import ConfigStatisticsCodeLensCreator from "./ConfigStatisticsCodeLensCreator";
 import AddBarrelCodeLensCreator from "../../barrel/codeLens/AddBarrelCodeLensCreator";
-import AddComponentCodeLensCreator from "../../component/codeLens/AddComponentCodeLensCreator";
-import AddMultipleComponentsCodeLensCreator from "../../component/codeLens/AddMultipleComponentsCodeLensCreator";
-import AddZeplinComponentCodeLensCreator from "../../zeplinComponent/codeLens/AddZeplinComponentCodeLensCreator";
+import AddComponentsCodeLensCreator from "../../component/codeLens/AddComponentsCodeLensCreator";
+import AddZeplinComponentsCodeLensCreator from "../../zeplinComponent/codeLens/AddZeplinComponentsCodeLensCreator";
 import CodeLensProvider from "../../../common/vscode/codeLens/CodeLensProvider";
-import AddMultipleZeplinComponentsCodeLensCreator from "../../zeplinComponent/codeLens/AddMultipleZeplinComponentsCodeLensCreator";
 
 class ConfigCodeLensProvider extends CodeLensProvider {
     public createWatcher(): vscode.Disposable {
@@ -30,10 +28,8 @@ class ConfigCodeLensProvider extends CodeLensProvider {
             ClearCacheCodeLensCreator,
             ConfigStatisticsCodeLensCreator,
             AddBarrelCodeLensCreator,
-            AddComponentCodeLensCreator,
-            AddMultipleComponentsCodeLensCreator,
-            AddZeplinComponentCodeLensCreator,
-            AddMultipleZeplinComponentsCodeLensCreator
+            AddComponentsCodeLensCreator,
+            AddZeplinComponentsCodeLensCreator
         ];
     }
 }
