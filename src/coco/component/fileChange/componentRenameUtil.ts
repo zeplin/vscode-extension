@@ -3,6 +3,7 @@ import * as configUtil from "../../config/util/configUtil";
 import { getRelativePathToRootFolder } from "../../../common/vscode/workspace/workspaceUtil";
 import { PATH_SEPARATOR } from "../../../common/general/pathUtil";
 import { wrapWithLogs } from "../../../log/util/logUtil";
+import Logger from "../../../log/Logger";
 
 type FileChanges = {
     oldUri: vscode.Uri;
@@ -59,14 +60,14 @@ function updateComponentPaths(fileChanges: FileChanges) {
     }
 
     if (shouldSaveOldConfig) {
-        console.log(
+        Logger.log(
             `Config #${configUtil.getConfigPaths().indexOf(oldConfigPath)} updated for component path change`
         );
         configUtil.saveConfig(oldConfigPath, oldConfig);
     }
 
     if (shouldSaveNewConfig) {
-        console.log(
+        Logger.log(
             `Config #${configUtil.getConfigPaths().indexOf(newConfigPath)} also updated for component path change`
         );
         configUtil.saveConfig(newConfigPath, newConfig);
