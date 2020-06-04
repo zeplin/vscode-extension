@@ -1,6 +1,15 @@
 const MARKDOWN_SPACE = "&nbsp;";
+const MARKDOWN_SPECIAL_CHARS_REG_EXP = /[.*#+-?^${}()!|[\]\\`]/g;
 const MAX_IMAGE_HEIGHT = 480;
 const MAX_IMAGE_WIDTH = 480;
+
+/**
+ * Return text with escaped chars for markdown.
+ * @param text Text to be escaped
+ */
+function escapeMarkdownChars(text: string): string {
+    return text.replace(MARKDOWN_SPECIAL_CHARS_REG_EXP, "\\$&");
+}
 
 /**
  * Returns markdown for an image uri. Restricts width and height wrt maxWidth and maxHeight if provided.
@@ -88,6 +97,7 @@ function toItalicForMarkdown(text: string): string {
 
 export {
     MARKDOWN_SPACE,
+    escapeMarkdownChars,
     getMarkdownImage,
     getMarkdownLink,
     getMarkdownCommand,
