@@ -188,12 +188,14 @@
             {
                 "command": "zeplin.sidebar.jumpTo",
                 "key": "ctrl+k j",
-                "mac": "cmd+k j"
+                "mac": "cmd+k j",
+                "when": "!terminalFocus"
             },
             {
                 "command": "workbench.view.extension.zeplin",
                 "key": "ctrl+k z",
-                "mac": "cmd+k z"
+                "mac": "cmd+k z",
+                "when": "!terminalFocus"
             }
         ],
         "commands": [
