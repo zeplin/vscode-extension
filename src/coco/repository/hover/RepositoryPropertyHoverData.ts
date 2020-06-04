@@ -1,10 +1,6 @@
 import ConfigPropertyHoverData from "../../../common/domain/hover/ConfigPropertyHoverData";
-import Command from "../../../common/vscode/command/Command";
 import localization from "../../../localization";
 import RepositoryType from "../model/RepositoryType";
-import AddGithubCommand from "../command/AddGithubCommand";
-import AddGitlabCommand from "../command/AddGitlabCommand";
-import AddBitbucketCommand from "../command/AddBitbucketCommand";
 
 class RepositoryPropertyHoverData implements ConfigPropertyHoverData {
     public info = localization.coco.repository.propInfo(this.type);
@@ -26,24 +22,12 @@ class RepositoryPropertyHoverData implements ConfigPropertyHoverData {
             optional: true
         }
     ];
-    public command: { name: string; text: string };
 
-    public constructor(private type: RepositoryType, public key: string, command: Command, private url: string) {
-        this.command = {
-            name: command.name,
-            text: localization.coco.repository.add(type)
-        };
-    }
+    public constructor(private type: RepositoryType, public key: string, private url: string) { }
 }
 
 export default {
-    ForGithub: new RepositoryPropertyHoverData(
-        RepositoryType.Github, "github", AddGithubCommand, "https://github.com"
-    ),
-    ForGitlab: new RepositoryPropertyHoverData(
-        RepositoryType.Gitlab, "gitlab", AddGitlabCommand, "https://gitlab.com"
-    ),
-    ForBitbucket: new RepositoryPropertyHoverData(
-        RepositoryType.Bitbucket, "bitbucket", AddBitbucketCommand, "https://bitbucket.org"
-    )
+    ForGithub: new RepositoryPropertyHoverData(RepositoryType.Github, "github", "https://github.com"),
+    ForGitlab: new RepositoryPropertyHoverData(RepositoryType.Gitlab, "gitlab", "https://gitlab.com"),
+    ForBitbucket: new RepositoryPropertyHoverData(RepositoryType.Bitbucket, "bitbucket", "https://bitbucket.org")
 };

@@ -343,18 +343,8 @@
                 "category": "Zeplin"
             },
             {
-                "command": "zeplin.addGithub",
-                "title": "Add GitHub Repository to Zeplin Configuration",
-                "category": "Zeplin"
-            },
-            {
-                "command": "zeplin.addGitlab",
-                "title": "Add GitLab Repository to Zeplin Configuration",
-                "category": "Zeplin"
-            },
-            {
-                "command": "zeplin.addBitbucket",
-                "title": "Add Bitbucket Repository to Zeplin Configuration",
+                "command": "zeplin.addRepository",
+                "title": "Add Repository to Zeplin Configuration",
                 "category": "Zeplin"
             },
             {
