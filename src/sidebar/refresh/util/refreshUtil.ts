@@ -6,8 +6,8 @@ import ResponseScreen from "../../screen/model/ResponseScreen";
 import TreeItem from "../../../common/vscode/tree/TreeItem";
 import PinTreeDataProvider from "../../pin/tree/PinTreeDataProvider";
 
-function updateSidebarScreens(screens: ResponseScreen[]) {
-    updatePinnedScreens(screens);
+function updateSidebarScreens(projectId: string, screens: ResponseScreen[]) {
+    updatePinnedScreens(projectId, screens);
     BarrelTreeDataProvider.refresh();
     ActivityTreeDataProvider.refresh();
 }
