@@ -5,7 +5,7 @@ import Result from "../../domain/store/Result";
 import BaseError from "../../domain/error/BaseError";
 import { showGeneralError } from "../../domain/error/errorUi";
 import Logger from "../../../log/Logger";
-import ContextProvider from "../extension/ContextProvider";
+import { getThemedIconUris } from "../../general/iconPathUtil";
 
 /**
  * Provider for VS Code's built-in picker. Gets data from its assigned store.
@@ -161,10 +161,7 @@ export default class QuickPickProvider<T, E extends BaseError = BaseError> {
      */
     private static createRefreshButton() {
         QuickPickProvider.refreshButton = QuickPickProvider.refreshButton ?? {
-            iconPath: {
-                light: vscode.Uri.file(ContextProvider.get().asAbsolutePath("resources/light/icon-refresh.svg")),
-                dark: vscode.Uri.file(ContextProvider.get().asAbsolutePath("resources/dark/icon-refresh.svg"))
-            },
+            iconPath: getThemedIconUris("icon-refresh.svg"),
             tooltip: localization.common.refresh
         };
     }
