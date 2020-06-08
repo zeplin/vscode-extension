@@ -26,12 +26,12 @@ class ConfigDiagnosticsProvider {
         this.diagnosticCollection.delete(document.uri);
     }
 
-    private updateDiagnostics(document: vscode.TextDocument) {
+    private async updateDiagnostics(document: vscode.TextDocument) {
         const uri = document.uri;
         const path = uri.fsPath;
+        this.diagnosticCollection.delete(uri);
 
         if (!isConfigPath(path) || isConfigDirty(path) || !isConfigValid(path)) {
-            this.diagnosticCollection.delete(uri);
             return;
         }
 
@@ -40,7 +40,7 @@ class ConfigDiagnosticsProvider {
             ComponentDiagnosticCreator
         ];
 
-        const diagnostics = flatten(creators.map(creator => creator.create(document)));
+        const diagnostics = flatten(await Promise.all(creators.map(creator => creator.create(document))));
         for (const diagnostic of diagnostics) {
             diagnostic.source = SOURCE;
         }

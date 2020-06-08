@@ -8,5 +8,5 @@ export default interface DiagnosticCreator {
      * Creates diagnostics on a text document.
      * @param document A text document to create diagnostics on.
      */
-    create(document: vscode.TextDocument): vscode.Diagnostic[];
+    create(document: vscode.TextDocument): vscode.ProviderResult<vscode.Diagnostic[]>;
 }
