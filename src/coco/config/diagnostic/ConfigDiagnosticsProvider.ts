@@ -4,6 +4,7 @@ import { flatten } from "../../../common/general/arrayUtil";
 import DiagnosticCreator from "../../../common/vscode/diagnostic/DiagnosticCreator";
 import BarrelDiagnosticCreator from "../../barrel/diagnostic/BarrelDiagnosticCreator";
 import ComponentDiagnosticCreator from "../../component/diagnostic/ComponentDiagnosticCreator";
+import ZeplinComponentDiagnosticCreator from "../../zeplinComponent/diagnostic/ZeplinComponentDiagnosticCreator";
 
 const KEY = "zeplinConfig";
 const SOURCE = "Zeplin";
@@ -37,7 +38,8 @@ class ConfigDiagnosticsProvider {
 
         const creators: DiagnosticCreator[] = [
             BarrelDiagnosticCreator,
-            ComponentDiagnosticCreator
+            ComponentDiagnosticCreator,
+            ZeplinComponentDiagnosticCreator
         ];
 
         const diagnostics = flatten(await Promise.all(creators.map(creator => creator.create(document))));
