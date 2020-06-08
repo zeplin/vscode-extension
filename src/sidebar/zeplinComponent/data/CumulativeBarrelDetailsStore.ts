@@ -4,7 +4,6 @@ import BarrelError from "../../../common/domain/zeplinComponent/model/BarrelErro
 import BarrelType from "../../../common/domain/barrel/BarrelType";
 import Result from "../../../common/domain/store/Result";
 import BarrelDetailsStoreProvider from "../../../common/domain/zeplinComponent/data/BarrelDetailsStoreProvider";
-import { convertBarrelResult } from "../../../common/domain/barrel/util/barrelUtil";
 
 export default class CumulativeBarrelDetailsStore implements Store<BarrelDetails[], BarrelError> {
     public constructor(private barrelId: string, private barrelType: BarrelType) { }
@@ -23,12 +22,8 @@ export default class CumulativeBarrelDetailsStore implements Store<BarrelDetails
             const childId: string | undefined = currentId === leafId ? undefined : leafId;
             const childType: BarrelType | undefined = currentId === leafId ? undefined : leafType;
 
-            const { data, errors }: Result<BarrelDetails, BarrelError> = await BarrelDetailsStoreProvider
-                .get(currentId, currentType, childId, childType)
-                .get()
-                .then(
-                    barrel => convertBarrelResult(barrel, currentType, currentId!) // eslint-disable-line no-loop-func
-                );
+            const { data, errors }: Result<BarrelDetails, BarrelError> =
+                await BarrelDetailsStoreProvider.get(currentId, currentType, childId, childType).get();
 
             if (errors) {
                 accumulatedResult.errors!.push(...errors);

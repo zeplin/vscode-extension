@@ -5,16 +5,21 @@ import BarrelType from "../BarrelType";
 import { getComponentsFromSections } from "../../../../coco/zeplinComponent/util/zeplinComponentUtil";
 import BaseError from "../../error/BaseError";
 import { getProjectJiras, getProjectItemJiras } from "../../jira/util/jiraUtil";
+import BarrelError from "../../zeplinComponent/model/BarrelError";
 
-export default abstract class BarrelDetailsStore<T extends BarrelDetailsResponse> extends BasicStore<T, BarrelDetails> {
+export default abstract class BarrelDetailsStore<T extends BarrelDetailsResponse>
+    extends BasicStore<T, BarrelDetails, BarrelError> {
     protected abstract type: BarrelType;
 
     public constructor(private id: string) {
         super();
     }
 
-    protected fetchData(): Promise<T | BaseError> {
-        return this.fetchBarrelDetails(this.id);
+    protected async fetchData(): Promise<T | BarrelError> {
+        const result = await this.fetchBarrelDetails(this.id);
+        return result instanceof BaseError
+            ? new BarrelError(this.type, this.id, result.message, result.code)
+            : result;
     }
 
     protected abstract fetchBarrelDetails(id: string): Promise<T | BaseError>;

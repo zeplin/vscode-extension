@@ -6,7 +6,7 @@ import BarrelDetails from "../../../common/domain/zeplinComponent/model/BarrelDe
 import Result from "../../../common/domain/store/Result";
 import { flatten } from "../../../common/general/arrayUtil";
 import BarrelError from "../../../common/domain/zeplinComponent/model/BarrelError";
-import { convertBarrelResult, isBarrelIdFormatValid } from "../../../common/domain/barrel/util/barrelUtil";
+import { isBarrelIdFormatValid } from "../../../common/domain/barrel/util/barrelUtil";
 
 export default class ConfigBarrelsStore implements Store<BarrelDetails[], BarrelError> {
     public constructor(private path: string) { }
@@ -17,18 +17,8 @@ export default class ConfigBarrelsStore implements Store<BarrelDetails[], Barrel
         const styleguides = config.getStyleguides().filter(isBarrelIdFormatValid);
 
         const results = await Promise.all([
-            ...projects.map(
-                project => BarrelDetailsStoreProvider
-                    .get(project, BarrelType.Project)
-                    .get()
-                    .then(result => convertBarrelResult(result, BarrelType.Project, project))
-            ),
-            ...styleguides.map(
-                styleguide => BarrelDetailsStoreProvider
-                    .get(styleguide, BarrelType.Styleguide)
-                    .get()
-                    .then(result => convertBarrelResult(result, BarrelType.Styleguide, styleguide))
-            )
+            ...projects.map(project => BarrelDetailsStoreProvider.get(project, BarrelType.Project).get()),
+            ...styleguides.map(styleguide => BarrelDetailsStoreProvider.get(styleguide, BarrelType.Styleguide).get())
         ]);
 
         return {
