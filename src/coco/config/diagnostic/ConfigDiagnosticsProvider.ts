@@ -13,7 +13,7 @@ class ConfigDiagnosticsProvider {
     private readonly diagnosticCollection = vscode.languages.createDiagnosticCollection(KEY);
 
     public register(): vscode.Disposable {
-        vscode.workspace.textDocuments.forEach(this.updateDiagnostics, this);
+        this.updateForOpenDocuments();
         return vscode.Disposable.from(
             this.diagnosticCollection,
             vscode.workspace.onDidOpenTextDocument(this.updateDiagnostics, this),
@@ -21,6 +21,10 @@ class ConfigDiagnosticsProvider {
             vscode.workspace.onDidChangeTextDocument(event => this.clearDiagnostics(event.document), this),
             vscode.workspace.onDidCloseTextDocument(this.clearDiagnostics, this)
         );
+    }
+
+    public updateForOpenDocuments() {
+        vscode.window.visibleTextEditors.forEach(editor => this.updateDiagnostics(editor.document), this);
     }
 
     private clearDiagnostics(document: vscode.TextDocument) {
