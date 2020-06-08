@@ -1,11 +1,11 @@
-import BarrelDetailsStoreProvider from "../../../common/domain/zeplinComponent/data/BarrelDetailsStoreProvider";
-import ScreensStoreProvider from "../../screen/data/ScreensStoreProvider";
-import BarrelTreeDataProvider from "../../barrel/tree/BarrelTreeDataProvider";
-import ActivityTreeDataProvider from "../../activity/tree/ActivityTreeDataProvider";
-import { MS_IN_HOUR } from "../../../common/general/dateTimeUtil";
-import { resetCroppedImageUrlCache } from "../../../common/domain/image/zeplinImageUtil";
+import BarrelDetailsStoreProvider from "../../common/domain/zeplinComponent/data/BarrelDetailsStoreProvider";
+import ScreensStoreProvider from "../../sidebar/screen/data/ScreensStoreProvider";
+import BarrelTreeDataProvider from "../../sidebar/barrel/tree/BarrelTreeDataProvider";
+import ActivityTreeDataProvider from "../../sidebar/activity/tree/ActivityTreeDataProvider";
+import { MS_IN_HOUR } from "../../common/general/dateTimeUtil";
+import { resetCroppedImageUrlCache } from "../../common/domain/image/zeplinImageUtil";
 
-class SidebarRefresher {
+class Refresher {
     private lastRefreshRequested?: number;
 
     public refresh() {
@@ -33,4 +33,4 @@ class SidebarRefresher {
     }
 }
 
-export default new SidebarRefresher();
+export default new Refresher();

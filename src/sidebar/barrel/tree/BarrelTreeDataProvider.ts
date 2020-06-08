@@ -5,7 +5,7 @@ import { getSavedBarrels } from "../util/barrelUtil";
 import { BarrelTreeItem } from "./BarrelTreeItem";
 import JumpToTreeItem from "../../jumpTo/tree/JumpToTreeItem";
 import Barrel from "../../../common/domain/barrel/Barrel";
-import SidebarRefresher from "../../refresh/util/SidebarRefresher";
+import Refresher from "../../../session/util/Refresher";
 import AddBarrelTreeItem from "./AddBarrelTreeItem";
 import BarrelType from "../../../common/domain/barrel/BarrelType";
 import localization from "../../../localization";
@@ -22,7 +22,7 @@ class BarrelTreeDataProvider extends TreeDataProvider {
         disposables.push(
             this.treeView!.onDidChangeVisibility(({ visible }) => {
                 if (visible) {
-                    SidebarRefresher.requestRefresh();
+                    Refresher.requestRefresh();
                 }
             })
         );

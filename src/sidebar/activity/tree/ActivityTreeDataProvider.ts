@@ -7,7 +7,7 @@ import Activity from "../model/Activity";
 import ActivitySlotTreeItem from "./ActivitySlotTreeItem";
 import ActivityErrorsTreeItem from "./ActivityErrorsTreeItem";
 import localization from "../../../localization";
-import SidebarRefresher from "../../refresh/util/SidebarRefresher";
+import Refresher from "../../../session/util/Refresher";
 
 class ActivityTreeDataProvider extends TreeDataProvider {
     protected viewId = "zeplin.views.activity";
@@ -18,7 +18,7 @@ class ActivityTreeDataProvider extends TreeDataProvider {
         disposables.push(
             this.treeView!.onDidChangeVisibility(({ visible }) => {
                 if (visible) {
-                    SidebarRefresher.requestRefresh();
+                    Refresher.requestRefresh();
                 }
             })
         );
