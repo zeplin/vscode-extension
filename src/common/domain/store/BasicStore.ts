@@ -27,7 +27,6 @@ implements Store<TData, TError>, CacheHolder, vscode.Disposable {
             Logger.log(`Already Loading Data from ${this.constructor.name}`);
             return this.getResultFromFetchPromise();
         } else if (this.cache?.data) {
-            Logger.log(`Loaded from cache of ${this.constructor.name}`);
             return this.cache;
         } else {
             this.fetchPromise = this.fetchData();
