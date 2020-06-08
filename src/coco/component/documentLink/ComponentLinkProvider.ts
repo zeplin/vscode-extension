@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 import * as path from "path";
-import { getConfig, RELATIVE_PATH } from "../../config/util/configUtil";
+import { getConfig, RELATIVE_PATH, isConfigValid } from "../../config/util/configUtil";
 import { isFirstOccurence, flatten } from "../../../common/general/arrayUtil";
 import { toProperty, getRangesOf } from "../../../common/vscode/editor/textDocumentUtil";
 import { getRootFolderPathForFile } from "../../../common/vscode/workspace/workspaceUtil";
@@ -16,6 +16,10 @@ class ComponentLinkProvider implements vscode.DocumentLinkProvider {
     public provideDocumentLinks(document: vscode.TextDocument): vscode.DocumentLink[] {
         return wrapWithLogs(
             () => {
+                if (!isConfigValid(document.uri.fsPath)) {
+                    return [];
+                }
+
                 const configPath = document.uri.fsPath;
                 const rootPath = getRootFolderPathForFile(configPath);
                 const componentRelativePaths = getConfig(configPath)
