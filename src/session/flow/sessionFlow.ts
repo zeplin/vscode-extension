@@ -4,20 +4,12 @@ import Session from "../Session";
 import UriHandler from "../../common/domain/uri/UriHandler";
 import { isUri } from "../../common/vscode/uri/uriUtil";
 import ConfigCodeLensProvider from "../../coco/config/codeLens/ConfigCodeLensProvider";
-import BarrelDetailsStoreProvider from "../../common/domain/zeplinComponent/data/BarrelDetailsStoreProvider";
-import BarrelsStoreProvider from "../../common/domain/barrel/data/BarrelsStoreProvider";
-import WorkspacesStore from "../../common/domain/barrel/data/WorkspacesStore";
 import configuration from "../../common/domain/extension/configuration";
 import { showNotLoggedInError } from "../../common/domain/error/errorUi";
 import MessageBuilder from "../../common/vscode/message/MessageBuilder";
 import MessageType from "../../common/vscode/message/MessageType";
-import CacheHolder from "../../common/domain/store/CacheHolder";
-import ScreensStoreProvider from "../../sidebar/screen/data/ScreensStoreProvider";
 import Analytics from "../../analytics/Analytics";
-import ConfigDiagnosticsProvider from "../../coco/config/diagnostic/ConfigDiagnosticsProvider";
-
-const CACHE_HOLDERS: CacheHolder[] =
-    [WorkspacesStore, BarrelsStoreProvider, BarrelDetailsStoreProvider, ScreensStoreProvider];
+import Refresher from "../util/Refresher";
 
 function showLoginWarningAfterInstall() {
     MessageBuilder.with(localization.session.askLogin)
@@ -51,7 +43,7 @@ async function tryManualLogin() {
 
 async function completeLogin(token: string) {
     await Session.setToken(token);
-    clearCache();
+    Refresher.refresh();
     ConfigCodeLensProvider.refresh();
     MessageBuilder.with(localization.session.loggedIn).setType(MessageType.Info).show();
     Analytics.authenticated();
@@ -75,18 +67,13 @@ function askLogout() {
 
 async function completeLogout() {
     await Session.removeToken();
-    clearCache();
+    Refresher.refresh();
     ConfigCodeLensProvider.refresh();
     MessageBuilder.with(localization.session.logoutSuccessful).setType(MessageType.Info).show();
 }
 
-function clearCache() {
-    CACHE_HOLDERS.forEach(cacheHolder => cacheHolder.clearCache());
-}
-
 function clearCacheAndNotify() {
-    clearCache();
-    ConfigDiagnosticsProvider.updateForOpenDocuments();
+    Refresher.refresh();
     MessageBuilder.with(localization.session.cacheCleared).setType(MessageType.Info).show();
 }
 
