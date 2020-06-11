@@ -5,9 +5,9 @@ import { getEmotarUrl } from "../../../common/domain/image/zeplinImageUtil";
 import localization from "../../../localization";
 import TreeItemContextProvider from "../../../common/vscode/tree/TreeItemContextProvider";
 import TreeItemContext from "../../../common/domain/tree/TreeItemContext";
-import ZeplinUriProvider from "../../openInZeplin/model/ZeplinUriProvider";
+import ZeplinUriProvider from "../../../common/domain/openInZeplin/model/ZeplinUriProvider";
 import ApplicationType from "../../../common/domain/openInZeplin/model/ApplicationType";
-import ZeplinLinkType from "../../openInZeplin/model/ZeplinLinkType";
+import ZeplinLinkType from "../../../common/domain/openInZeplin/model/ZeplinLinkType";
 
 const contextProvider = new TreeItemContextProvider(
     TreeItemContext.Activity,

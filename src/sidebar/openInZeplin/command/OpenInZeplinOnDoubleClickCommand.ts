@@ -1,6 +1,6 @@
 import Command from "../../../common/vscode/command/Command";
-import { openInZeplin } from "../flow/openInZeplinFlow";
-import ZeplinUriProvider from "../model/ZeplinUriProvider";
+import { openInZeplin } from "../../../common/domain/openInZeplin/flow/openInZeplinFlow";
+import ZeplinUriProvider from "../../../common/domain/openInZeplin/model/ZeplinUriProvider";
 
 const DOUBLE_CLICK_DURATION = 500;
 

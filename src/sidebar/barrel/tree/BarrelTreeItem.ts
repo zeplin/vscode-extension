@@ -6,10 +6,10 @@ import ZeplinComponentsTreeItem from "../../zeplinComponent/tree/ZeplinComponent
 import TreeItemContext from "../../../common/domain/tree/TreeItemContext";
 import TreeItemContextProvider from "../../../common/vscode/tree/TreeItemContextProvider";
 import BarrelType from "../../../common/domain/barrel/BarrelType";
-import ZeplinUriProvider from "../../openInZeplin/model/ZeplinUriProvider";
+import ZeplinUriProvider from "../../../common/domain/openInZeplin/model/ZeplinUriProvider";
 import ApplicationType from "../../../common/domain/openInZeplin/model/ApplicationType";
 import { getBarrelUri } from "../../../common/domain/openInZeplin/util/zeplinUris";
-import ZeplinLinkType from "../../openInZeplin/model/ZeplinLinkType";
+import ZeplinLinkType from "../../../common/domain/openInZeplin/model/ZeplinLinkType";
 
 function getContextProvider(barrel: Barrel): TreeItemContextProvider {
     const contexts = [TreeItemContext.Barrel, TreeItemContext.ZeplinLink];

@@ -1,12 +1,12 @@
 import * as vscode from "vscode";
-import { isPreferredAppTypeSelected, setPreferredAppTypeSelected } from "../../../common/domain/openInZeplin/util/openInZeplinUtil";
-import MessageBuilder from "../../../common/vscode/message/MessageBuilder";
-import ApplicationType from "../../../common/domain/openInZeplin/model/ApplicationType";
-import Preferences from "../../../preferences/Preferences";
-import localization from "../../../localization";
+import { isPreferredAppTypeSelected, setPreferredAppTypeSelected } from "../util/openInZeplinUtil";
+import MessageBuilder from "../../../vscode/message/MessageBuilder";
+import ApplicationType from "../model/ApplicationType";
+import Preferences from "../../../../preferences/Preferences";
+import localization from "../../../../localization";
 import ZeplinUriProvider from "../model/ZeplinUriProvider";
-import Analytics from "../../../analytics/Analytics";
-import Logger from "../../../log/Logger";
+import Analytics from "../../../../analytics/Analytics";
+import Logger from "../../../../log/Logger";
 import ZeplinLinkType from "../model/ZeplinLinkType";
 import ZeplinUris from "../model/ZeplinUris";
 

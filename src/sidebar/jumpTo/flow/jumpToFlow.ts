@@ -10,11 +10,11 @@ import Session from "../../../session/Session";
 import JumpablesStore, { Jumpable } from "../data/JumpableItemsStore";
 import ZeplinComponent from "../../../common/domain/zeplinComponent/model/ZeplinComponent";
 import { getScreenDetailRepresentation } from "../../screen/util/screenUi";
-import ZeplinUriProvider from "../../openInZeplin/model/ZeplinUriProvider";
+import ZeplinUriProvider from "../../../common/domain/openInZeplin/model/ZeplinUriProvider";
 import ApplicationType from "../../../common/domain/openInZeplin/model/ApplicationType";
-import { openInZeplin } from "../../openInZeplin/flow/openInZeplinFlow";
+import { openInZeplin } from "../../../common/domain/openInZeplin/flow/openInZeplinFlow";
 import { getScreenUri, getComponentUri } from "../../../common/domain/openInZeplin/util/zeplinUris";
-import ZeplinLinkType from "../../openInZeplin/model/ZeplinLinkType";
+import ZeplinLinkType from "../../../common/domain/openInZeplin/model/ZeplinLinkType";
 
 async function startJumpToFlow() {
     // Check if user is logged, fail if not so

@@ -10,7 +10,7 @@ import AddStyleguideToSidebarCommand from "../../../sidebar/barrel/command/AddSt
 import RemoveBarrelFromSidebarCommand from "../../../sidebar/barrel/command/RemoveBarrelFromSidebarCommand";
 import JumpToSidebarItemCommand from "../../../sidebar/jumpTo/command/JumpToSidebarItemCommand";
 import AddBarrelToSidebarCommand from "../../../sidebar/barrel/command/AddBarrelToSidebarCommand";
-import OpenInZeplinCommand from "../../../sidebar/openInZeplin/command/OpenInZeplinCommand";
+import OpenInZeplinCommand from "../openInZeplin/command/OpenInZeplinCommand";
 import OpenInZeplinOnDoubleClickCommand from "../../../sidebar/openInZeplin/command/OpenInZeplinOnDoubleClickCommand";
 import OpenJiraLinkCommand from "../../../sidebar/jira/command/OpenJiraLinkCommand";
 import PinToSidebarCommand from "../../../sidebar/pin/command/PinToSidebarCommand";

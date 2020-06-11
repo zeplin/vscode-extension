@@ -10,8 +10,8 @@ import { getMarkdownLinkExternalIcon, getMarkdownRefreshIcon } from "../../../co
 import { getImageSize } from "../../../common/general/imageUtil";
 import ClearCacheCommand from "../../../session/command/ClearCacheCommand";
 import localization from "../../../localization";
-import OpenInZeplinCommand from "../../../sidebar/openInZeplin/command/OpenInZeplinCommand";
-import ZeplinLinkType from "../../../sidebar/openInZeplin/model/ZeplinLinkType";
+import OpenInZeplinCommand from "../../../common/domain/openInZeplin/command/OpenInZeplinCommand";
+import ZeplinLinkType from "../../../common/domain/openInZeplin/model/ZeplinLinkType";
 
 const MAX_DESCRIPTION_LENGTH = 100;
 const MAX_THUMBNAIL_HEIGHT = 80;

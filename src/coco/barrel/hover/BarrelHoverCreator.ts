@@ -14,8 +14,8 @@ import { getCroppedImageUrl } from "../../../common/domain/image/zeplinImageUtil
 import { getMarkdownLinkExternalIcon, getMarkdownRefreshIcon } from "../../../common/domain/hover/zeplinHoverUtil";
 import { isBarrelIdFormatValid } from "../../../common/domain/barrel/util/barrelUtil";
 import ClearCacheCommand from "../../../session/command/ClearCacheCommand";
-import ZeplinLinkType from "../../../sidebar/openInZeplin/model/ZeplinLinkType";
-import OpenInZeplinCommand from "../../../sidebar/openInZeplin/command/OpenInZeplinCommand";
+import ZeplinLinkType from "../../../common/domain/openInZeplin/model/ZeplinLinkType";
+import OpenInZeplinCommand from "../../../common/domain/openInZeplin/command/OpenInZeplinCommand";
 
 const MAX_THUMBNAIL_WIDTH = 270;
 const MAX_THUMBNAIL_HEIGHT = 92;
