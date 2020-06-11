@@ -11,9 +11,11 @@ import { boldenForMarkdown, getMarkdownCommand } from "../../../common/vscode/ho
 import BaseError from "../../../common/domain/error/BaseError";
 import { ErrorCodes } from "../../../common/domain/error/errorUi";
 import { getCroppedImageUrl } from "../../../common/domain/image/zeplinImageUtil";
-import { getOpenInZeplinLinks, getMarkdownRefreshIcon } from "../../../common/domain/hover/zeplinHoverUtil";
+import { getMarkdownLinkExternalIcon, getMarkdownRefreshIcon } from "../../../common/domain/hover/zeplinHoverUtil";
 import { isBarrelIdFormatValid } from "../../../common/domain/barrel/util/barrelUtil";
 import ClearCacheCommand from "../../../session/command/ClearCacheCommand";
+import ZeplinLinkType from "../../../sidebar/openInZeplin/model/ZeplinLinkType";
+import OpenInZeplinCommand from "../../../sidebar/openInZeplin/command/OpenInZeplinCommand";
 
 const MAX_THUMBNAIL_WIDTH = 270;
 const MAX_THUMBNAIL_HEIGHT = 92;
@@ -28,15 +30,10 @@ class BarrelHoverCreator implements ConfigHoverCreator {
     public async create(configPath: string, barrelId: string): Promise<vscode.Hover> {
         const { data, errors } = await BarrelDetailsStoreProvider.get(barrelId, this.barrelType).get();
 
-        const appUri = getBarrelAppUri(barrelId, this.barrelType);
-        const webUrl = getBarrelWebUrl(barrelId, this.barrelType);
         if (errors && errors.length) {
             const builder = new HoverBuilder().append(this.getErrorMessage(errors[0]));
             if (errors[0].code === ErrorCodes.NotInvited) {
-                builder
-                    .appendLine()
-                    .appendLine()
-                    .append(getOpenInZeplinLinks(appUri, webUrl));
+                builder.append(` ${this.getOpenInZeplinMarkdownCommand(barrelId)}`);
             }
             return builder.build();
         } else {
@@ -48,7 +45,8 @@ class BarrelHoverCreator implements ConfigHoverCreator {
 
             const builder = new HoverBuilder()
                 .append(
-                    `${boldenForMarkdown(name)} ${getMarkdownCommand(ClearCacheCommand.name, getMarkdownRefreshIcon())}`
+                    `${boldenForMarkdown(name)} ${this.getOpenInZeplinMarkdownCommand(barrelId)} ` +
+                    `${getMarkdownCommand(ClearCacheCommand.name, getMarkdownRefreshIcon())}`
                 )
                 .appendLine(true);
             if (thumbnailUrl) {
@@ -56,12 +54,7 @@ class BarrelHoverCreator implements ConfigHoverCreator {
                     .appendImage(thumbnailUrl)
                     .appendLine();
             }
-            return builder
-                .append(detail)
-                .appendLine()
-                .appendLine()
-                .append(getOpenInZeplinLinks(appUri, webUrl))
-                .build();
+            return builder.append(detail).build();
         }
     }
 
@@ -74,6 +67,17 @@ class BarrelHoverCreator implements ConfigHoverCreator {
             default:
                 return localization.coco.barrel.notFound(this.barrelType);
         }
+    }
+
+    private getOpenInZeplinMarkdownCommand(id: string): string {
+        return getMarkdownCommand(
+            `${OpenInZeplinCommand.name}?${encodeURIComponent(JSON.stringify({
+                appUri: getBarrelAppUri(id, this.barrelType),
+                webUrl: getBarrelWebUrl(id, this.barrelType),
+                type: this.barrelType === BarrelType.Project ? ZeplinLinkType.Project : ZeplinLinkType.Styleguide
+            }))}`,
+            getMarkdownLinkExternalIcon()
+        );
     }
 }
 
