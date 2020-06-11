@@ -13,8 +13,6 @@ import { startAddProjectFlow, startAddStyleguideFlow } from "../../barrel/flow/b
 import { startAddComponentFlow } from "../../component/flow/componentFlow";
 import MessageBuilder from "../../../common/vscode/message/MessageBuilder";
 import MessageType from "../../../common/vscode/message/MessageType";
-import ZeplinComponent from "../../../common/domain/zeplinComponent/model/ZeplinComponent";
-import BarrelError from "../../../common/domain/zeplinComponent/model/BarrelError";
 import BarrelType from "../../../common/domain/barrel/BarrelType";
 
 async function startAddZeplinComponentsFlow(componentIndex?: number) {
@@ -88,7 +86,7 @@ async function startAddZeplinComponentsFlow(componentIndex?: number) {
     }
 
     // Prepare Zeplin component picker
-    const zeplinComponentQuickPickProvider = new QuickPickProvider<ZeplinComponent, BarrelError>(
+    const zeplinComponentQuickPickProvider = new QuickPickProvider(
         new ZeplinComponentsStore(
             barrel.id, barrel.type, configUtil.getZeplinComponentsOfComponent(configPath, component.path)
         ),

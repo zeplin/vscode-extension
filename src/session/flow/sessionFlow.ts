@@ -14,6 +14,7 @@ import MessageType from "../../common/vscode/message/MessageType";
 import CacheHolder from "../../common/domain/store/CacheHolder";
 import ScreensStoreProvider from "../../sidebar/screen/data/ScreensStoreProvider";
 import Analytics from "../../analytics/Analytics";
+import ConfigDiagnosticsProvider from "../../coco/config/diagnostic/ConfigDiagnosticsProvider";
 
 const CACHE_HOLDERS: CacheHolder[] =
     [WorkspacesStore, BarrelsStoreProvider, BarrelDetailsStoreProvider, ScreensStoreProvider];
@@ -85,6 +86,7 @@ function clearCache() {
 
 function clearCacheAndNotify() {
     clearCache();
+    ConfigDiagnosticsProvider.updateForOpenDocuments();
     MessageBuilder.with(localization.session.cacheCleared).setType(MessageType.Info).show();
 }
 

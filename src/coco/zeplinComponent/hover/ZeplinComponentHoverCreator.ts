@@ -2,10 +2,9 @@ import * as vscode from "vscode";
 import ConfigHoverCreator from "../../config/hover/ConfigHoverCreator";
 import HoverBuilder from "../../../common/vscode/hover/HoverBuilder";
 import ZeplinComponentStore from "../data/ZeplinComponentStore";
-import localization from "../../../localization";
 import { getConfig } from "../../config/util/configUtil";
 import { getZeplinComponentDetailRepresentation } from "../../../common/domain/zeplinComponent/util/zeplinComponentUi";
-import { boldenForMarkdown, getMarkdownCommand, escapeMarkdownChars } from "../../../common/vscode/hover/hoverUtil";
+import { boldenForMarkdown, getMarkdownCommand } from "../../../common/vscode/hover/hoverUtil";
 import { getComponentAppUri, getComponentWebUrl } from "../../../common/domain/openInZeplin/util/zeplinUris";
 import { getOpenInZeplinLinks, getMarkdownRefreshIcon } from "../../../common/domain/hover/zeplinHoverUtil";
 import { getImageSize } from "../../../common/general/imageUtil";
@@ -22,12 +21,9 @@ class ZeplinComponentHoverCreator implements ConfigHoverCreator {
     public async create(configPath: string, word: string): Promise<vscode.Hover> {
         const { data, errors } = await new ZeplinComponentStore(word, configPath).get();
 
-        if (errors?.length) {
-            return new HoverBuilder()
-                .append(localization.coco.zeplinComponent.notFound(escapeMarkdownChars(word)))
-                .build();
-        } else {
-            const builder = new HoverBuilder();
+        const builder = new HoverBuilder();
+
+        if (!errors?.length) {
             const thumbnailSizes =
                 await Promise.all(data!.map(({ component }) => getImageSize(component.latestVersion.snapshot.url)));
             for (let componentIndex = 0; componentIndex < data!.length; componentIndex++) {
@@ -63,9 +59,9 @@ class ZeplinComponentHoverCreator implements ConfigHoverCreator {
                     .appendLine()
                     .append(getOpenInZeplinLinks(appUri, webUrl));
             }
-
-            return builder.build();
         }
+
+        return builder.build();
     }
 }
 
