@@ -5,6 +5,7 @@ import DiagnosticCreator from "../../../common/vscode/diagnostic/DiagnosticCreat
 import BarrelDiagnosticCreator from "../../barrel/diagnostic/BarrelDiagnosticCreator";
 import ComponentDiagnosticCreator from "../../component/diagnostic/ComponentDiagnosticCreator";
 import ZeplinComponentDiagnosticCreator from "../../zeplinComponent/diagnostic/ZeplinComponentDiagnosticCreator";
+import Refresher from "../../../session/util/Refresher";
 
 const KEY = "zeplinConfig";
 const SOURCE = "Zeplin";
@@ -39,6 +40,8 @@ class ConfigDiagnosticsProvider {
         if (!isConfigPath(path) || isConfigDirty(path) || !isConfigValid(path)) {
             return;
         }
+
+        Refresher.requestRefresh();
 
         const creators: DiagnosticCreator[] = [
             BarrelDiagnosticCreator,
