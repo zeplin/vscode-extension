@@ -114,7 +114,7 @@
                     "group": "inline@1"
                 },
                 {
-                    "command": "zeplin.sidebar.openInZeplin",
+                    "command": "zeplin.openInZeplin",
                     "when": "viewItem =~ /\\bzeplinLink\\b/",
                     "group": "inline@2"
                 },
@@ -159,7 +159,7 @@
                     "when": "false"
                 },
                 {
-                    "command": "zeplin.sidebar.openInZeplin",
+                    "command": "zeplin.openInZeplin",
                     "when": "false"
                 },
                 {
@@ -239,7 +239,7 @@
                 "category": "Zeplin"
             },
             {
-                "command": "zeplin.sidebar.openInZeplin",
+                "command": "zeplin.openInZeplin",
                 "title": "Open in Zeplin",
                 "category": "Zeplin",
                 "icon": {
