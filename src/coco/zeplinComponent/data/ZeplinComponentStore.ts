@@ -11,7 +11,7 @@ import { replaceAll } from "../../../common/general/stringUtil";
 
 const WILDCARD = "*";
 
-type ZeplinComponentData = { component: ZeplinComponent; providerId: string; providerType: BarrelType };
+export type ZeplinComponentData = { component: ZeplinComponent; providerId: string; providerType: BarrelType };
 
 export default class ZeplinComponentStore implements Store<ZeplinComponentData[], BaseError> {
     private readonly matcher: RegExp;

@@ -1,15 +1,17 @@
 import * as vscode from "vscode";
 import ConfigHoverCreator from "../../config/hover/ConfigHoverCreator";
 import HoverBuilder from "../../../common/vscode/hover/HoverBuilder";
-import ZeplinComponentStore from "../data/ZeplinComponentStore";
+import ZeplinComponentStore, { ZeplinComponentData } from "../data/ZeplinComponentStore";
 import { getConfig } from "../../config/util/configUtil";
 import { getZeplinComponentDetailRepresentation } from "../../../common/domain/zeplinComponent/util/zeplinComponentUi";
 import { boldenForMarkdown, getMarkdownCommand } from "../../../common/vscode/hover/hoverUtil";
 import { getComponentAppUri, getComponentWebUrl } from "../../../common/domain/openInZeplin/util/zeplinUris";
-import { getOpenInZeplinLinks, getMarkdownRefreshIcon } from "../../../common/domain/hover/zeplinHoverUtil";
+import { getMarkdownLinkExternalIcon, getMarkdownRefreshIcon } from "../../../common/domain/hover/zeplinHoverUtil";
 import { getImageSize } from "../../../common/general/imageUtil";
 import ClearCacheCommand from "../../../session/command/ClearCacheCommand";
 import localization from "../../../localization";
+import OpenInZeplinCommand from "../../../sidebar/openInZeplin/command/OpenInZeplinCommand";
+import ZeplinLinkType from "../../../sidebar/openInZeplin/model/ZeplinLinkType";
 
 const MAX_DESCRIPTION_LENGTH = 100;
 const MAX_THUMBNAIL_HEIGHT = 80;
@@ -32,21 +34,20 @@ class ZeplinComponentHoverCreator implements ConfigHoverCreator {
                 componentsToDisplay.map(({ component }) => getImageSize(component.latestVersion.snapshot.url))
             );
             for (let componentIndex = 0; componentIndex < componentsToDisplay.length; componentIndex++) {
-                const { component, providerId, providerType } = componentsToDisplay[componentIndex];
+                const componentData = componentsToDisplay[componentIndex];
+                const { component } = componentData;
                 const thumbnailUrl = component.latestVersion.snapshot.url;
                 const thumbnailSize = thumbnailSizes[componentIndex];
                 const description = component.description && component.description.length > MAX_DESCRIPTION_LENGTH
                     ? `${component.description.substring(0, MAX_DESCRIPTION_LENGTH)}…`
                     : component.description;
-                const appUri = getComponentAppUri(providerId, providerType, component._id);
-                const webUrl = getComponentWebUrl(providerId, providerType, component._id);
 
                 if (componentIndex !== 0) {
-                    builder.appendLine().appendHorizontalLine().appendLine();
+                    builder.appendLine().appendHorizontalLine();
                 }
                 builder
                     .append(
-                        `${boldenForMarkdown(component.name)} ` +
+                        `${boldenForMarkdown(component.name)} ${this.getOpenInZeplinMarkdownCommand(componentData)} ` +
                         `${getMarkdownCommand(ClearCacheCommand.name, getMarkdownRefreshIcon())}`
                     )
                     .appendLine(true)
@@ -59,10 +60,7 @@ class ZeplinComponentHoverCreator implements ConfigHoverCreator {
                         .append(description)
                         .appendLine(true);
                 }
-                builder.append(getZeplinComponentDetailRepresentation(component))
-                    .appendLine()
-                    .appendLine()
-                    .append(getOpenInZeplinLinks(appUri, webUrl));
+                builder.append(getZeplinComponentDetailRepresentation(component));
             }
 
             if (allComponents.length > MAX_ELEMENTS_TO_DISPLAY) {
@@ -76,6 +74,19 @@ class ZeplinComponentHoverCreator implements ConfigHoverCreator {
         }
 
         return builder.build();
+    }
+
+    private getOpenInZeplinMarkdownCommand(componentData: ZeplinComponentData): string {
+        const { providerId, providerType, component: { _id: id } } = componentData;
+
+        return getMarkdownCommand(
+            `${OpenInZeplinCommand.name}?${encodeURIComponent(JSON.stringify({
+                appUri: getComponentAppUri(providerId, providerType, id),
+                webUrl: getComponentWebUrl(providerId, providerType, id),
+                type: ZeplinLinkType.Component
+            }))}`,
+            getMarkdownLinkExternalIcon()
+        );
     }
 }
 
