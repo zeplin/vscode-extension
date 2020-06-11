@@ -16,6 +16,12 @@ function getExternalLinkViaCommand(uri: string) {
     return `command:${OpenExternalUriCommand.name}?${encodeURIComponent(JSON.stringify(uri))}`;
 }
 
+function getMarkdownLinkExternalIcon(): string {
+    return isVscodeVersionSufficient(HOVER_CODICONS_MIN_VERSION)
+        ? "$(link-external)"
+        : getMarkdownImage(getIconPath("icon-link-external.svg", IconTheme.Dark));
+}
+
 function getMarkdownRefreshIcon(): string {
     return isVscodeVersionSufficient(HOVER_CODICONS_MIN_VERSION)
         ? "$(refresh)"
@@ -24,5 +30,6 @@ function getMarkdownRefreshIcon(): string {
 
 export {
     getOpenInZeplinLinks,
+    getMarkdownLinkExternalIcon,
     getMarkdownRefreshIcon
 };
