@@ -33,7 +33,6 @@ import AddRepositoryCommand from "../../../coco/repository/command/AddRepository
 import AddPluginCommand from "../../../coco/plugin/command/AddPluginCommand";
 import AddLinkCommand from "../../../coco/link/command/AddLinkCommand";
 import SaveLogsCommand from "../../../log/command/SaveLogsCommand";
-import OpenExternalUriCommand from "../../vscode/command/OpenExternalUriCommand";
 import ShowComponentInConfigCommand from "../../../coco/component/command/ShowComponentInConfigCommand";
 import UriHandler from "../uri/UriHandler";
 import ConfigCodeLensProvider from "../../../coco/config/codeLens/ConfigCodeLensProvider";
@@ -84,7 +83,6 @@ export async function activate(context: vscode.ExtensionContext) {
         AddPluginCommand,
         AddLinkCommand,
         SaveLogsCommand,
-        OpenExternalUriCommand,
         ShowComponentInConfigCommand
     ];
     const codeLensProviders = [

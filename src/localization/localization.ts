@@ -224,10 +224,6 @@ const localization = {
         noItemFound: "No item found",
         clickToRefresh: "Click to refresh",
         restrictedMember: "Organization member is restricted. Please contact your organization admins.",
-        openInZeplin: "Open in Zeplin ",
-        app: "App",
-        openInSeparator: " • ",
-        web: "Web",
         optional: "Optional",
         childProperties: "Child properties"
     }
