@@ -4,10 +4,10 @@ import TreeItemContextProvider from "../../../common/vscode/tree/TreeItemContext
 import TreeItemContext from "../../../common/domain/tree/TreeItemContext";
 import Barrel from "../../../common/domain/barrel/Barrel";
 import { isScreenPinned } from "../../pin/util/pinUtil";
-import ZeplinUriProvider from "../../openInZeplin/model/ZeplinUriProvider";
+import ZeplinUriProvider from "../../../common/domain/openInZeplin/model/ZeplinUriProvider";
 import ApplicationType from "../../../common/domain/openInZeplin/model/ApplicationType";
 import { getScreenUri } from "../../../common/domain/openInZeplin/util/zeplinUris";
-import ZeplinLinkType from "../../openInZeplin/model/ZeplinLinkType";
+import ZeplinLinkType from "../../../common/domain/openInZeplin/model/ZeplinLinkType";
 
 function getContextProvider(screen: Screen): TreeItemContextProvider {
     const contexts = [

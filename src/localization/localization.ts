@@ -109,7 +109,8 @@ const localization = {
             join: "Join",
             connected: (count: number) => `Connected to ${pluralize(count, "Zeplin Component")}.`,
             connect: "Connect to Zeplin components",
-            notFound: (name: string) => `No component matching “${name}” in projects/styleguides you’re a member of`
+            notFound: (name: string) => `No component matching “${name}” in projects/styleguides you’re a member of`,
+            moreItems: (count: number) => `There are matched ${pluralize(count, "more component")} not shown`
         },
         common: {
             noConfigFound: "Please create a Zeplin configuration file first.",
@@ -223,10 +224,6 @@ const localization = {
         noItemFound: "No item found",
         clickToRefresh: "Click to refresh",
         restrictedMember: "Organization member is restricted. Please contact your organization admins.",
-        openInZeplin: "Open in Zeplin ",
-        app: "App",
-        openInSeparator: " • ",
-        web: "Web",
         optional: "Optional",
         childProperties: "Child properties"
     }

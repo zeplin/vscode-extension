@@ -1,8 +1,8 @@
-import Command from "../../../common/vscode/command/Command";
+import Command from "../../../vscode/command/Command";
 import { openInZeplin } from "../flow/openInZeplinFlow";
 
 class OpenInZeplinCommand implements Command {
-    public name = "zeplin.sidebar.openInZeplin";
+    public name = "zeplin.openInZeplin";
     public execute = openInZeplin;
 }
 

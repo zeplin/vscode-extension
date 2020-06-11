@@ -1,6 +1,6 @@
 import BarrelType from "../../common/domain/barrel/BarrelType";
 import PinType from "../../sidebar/pin/model/PinType";
-import ZeplinLinkType from "../../sidebar/openInZeplin/model/ZeplinLinkType";
+import ZeplinLinkType from "../../common/domain/openInZeplin/model/ZeplinLinkType";
 import JiraType from "../../common/domain/jira/model/JiraType";
 
 function getAddableTypeName(type: BarrelType) {

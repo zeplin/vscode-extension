@@ -2,7 +2,7 @@ import Activity from "./Activity";
 import ResponseScreen from "../../screen/model/ResponseScreen";
 import { getScreenUri } from "../../../common/domain/openInZeplin/util/zeplinUris";
 import ApplicationType from "../../../common/domain/openInZeplin/model/ApplicationType";
-import ZeplinLinkType from "../../openInZeplin/model/ZeplinLinkType";
+import ZeplinLinkType from "../../../common/domain/openInZeplin/model/ZeplinLinkType";
 
 export default class ScreenActivity extends Activity {
     public constructor(private screen: ResponseScreen, private projectId: string) {

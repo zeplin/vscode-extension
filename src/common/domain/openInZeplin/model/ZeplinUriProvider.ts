@@ -1,4 +1,4 @@
-import ApplicationType from "../../../common/domain/openInZeplin/model/ApplicationType";
+import ApplicationType from "./ApplicationType";
 import ZeplinLinkType from "./ZeplinLinkType";
 
 export default interface ZeplinUriProvider {

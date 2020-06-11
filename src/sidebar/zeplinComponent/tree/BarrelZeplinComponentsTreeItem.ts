@@ -4,12 +4,12 @@ import BarrelDetails from "../../../common/domain/zeplinComponent/model/BarrelDe
 import { createList } from "./zeplinComponentTreeUtil";
 import TreeItemContextProvider from "../../../common/vscode/tree/TreeItemContextProvider";
 import TreeItemContext from "../../../common/domain/tree/TreeItemContext";
-import ZeplinUriProvider from "../../openInZeplin/model/ZeplinUriProvider";
+import ZeplinUriProvider from "../../../common/domain/openInZeplin/model/ZeplinUriProvider";
 import ApplicationType from "../../../common/domain/openInZeplin/model/ApplicationType";
 import { getComponentsUri } from "../../../common/domain/openInZeplin/util/zeplinUris";
 import BarrelType from "../../../common/domain/barrel/BarrelType";
 import localization from "../../../localization";
-import ZeplinLinkType from "../../openInZeplin/model/ZeplinLinkType";
+import ZeplinLinkType from "../../../common/domain/openInZeplin/model/ZeplinLinkType";
 
 const contextProvider = new TreeItemContextProvider(
     TreeItemContext.ZeplinComponentBarrel,
