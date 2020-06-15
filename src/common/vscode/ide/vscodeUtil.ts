@@ -19,6 +19,11 @@ function isVscodeVersionSufficient(requiredVersion: string): boolean {
     return splittedCurrentVersion.length >= splittedRequiredVersion.length;
 }
 
+function isVscodeVersionEqualTo(version: string) {
+    return vscode.version === version;
+}
+
 export {
-    isVscodeVersionSufficient
+    isVscodeVersionSufficient,
+    isVscodeVersionEqualTo
 };
