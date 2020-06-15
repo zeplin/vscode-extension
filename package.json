@@ -4,7 +4,7 @@
     "publisher": "Zeplin",
     "description": "Quickly access designs you’re working on in Zeplin",
     "icon": "resources/icon-zeplin.png",
-    "version": "2.0.0",
+    "version": "2.1.0",
     "galleryBanner": {
         "color": "#F7F7F7",
         "theme": "light"
