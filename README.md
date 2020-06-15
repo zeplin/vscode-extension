@@ -39,11 +39,3 @@ Zeplin for Visual Studio Code makes it easier to create the JSON configuration f
 ## Contributing and Issue Tracking
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md) for details.
-
-## Roadmap
-
-### Improvements
-
-- [ ] Ignore files in ignore files (e.g. `.gitignore`) while adding components
-- [ ] Shorten component paths while adding components
-- [ ] Validate token format during login
