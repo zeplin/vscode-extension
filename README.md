@@ -47,4 +47,3 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for details.
 - [ ] Ignore files in ignore files (e.g. `.gitignore`) while adding components
 - [ ] Shorten component paths while adding components
 - [ ] Validate token format during login
-- [ ] Online validation for project ids, styleguide ids, component Zeplin names
