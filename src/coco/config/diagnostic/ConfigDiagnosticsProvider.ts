@@ -1,5 +1,6 @@
 import * as vscode from "vscode";
-import { isConfigPath, isConfigDirty, isConfigValid } from "../util/configUtil";
+import { isConfigPath, isConfigValid } from "../util/configUtil";
+import { isFileDirty } from "../../../common/vscode/editor/textDocumentUtil";
 import { flatten } from "../../../common/general/arrayUtil";
 import DiagnosticCreator from "../../../common/vscode/diagnostic/DiagnosticCreator";
 import BarrelDiagnosticCreator from "../../barrel/diagnostic/BarrelDiagnosticCreator";
@@ -37,7 +38,7 @@ class ConfigDiagnosticsProvider {
         const path = uri.fsPath;
         this.diagnosticCollection.delete(uri);
 
-        if (!isConfigPath(path) || isConfigDirty(path) || !isConfigValid(path)) {
+        if (!isConfigPath(path) || isFileDirty(path) || !isConfigValid(path)) {
             return;
         }
 

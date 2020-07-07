@@ -3,6 +3,7 @@ import * as configUtil from "../../config/util/configUtil";
 import { getRelativePathToRootFolder } from "../../../common/vscode/workspace/workspaceUtil";
 import { PATH_SEPARATOR } from "../../../common/general/pathUtil";
 import { wrapWithLogs } from "../../../log/util/logUtil";
+import { isFileDirty } from "../../../common/vscode/editor/textDocumentUtil";
 import Logger from "../../../log/Logger";
 
 type FileChanges = {
@@ -29,8 +30,8 @@ function updateComponentPaths(fileChanges: FileChanges) {
 
     const oldConfigPath = configUtil.getConfigPathForFile(oldPath);
     const newConfigPath = configUtil.getConfigPathForFile(fileChanges.newUri.fsPath);
-    if (configUtil.isConfigDirty(oldConfigPath) || !configUtil.isConfigValid(oldConfigPath) ||
-        configUtil.isConfigDirty(newConfigPath) || !configUtil.isConfigValid(newConfigPath)) {
+    if (isFileDirty(oldConfigPath) || !configUtil.isConfigValid(oldConfigPath) ||
+        isFileDirty(newConfigPath) || !configUtil.isConfigValid(newConfigPath)) {
         return;
     }
 

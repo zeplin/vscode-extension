@@ -6,9 +6,8 @@ import configuration from "../common/domain/extension/configuration";
 import { showInEditor } from "../common/vscode/editor/editorUtil";
 import { getRootFolderCount, getRootFolderPathForFile } from "../common/vscode/workspace/workspaceUtil";
 import { getExtensionVersion } from "../common/vscode/extension/extensionUtil";
-import {
-    getConfigPaths, isConfigValid, isConfigDirty, getConfig, getConfigCount
-} from "../coco/config/util/configUtil";
+import { getConfigPaths, isConfigValid, getConfig, getConfigCount } from "../coco/config/util/configUtil";
+import { isFileDirty } from "../common/vscode/editor/textDocumentUtil";
 import ContextProvider from "../common/vscode/extension/ContextProvider";
 import { isBarrelIdFormatValid } from "../common/domain/barrel/util/barrelUtil";
 import { doesComponentExist } from "../coco/component/util/componentUtil";
@@ -111,7 +110,7 @@ class Logger {
         for (let configIndex = 0; configIndex < configPaths.length; configIndex++) {
             logHeaders.push(HEADER_SEPARATOR);
             const configPath = configPaths[configIndex];
-            const saved = !isConfigDirty(configPath);
+            const saved = !isFileDirty(configPath);
             const valid = isConfigValid(configPath);
             logHeaders.push(`Config #${configIndex + 1}, Saved: ${saved}, Valid: ${valid}`);
 

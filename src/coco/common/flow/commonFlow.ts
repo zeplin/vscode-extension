@@ -5,6 +5,7 @@ import Session from "../../../session/Session";
 import localization from "../../../localization";
 import { showNotLoggedInError, showNoConfigError } from "../../../common/domain/error/errorUi";
 import MessageBuilder from "../../../common/vscode/message/MessageBuilder";
+import { isFileDirty } from "../../../common/vscode/editor/textDocumentUtil";
 
 async function selectAndValidateConfig(pickerTitle: string, loginRequired = true):
     Promise<string | undefined> {
@@ -27,7 +28,7 @@ async function selectAndValidateConfig(pickerTitle: string, loginRequired = true
     }
 
     // Check if selected config file is saved, fail if not so
-    if (configUtil.isConfigDirty(configPath)) {
+    if (isFileDirty(configPath)) {
         MessageBuilder.with(localization.coco.common.configNotSaved).show();
         showInEditor(configPath);
         return;

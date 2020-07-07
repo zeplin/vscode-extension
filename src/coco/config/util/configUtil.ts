@@ -34,10 +34,6 @@ function isConfigValid(configPath: string): boolean {
     }
 }
 
-function isConfigDirty(configPath: string): boolean {
-    return vscode.workspace.textDocuments.some(document => document.uri.fsPath === configPath && document.isDirty);
-}
-
 function getConfigPath(rootFolderPath: string): string {
     return path.join(rootFolderPath, RELATIVE_PATH);
 }
@@ -250,7 +246,6 @@ export {
     RELATIVE_PATH,
     getConfig,
     isConfigValid,
-    isConfigDirty,
     getConfigPath,
     getConfigPathForFile,
     getConfigPaths,

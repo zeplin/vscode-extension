@@ -101,6 +101,10 @@ function narrowRangeForProperty(range: vscode.Range | undefined): vscode.Range |
     );
 }
 
+function isFileDirty(filePath: string): boolean {
+    return vscode.workspace.textDocuments.some(document => document.uri.fsPath === filePath && document.isDirty);
+}
+
 export {
     toProperty,
     getRangeOf,
@@ -109,5 +113,6 @@ export {
     getRangesOfProperty,
     getPositionsOf,
     getPositionsOfProperty,
-    narrowRangeForProperty
+    narrowRangeForProperty,
+    isFileDirty
 };

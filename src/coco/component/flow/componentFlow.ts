@@ -11,6 +11,7 @@ import { showNoConfigError } from "../../../common/domain/error/errorUi";
 import MessageBuilder from "../../../common/vscode/message/MessageBuilder";
 import { isFirstOccurence } from "../../../common/general/arrayUtil";
 import MessageType from "../../../common/vscode/message/MessageType";
+import { isFileDirty } from "../../../common/vscode/editor/textDocumentUtil";
 
 async function startAddComponentFlow(selectedFilePath: string | undefined = undefined) {
     // Check if there are no configs to add component to, fail if so
@@ -61,7 +62,7 @@ async function startAddComponentFlow(selectedFilePath: string | undefined = unde
     const configPath = configUtil.getConfigPathForFile(filePath);
 
     // Check if selected config file is saved, fail if not so
-    if (configUtil.isConfigDirty(configPath)) {
+    if (isFileDirty(configPath)) {
         MessageBuilder.with(localization.coco.common.configNotSaved).show();
         showInEditor(configPath);
         return;
@@ -128,7 +129,7 @@ async function startAddComponentsFlow(selectedFilePaths: string[] | undefined = 
     const configPaths = rootPaths.map(configUtil.getConfigPathForFile);
 
     // Check if selected config files are saved, fail if not so
-    const dirtyConfigPaths = configPaths.filter(configUtil.isConfigDirty);
+    const dirtyConfigPaths = configPaths.filter(isFileDirty);
     if (dirtyConfigPaths.length) {
         MessageBuilder.with(localization.coco.common.configsNotSaved).show();
         dirtyConfigPaths.forEach(path => showInEditor(path));
