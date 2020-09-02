@@ -58,9 +58,14 @@ function unknownToLowercaseStringArray(object: unknown): string[] {
     }
 }
 
+function getActiveItem<T>(items: T[]): T | undefined {
+    return items.length === 1 ? items[0] : undefined;
+}
+
 export {
     isFirstOccurence,
     flatten,
     sum,
-    unknownToLowercaseStringArray
+    unknownToLowercaseStringArray,
+    getActiveItem
 };

@@ -16,13 +16,6 @@ function getRootFolderCount(): number {
 }
 
 /**
- * Determines whether there is exactly one open root folder in the VS Code workspace.
- */
-function isThereExactlyOneRootFolder(): boolean {
-    return getRootFolderCount() === 1;
-}
-
-/**
  * Determines whether there are any open root folders in the VS Code workspace.
  */
 function areThereAnyRootFolders(): boolean {
@@ -71,14 +64,24 @@ function isInWorkspace(path: string): boolean {
     return getRootFolderPaths().some(rootFolderPath => path.startsWith(rootFolderPath));
 }
 
+/**
+ * Determines whether given paths are in the same root folder in the VS Code workspace
+ * @param first A path
+ * @param second Another path
+ */
+function isInSameRootFolder(first: string, second: string): boolean {
+    return getRootFolderPaths()
+        .some(rootFolderPath => first.startsWith(rootFolderPath) && second.startsWith(rootFolderPath));
+}
+
 export {
     getRootFolders,
-    isThereExactlyOneRootFolder,
     areThereAnyRootFolders,
     getRootFolderCount,
     getRootFolderPaths,
     getRootFolderPathForFile,
     getRootFolderForFile,
     getRelativePathToRootFolder,
-    isInWorkspace
+    isInWorkspace,
+    isInSameRootFolder
 };
