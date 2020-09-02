@@ -42,7 +42,7 @@ async function startAddComponentFlow(selectedFilePath: string | undefined = unde
 
     // Fail if the file is not in the workspace
     if (!isInWorkspace(filePath)) {
-        MessageBuilder.with(localization.coco.component.notInWorkspace).show();
+        MessageBuilder.with(localization.coco.common.notInWorkspace).show();
         return;
     }
 

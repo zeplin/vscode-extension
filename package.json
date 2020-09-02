@@ -300,6 +300,11 @@
                 "category": "Zeplin"
             },
             {
+                "command": "zeplin.setConfig",
+                "title": "Set as Zeplin Configuration File",
+                "category": "Zeplin"
+            },
+            {
                 "command": "zeplin.login",
                 "title": "Login to Zeplin",
                 "category": "Zeplin"

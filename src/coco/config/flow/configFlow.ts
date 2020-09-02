@@ -59,8 +59,45 @@ async function askOpenConfig() {
     }
 }
 
+async function startSetConfigFlow(selectedFilePath?: string) {
+    // Fail if no file is active
+    const filePath = selectedFilePath ?? getActiveFilePath();
+    if (!filePath) {
+        MessageBuilder.with(localization.coco.config.custom.noFileSelected).show();
+        return;
+    }
+
+    // Fail if the file is not in the workspace
+    if (!isInWorkspace(filePath)) {
+        MessageBuilder.with(localization.coco.common.notInWorkspace).show();
+        return;
+    }
+
+    // Fail if the file is already a config file
+    if (ConfigPaths.include(filePath)) {
+        MessageBuilder.with(localization.coco.config.custom.alreadySet).show();
+        return;
+    }
+
+    // Fail if the file is not in workspace
+    if (isFileDirty(filePath)) {
+        MessageBuilder.with(localization.coco.config.custom.fileNotSaved).show();
+        return;
+    }
+
+    // Fail if the file is already a config file
+    if (!configUtil.isConfigValid(filePath)) {
+        MessageBuilder.with(localization.coco.config.custom.fileNotValid).show();
+        return;
+    }
+
+    // Add file as config
+    CustomConfigs.add(filePath);
+}
+
 export {
     tryCreateConfig,
     tryOpenConfig,
-    createConfig
+    createConfig,
+    startSetConfigFlow
 };

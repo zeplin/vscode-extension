@@ -21,7 +21,6 @@ const localization = {
             writeFileName: "Start typing component file name to add",
             configNotFound: (folderName: string) => `Please create Zeplin configuration file first for ${folderName}`,
             configsNotFound: `Please create Zeplin configuration file first for required workspace folders`,
-            notInWorkspace: "Selected file is not in your workspace",
             createConfigAndAdd: "Create Config and Add component",
             createConfigsAndAdd: "Create Configs and Add components",
             alreadyAdded: "Selected component file is already added.",
@@ -49,6 +48,13 @@ const localization = {
             propStorybookStoriesInfo: "Names of stories defined under `.stories.js` of a component."
         },
         config: {
+            custom: {
+                setConfig: "Set as Zeplin configuration file",
+                noFileSelected: "No file selected.",
+                alreadySet: "Selected file is already a configuration file.",
+                fileNotSaved: "Selected file is not saved, please save it before continuing.",
+                fileNotValid: "Selected file is not valid as a Zeplin configuration, please review it before continuing.",
+            },
             create: {
                 selectFolder: "Select folder to create Zeplin configuration file",
                 noWorkspaceFound: "Please open a workspace first to create a Zeplin configuration file.",
