@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { RELATIVE_PATH, isConfigPath } from "../util/configUtil";
+import ConfigPaths from "../util/ConfigPaths";
 import CodeLensCreator from "../../../common/vscode/codeLens/CodeLensCreator";
 import ClearCacheCodeLensCreator from "../../../session/codeLens/ClearCacheCodeLensCreator";
 import LoginCodeLensCreator from "../../../session/codeLens/LoginCodeLensCreator";
@@ -12,17 +12,21 @@ import CodeLensProvider from "../../../common/vscode/codeLens/CodeLensProvider";
 class ConfigCodeLensProvider extends CodeLensProvider {
     public createWatcher(): vscode.Disposable {
         return vscode.workspace.onDidSaveTextDocument(document => {
-            if (isConfigPath(document.uri.fsPath)) {
+            if (ConfigPaths.include(document.uri.fsPath)) {
                 this.refresh();
             }
         });
     }
 
     public getDocumentSelector(): vscode.DocumentSelector {
-        return { pattern: `**/${RELATIVE_PATH}` };
+        return { pattern: "**" };
     }
 
-    protected getCodeLensCreators(): CodeLensCreator[] {
+    protected getCodeLensCreators(document: vscode.TextDocument): CodeLensCreator[] {
+        if (!ConfigPaths.include(document.uri.fsPath)) {
+            return [];
+    }
+
         return [
             LoginCodeLensCreator,
             ClearCacheCodeLensCreator,

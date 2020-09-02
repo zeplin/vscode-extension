@@ -4,14 +4,15 @@ import * as os from "os";
 import * as path from "path";
 import configuration from "../common/domain/extension/configuration";
 import { showInEditor } from "../common/vscode/editor/editorUtil";
-import { getRootFolderCount, getRootFolderPathForFile } from "../common/vscode/workspace/workspaceUtil";
+import { getRootFolderCount } from "../common/vscode/workspace/workspaceUtil";
 import { getExtensionVersion } from "../common/vscode/extension/extensionUtil";
-import { getConfigPaths, isConfigValid, getConfig, getConfigCount } from "../coco/config/util/configUtil";
+import { isConfigValid, getConfig } from "../coco/config/util/configUtil";
 import { isFileDirty } from "../common/vscode/editor/textDocumentUtil";
 import ContextProvider from "../common/vscode/extension/ContextProvider";
 import { isBarrelIdFormatValid } from "../common/domain/barrel/util/barrelUtil";
 import { doesComponentExist } from "../coco/component/util/componentUtil";
 import RepositoryType from "../coco/repository/model/RepositoryType";
+import ConfigPaths from "../coco/config/util/ConfigPaths";
 
 const KEY_STATE = "zeplinLogs";
 const HEADER_SEPARATOR = "___________";
@@ -103,10 +104,10 @@ class Logger {
             `VS Code version: ${vscode.version}`,
             `App version: ${getExtensionVersion()}`,
             `Api url: ${configuration.apiUrl}`,
-            `Config/Root folder count: ${getConfigCount()}/${getRootFolderCount()}`
+            `Config/Root folder count: ${ConfigPaths.getCount()}/${getRootFolderCount()}`
         ];
 
-        const configPaths = getConfigPaths();
+        const configPaths = ConfigPaths.getAll();
         for (let configIndex = 0; configIndex < configPaths.length; configIndex++) {
             logHeaders.push(HEADER_SEPARATOR);
             const configPath = configPaths[configIndex];
@@ -115,7 +116,7 @@ class Logger {
             logHeaders.push(`Config #${configIndex + 1}, Saved: ${saved}, Valid: ${valid}`);
 
             if (valid) {
-                const rootFolderPath = getRootFolderPathForFile(configPath);
+                const rootFolderPath = ConfigPaths.getRootOf(configPath);
                 const config = getConfig(configPath);
 
                 const projectCount = config.getProjects().length;

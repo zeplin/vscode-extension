@@ -1,7 +1,7 @@
 import * as vscode from "vscode";
 
 import ConfigHoverCreator from "../../../coco/config/hover/ConfigHoverCreator";
-import { RELATIVE_PATH, isConfigValid } from "../../../coco/config/util/configUtil";
+import { isConfigValid } from "../../../coco/config/util/configUtil";
 import BarrelHoverCreator from "../../../coco/barrel/hover/BarrelHoverCreator";
 import ZeplinComponentHoverCreator from "../../../coco/zeplinComponent/hover/ZeplinComponentHoverCreator";
 import { wrapWithLogs, wrapWithLogsAsync } from "../../../log/util/logUtil";
@@ -11,6 +11,7 @@ import ComponentsPropertyHoverData from "../../../coco/component/hover/Component
 import RepositoryPropertyHoverData from "../../../coco/repository/hover/RepositoryPropertyHoverData";
 import PluginsPropertyHoverData from "../../../coco/plugin/hover/PluginsPropertyHoverData";
 import LinksPropertyHoverData from "../../../coco/link/hover/LinksPropertyHoverData";
+import ConfigPaths from "../../../coco/config/util/ConfigPaths";
 
 const DATA_BOUNDARY = '"';
 
@@ -22,7 +23,7 @@ class HoverProvider implements vscode.HoverProvider {
      * Returns a selector that defines the documents this provider is applicable to.
      */
     public getDocumentSelector(): vscode.DocumentSelector {
-        return { pattern: `**/${RELATIVE_PATH}` };
+        return { pattern: "**" };
     }
 
     /**
@@ -42,7 +43,7 @@ class HoverProvider implements vscode.HoverProvider {
         }
 
         const configPath = document.uri.fsPath;
-        if (!isConfigValid(configPath)) {
+        if (!ConfigPaths.include(configPath) || !isConfigValid(configPath)) {
             return;
         }
 

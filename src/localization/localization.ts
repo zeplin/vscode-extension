@@ -55,7 +55,7 @@ const localization = {
                 allFoldersHaveConfig: "All folders already have a Zeplin configuration file."
             },
             open: {
-                selectFolder: "Select folder to open Zeplin configuration file",
+                selectConfig: "Select Zeplin configuration file to open",
                 noWorkspaceFound: "Please open a workspace first to open a Zeplin configuration file."
             },
             info: {
