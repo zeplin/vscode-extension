@@ -21,6 +21,7 @@ import UnpinAllFromSidebarCommand from "../../../sidebar/pin/command/UnpinAllFro
 import CreateConfigCommand from "../../../coco/config/command/CreateConfigCommand";
 import SetConfigCommand from "../../../coco/config/command/SetConfigCommand";
 import SetConfigRootCommand from "../../../coco/config/command/SetConfigRootCommand";
+import UnsetConfigCommand from "../../../coco/config/command/UnsetConfigCommand";
 import OpenConfigCommand from "../../../coco/config/command/OpenConfigCommand";
 import LoginCommand from "../../../session/command/LoginCommand";
 import ManualLoginCommand from "../../../session/command/ManualLoginCommand";
@@ -76,6 +77,7 @@ export async function activate(context: vscode.ExtensionContext) {
         OpenConfigCommand,
         SetConfigCommand,
         SetConfigRootCommand,
+        UnsetConfigCommand,
         LoginCommand,
         ManualLoginCommand,
         LogoutCommand,

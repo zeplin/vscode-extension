@@ -59,9 +59,12 @@ const localization = {
                 nonConfigSelected: "Selected file is not a Zeplin configuration.",
                 currentRoot: (path: string) => `Zeplin root: ${path}`,
                 setRoot: "Set root for Zeplin configuration file",
-                rootSet: "Folder set as root for Zeplin configuration file"
+                defaultConfigCannotBeUnset: "You cannot unset a default Zeplin configuration file.",
+                rootSet: "Folder set as root for Zeplin configuration file",
+                unset: "File unset as Zeplin configuration."
             },
             update: {
+                rootSet: "Folder set as root for Zeplin configuration file",
                 moved: "Zeplin configuration file moved.",
                 removed: "Zeplin configuration file removed."
             },

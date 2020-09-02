@@ -150,10 +150,35 @@ async function startSetConfigRootFlow(selectedFilePath: string | undefined) {
     MessageBuilder.with(localization.coco.config.custom.rootSet).setType(MessageType.Info).show();
 }
 
+async function startUnsetConfigFlow(selectedFilePath?: string) {
+    // Fail if no file is active
+    const filePath = selectedFilePath ?? getActiveFilePath();
+    if (!filePath) {
+        MessageBuilder.with(localization.coco.config.custom.noFileSelected).show();
+        return;
+    }
+
+    // Fail if the file is a default config file
+    if (ConfigPaths.isDefault(filePath)) {
+        MessageBuilder.with(localization.coco.config.custom.defaultConfigCannotBeUnset).show();
+        return;
+    }
+
+    // Fail if the file is not a config file
+    if (!ConfigPaths.include(filePath)) {
+        MessageBuilder.with(localization.coco.config.custom.nonConfigSelected).show();
+        return;
+    }
+
+    CustomConfigs.remove(filePath);
+    await MessageBuilder.with(localization.coco.config.custom.unset).setType(MessageType.Info).show();
+}
+
 export {
     tryCreateConfig,
     tryOpenConfig,
     createConfig,
     startSetConfigFlow,
-    startSetConfigRootFlow
+    startSetConfigRootFlow,
+    startUnsetConfigFlow
 };
