@@ -102,7 +102,7 @@ export async function activate(context: vscode.ExtensionContext) {
     if (vscode.workspace.onDidRenameFiles) { // This feature requires VS Code v1.41 and up.
         context.subscriptions.push(vscode.workspace.onDidRenameFiles(updateConfigOnComponentRename));
         context.subscriptions.push(vscode.workspace.onWillRenameFiles(updatePathOnCustomConfigRename));
-        context.subscriptions.push(vscode.workspace.onDidDeleteFiles(removePathOnCustomConfigDelete));
+        context.subscriptions.push(vscode.workspace.onWillDeleteFiles(removePathOnCustomConfigDelete));
     }
     context.subscriptions.push(vscode.window.registerUriHandler(UriHandler));
     codeLensProviders.forEach(
