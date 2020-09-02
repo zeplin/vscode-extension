@@ -27,6 +27,10 @@ export class Config {
         }
     }
 
+    public hasBarrelsField(): boolean {
+        return !!this.projects || !!this.styleguides;
+    }
+
     public getBarrels(type: BarrelType): string[] {
         return type === BarrelType.Project ? this.getProjects() : this.getStyleguides();
     }

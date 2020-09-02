@@ -23,8 +23,7 @@ function getConfig(configPath: string): Config {
 
 function isConfigValid(configPath: string): boolean {
     try {
-        getConfig(configPath);
-        return true;
+        return getConfig(configPath).hasBarrelsField();
     } catch (error) {
         Logger.log(error);
         return false;
