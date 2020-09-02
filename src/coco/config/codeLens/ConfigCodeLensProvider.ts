@@ -8,6 +8,7 @@ import AddBarrelCodeLensCreator from "../../barrel/codeLens/AddBarrelCodeLensCre
 import AddComponentsCodeLensCreator from "../../component/codeLens/AddComponentsCodeLensCreator";
 import AddZeplinComponentsCodeLensCreator from "../../zeplinComponent/codeLens/AddZeplinComponentsCodeLensCreator";
 import CodeLensProvider from "../../../common/vscode/codeLens/CodeLensProvider";
+import SetConfigRootCodeLensCreator from "./SetConfigRootCodeLensCreator";
 
 class ConfigCodeLensProvider extends CodeLensProvider {
     public createWatcher(): vscode.Disposable {
@@ -25,12 +26,13 @@ class ConfigCodeLensProvider extends CodeLensProvider {
     protected getCodeLensCreators(document: vscode.TextDocument): CodeLensCreator[] {
         if (!ConfigPaths.include(document.uri.fsPath)) {
             return [];
-    }
+        }
 
         return [
             LoginCodeLensCreator,
             ClearCacheCodeLensCreator,
             ConfigStatisticsCodeLensCreator,
+            SetConfigRootCodeLensCreator,
             AddBarrelCodeLensCreator,
             AddComponentsCodeLensCreator,
             AddZeplinComponentsCodeLensCreator

@@ -20,6 +20,7 @@ import PinComponentToSidebarCommand from "../../../sidebar/pin/command/PinCompon
 import UnpinAllFromSidebarCommand from "../../../sidebar/pin/command/UnpinAllFromSidebarCommand";
 import CreateConfigCommand from "../../../coco/config/command/CreateConfigCommand";
 import SetConfigCommand from "../../../coco/config/command/SetConfigCommand";
+import SetConfigRootCommand from "../../../coco/config/command/SetConfigRootCommand";
 import OpenConfigCommand from "../../../coco/config/command/OpenConfigCommand";
 import LoginCommand from "../../../session/command/LoginCommand";
 import ManualLoginCommand from "../../../session/command/ManualLoginCommand";
@@ -41,6 +42,7 @@ import CustomConfigCodeLensProvider from "../../../coco/config/codeLens/CustomCo
 import ComponentCodeLensProvider from "../../../coco/component/codeLens/ComponentCodeLensProvider";
 import HoverProvider from "../../vscode/hover/HoverProvider";
 import { updateConfigOnComponentRename } from "../../../coco/component/fileChange/componentRenameUtil";
+import { updatePathOnCustomConfigRename, removePathOnCustomConfigDelete } from "../../../coco/config/fileChange/configRenameUtil";
 import { registerCommand } from "../../vscode/extension/extensionUtil";
 import ComponentLinkProvider from "../../../coco/component/documentLink/ComponentLinkProvider";
 import ConfigDiagnosticsProvider from "../../../coco/config/diagnostic/ConfigDiagnosticsProvider";
@@ -73,6 +75,7 @@ export async function activate(context: vscode.ExtensionContext) {
         CreateConfigCommand,
         OpenConfigCommand,
         SetConfigCommand,
+        SetConfigRootCommand,
         LoginCommand,
         ManualLoginCommand,
         LogoutCommand,
@@ -98,6 +101,8 @@ export async function activate(context: vscode.ExtensionContext) {
 
     if (vscode.workspace.onDidRenameFiles) { // This feature requires VS Code v1.41 and up.
         context.subscriptions.push(vscode.workspace.onDidRenameFiles(updateConfigOnComponentRename));
+        context.subscriptions.push(vscode.workspace.onWillRenameFiles(updatePathOnCustomConfigRename));
+        context.subscriptions.push(vscode.workspace.onDidDeleteFiles(removePathOnCustomConfigDelete));
     }
     context.subscriptions.push(vscode.window.registerUriHandler(UriHandler));
     codeLensProviders.forEach(

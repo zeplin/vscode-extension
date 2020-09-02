@@ -1,11 +1,14 @@
 import * as vscode from "vscode";
 import { areThereAnyRootFolders, isInWorkspace, getRootFolderPathForFile, isInSameRootFolder } from "../../../common/vscode/workspace/workspaceUtil";
 import * as configUtil from "../util/configUtil";
-import { showInEditor } from "../../../common/vscode/editor/editorUtil";
+import { showInEditor, getActiveFilePath } from "../../../common/vscode/editor/editorUtil";
 import { Config } from "../model/Config";
 import localization from "../../../localization";
 import { showNoConfigError } from "../../../common/domain/error/errorUi";
 import MessageBuilder from "../../../common/vscode/message/MessageBuilder";
+import { isFileDirty } from "../../../common/vscode/editor/textDocumentUtil";
+import MessageType from "../../../common/vscode/message/MessageType";
+import CustomConfigs from "../util/CustomConfigs";
 import ConfigPaths from "../util/ConfigPaths";
 import ConfigFolderPaths from "../util/ConfigFolderPaths";
 
@@ -93,11 +96,64 @@ async function startSetConfigFlow(selectedFilePath?: string) {
 
     // Add file as config
     CustomConfigs.add(filePath);
+    await MessageBuilder
+        .with(localization.coco.config.custom.set)
+        .addOption(localization.common.ok, () => startSetConfigRootFlow(filePath))
+        .addOption(localization.common.cancel)
+        .setType(MessageType.Info)
+        .show();
+}
+
+async function startSetConfigRootFlow(selectedFilePath: string | undefined) {
+    // Fail if no file is active
+    const filePath = selectedFilePath ?? getActiveFilePath();
+    if (!filePath) {
+        MessageBuilder.with(localization.coco.config.custom.noFileSelected).show();
+        return;
+    }
+
+    // Fail if the file is a default config file
+    if (ConfigPaths.isDefault(filePath)) {
+        MessageBuilder.with(localization.coco.config.custom.defaultConfigRootCannotBeChanged).show();
+        return;
+    }
+
+    // Fail if the file is not a config file
+    if (!ConfigPaths.include(filePath)) {
+        MessageBuilder.with(localization.coco.config.custom.nonConfigSelected).show();
+        return;
+    }
+
+    // Show root selection dialog
+    const selectedPaths = await vscode.window.showOpenDialog({
+        canSelectFiles: false,
+        canSelectFolders: true,
+        canSelectMany: false,
+        defaultUri: vscode.Uri.parse(getRootFolderPathForFile(filePath)),
+        openLabel: localization.coco.config.custom.setRoot
+    } as vscode.OpenDialogOptions);
+
+    // Fail if no folder is selected
+    if (!selectedPaths) {
+        return;
+    }
+
+    // Fail if folder is not in the same root folder as config file
+    const newRootPath = selectedPaths[0].fsPath;
+    if (!isInSameRootFolder(filePath, newRootPath)) {
+        MessageBuilder.with(localization.coco.common.notInWorkspace).show();
+        return;
+    }
+
+    // Update root of config
+    CustomConfigs.updateRoot(filePath, newRootPath);
+    MessageBuilder.with(localization.coco.config.custom.rootSet).setType(MessageType.Info).show();
 }
 
 export {
     tryCreateConfig,
     tryOpenConfig,
     createConfig,
-    startSetConfigFlow
+    startSetConfigFlow,
+    startSetConfigRootFlow
 };

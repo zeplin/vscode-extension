@@ -305,6 +305,11 @@
                 "category": "Zeplin"
             },
             {
+                "command": "zeplin.setConfigRoot",
+                "title": "Set root for Zeplin Configuration File",
+                "category": "Zeplin"
+            },
+            {
                 "command": "zeplin.login",
                 "title": "Login to Zeplin",
                 "category": "Zeplin"

@@ -54,6 +54,12 @@ const localization = {
                 alreadySet: "Selected file is already a configuration file.",
                 fileNotSaved: "Selected file is not saved, please save it before continuing.",
                 fileNotValid: "Selected file is not valid as a Zeplin configuration, please review it before continuing.",
+                set: "File set as Zeplin configuration. The root is still the same. Would you like to select a custom root?",
+                defaultConfigRootCannotBeChanged: "You cannot change default Zeplin configuration file's root.",
+                nonConfigSelected: "Selected file is not a Zeplin configuration.",
+                currentRoot: (path: string) => `Zeplin root: ${path}`,
+                setRoot: "Set root for Zeplin configuration file",
+                rootSet: "Folder set as root for Zeplin configuration file",
             },
             create: {
                 selectFolder: "Select folder to create Zeplin configuration file",
