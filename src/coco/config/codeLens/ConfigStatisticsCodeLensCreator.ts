@@ -18,12 +18,13 @@ class ConfigStatisticsCodeLensCreator implements CodeLensCreator {
         const projects = config.getProjects();
         const styleguides = config.getStyleguides();
         const components = config.getComponents();
-        const zeplinComponents = config.getAllZeplinComponentNames();
+        const zeplinComponents = config.getAllZeplinComponentDescriptors();
+        const zeplinComponentsCount = zeplinComponents.zeplinIds.length + zeplinComponents.zeplinNames.length;
         return [
             this.getLens(localization.coco.config.info.projectCount(projects.length)),
             this.getLens(localization.coco.config.info.styleguideCount(styleguides.length)),
             this.getLens(localization.coco.config.info.componentCount(components.length)),
-            this.getLens(localization.coco.config.info.zeplinComponentCount(zeplinComponents.length))
+            this.getLens(localization.coco.config.info.zeplinComponentCount(zeplinComponentsCount))
         ];
     }
 

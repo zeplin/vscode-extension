@@ -13,6 +13,7 @@ import RepositoryType from "../../repository/model/RepositoryType";
 import Repository from "../../repository/model/Repository";
 import ConfigPaths from "./ConfigPaths";
 import ConfigFolderPaths from "./ConfigFolderPaths";
+import ZeplinComponentDescriptors from "../../../common/domain/zeplinComponent/model/ZeplinComponentDescriptors";
 
 const ENCODING = "utf8";
 const SPACE_COUNT_IN_TAB = 4;
@@ -125,30 +126,35 @@ function addComponentWithPath(filePath: string) {
     return saveConfig(configPath, config);
 }
 
-function containsZeplinComponent(component: Component, zeplinComponent: ZeplinComponent): boolean {
-    return component.zeplinNames.includes(zeplinComponent.name);
+function containsZeplinComponent(component: ZeplinComponentDescriptors, zeplinComponent: ZeplinComponent): boolean {
+    return !!component.zeplinIds?.includes(zeplinComponent._id) ||
+        !!component.zeplinNames?.includes(zeplinComponent.name);
 }
 
-function addZeplinComponent(configPath: string, componentRelativePath: string, zeplinComponentName: string) {
+function addZeplinComponents(configPath: string, componentRelativePath: string, zeplinComponents: ZeplinComponent[]) {
     const config = getConfig(configPath);
-    config.addZeplinComponent(componentRelativePath, zeplinComponentName);
+    if (config.isZeplinComponentIdsPreferred()) {
+        config.addZeplinComponentIds(componentRelativePath, zeplinComponents.map(({ _id }) => _id));
+    } else {
+        config.addZeplinComponentNames(componentRelativePath, zeplinComponents.map(({ name }) => `${name}`));
+    }
     return saveConfig(configPath, config);
 }
 
-function addZeplinComponents(configPath: string, componentRelativePath: string, zeplinComponentNames: string[]) {
-    const config = getConfig(configPath);
-    zeplinComponentNames.forEach(name => config.addZeplinComponent(componentRelativePath, name));
-    return saveConfig(configPath, config);
-}
-
-function getZeplinComponentsOfComponent(configPath: string, componentRelativePath: string): string[] {
+function getZeplinComponentsOfComponent(configPath: string, componentRelativePath: string): ZeplinComponentDescriptors {
     const config = getConfig(configPath);
     const components = config.getComponentsWithRelativePath(componentRelativePath);
-    return flatten(components.map(component => component.zeplinNames));
+    return {
+        zeplinIds: flatten(components.map(({ zeplinIds }) => zeplinIds)),
+        zeplinNames: flatten(components.map(({ zeplinNames }) => zeplinNames))
+    };
 }
 
 function getZeplinComponentsCountOfComponent(filePath: string): number {
-    return sum(getComponentsWithPath(filePath).map(component => component.zeplinNames.length));
+    return sum(
+        getComponentsWithPath(filePath)
+            .map(({ zeplinIds, zeplinNames }) => (zeplinIds?.length ?? 0) + (zeplinNames?.length ?? 0))
+    );
 }
 
 function hasRepository(configPath: string, type: RepositoryType) {
@@ -189,7 +195,6 @@ export {
     containsComponent,
     addComponentWithPath,
     containsZeplinComponent,
-    addZeplinComponent,
     addZeplinComponents,
     getZeplinComponentsOfComponent,
     getZeplinComponentsCountOfComponent,

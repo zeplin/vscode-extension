@@ -109,9 +109,7 @@ async function startAddZeplinComponentsFlow(componentIndex?: number) {
     }
 
     // Add Zeplin component
-    configUtil.addZeplinComponents(
-        configPath, component.path, zeplinComponents.map(zeplinComponent => zeplinComponent.name)
-    );
+    configUtil.addZeplinComponents(configPath, component.path, zeplinComponents);
     showInEditor(configPath);
     MessageBuilder
         .with(localization.coco.zeplinComponent.connected(zeplinComponents.length))
