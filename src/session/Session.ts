@@ -34,7 +34,7 @@ class Session {
     /**
      * Returns session token.
      */
-    public getToken(): Promise<string | null> {
+    public getToken(): Promise<string | null | undefined> {
         return this.tokenStorage!.get();
     }
 

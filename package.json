@@ -506,7 +506,7 @@
         "mocha": "^7.1.2",
         "node-loader": "^0.6.0",
         "ts-loader": "^6.2.1",
-        "typescript": "^3.7.4",
+        "typescript": "^4.1.5",
         "vscode-test": "^1.3.0",
         "webpack": "^4.41.4",
         "webpack-cli": "^3.3.10"
