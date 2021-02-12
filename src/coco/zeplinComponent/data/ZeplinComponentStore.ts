@@ -14,10 +14,18 @@ const WILDCARD = "*";
 export type ZeplinComponentData = { component: ZeplinComponent; providerId: string; providerType: BarrelType };
 
 export default class ZeplinComponentStore implements Store<ZeplinComponentData[], BaseError> {
-    private readonly matcher: RegExp;
+    private readonly matcher?: RegExp;
 
-    public constructor(private name: string, private configPath: string) {
-        this.matcher = this.getMatcher(name);
+    private constructor(private id: string | undefined, private name: string | undefined, private configPath: string) {
+        this.matcher = name ? this.getMatcher(name) : undefined;
+    }
+
+    public static byName(name: string, configPath: string) {
+        return new ZeplinComponentStore(undefined, name, configPath);
+    }
+
+    public static byId(id: string, configPath: string) {
+        return new ZeplinComponentStore(id, undefined, configPath);
     }
 
     private getMatcher(name: string): RegExp {
@@ -31,7 +39,7 @@ export default class ZeplinComponentStore implements Store<ZeplinComponentData[]
     }
 
     private filterMoreSpecificMatchers(names: string[]): RegExp[] {
-        if (!this.name.includes(WILDCARD)) {
+        if (!this.name?.includes(WILDCARD)) {
             return [];
         }
 
@@ -47,7 +55,7 @@ export default class ZeplinComponentStore implements Store<ZeplinComponentData[]
                 if (nameLength > toCompareLength || (nameLength === toCompareLength && !toCompareReached)) {
                     moreSpecificNames.push(name);
                 }
-            } else if (this.matcher.test(name)) {
+            } else if (this.matcher!.test(name)) {
                 moreSpecificNames.push(name);
             }
         }
@@ -55,11 +63,21 @@ export default class ZeplinComponentStore implements Store<ZeplinComponentData[]
         return moreSpecificNames.map(this.getMatcher);
     }
 
+    private isTheMostSpecificMatcher(component: ZeplinComponent, moreSpecificMatchers: RegExp[], zeplinIds: string[]) {
+        if (component._id === this.id || component.name === this.name) {
+            return true;
+        }
+
+        return this.matcher?.test(component.name) &&
+            !moreSpecificMatchers.some(matcher => matcher.test(component.name)) &&
+            !zeplinIds.some(zeplinId => zeplinId === component._id);
+    }
+
     public get = async (): Promise<Result<ZeplinComponentData[], BaseError>> => {
         const config = getConfig(this.configPath);
         const barrels = config.getValidBarrelsWithTypes();
-        const configComponentNames = config.getAllZeplinComponentNames();
-        const moreSpecificMatchers = this.filterMoreSpecificMatchers(configComponentNames);
+        const { zeplinIds, zeplinNames } = config.getAllZeplinComponentDescriptors();
+        const moreSpecificMatchers = this.filterMoreSpecificMatchers(zeplinNames);
 
         const allSearches = Promise.all(barrels.map(async ({ id, type }): Promise<ZeplinComponentData[]> => {
             const leafId = id;
@@ -75,8 +93,8 @@ export default class ZeplinComponentStore implements Store<ZeplinComponentData[]
                 const { data }: Result<BarrelDetails, BaseError> =
                     await BarrelDetailsStoreProvider.get(currentId, currentType, childId, childType).get();
 
-                const components = data?.components.filter(current =>
-                    !moreSpecificMatchers.some(matcher => matcher.test(current.name)) && this.matcher.test(current.name)
+                const components = data?.components.filter(
+                    current => this.isTheMostSpecificMatcher(current, moreSpecificMatchers, zeplinIds)
                 ) ?? [];
                 componentDatas.push(...components.map(component => ({
                     component,
@@ -92,7 +110,7 @@ export default class ZeplinComponentStore implements Store<ZeplinComponentData[]
         }));
 
         const allMatches = flatten(await allSearches);
-        const exactMatches = allMatches.filter(data => data.component.name === this.name);
+        const exactMatches = allMatches.filter(({ component: { name, _id } }) => _id === this.id || name === this.name);
         return {
             data: exactMatches.length ? exactMatches : allMatches,
             errors: allMatches.length ? undefined : [new BaseError()]

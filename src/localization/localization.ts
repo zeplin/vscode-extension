@@ -137,7 +137,9 @@ const localization = {
             noZeplinComponentFoundOnBarrelsForMigration: "No Zeplin components found on your projects and styleguides. Please check you added correct projects and styleguides to configuration file.",
             migrated: (count: number) => `Migrated ${pluralize(count, "Zeplin component name")}.`,
             migrationErrors: (count: number) => `${pluralize(count, "Zeplin component name")} can not be migrated because matching Zeplin component ids can not be found. Please check their names are correct.`,
-            notFound: (name: string) => `No component matching “${name}” in projects/styleguides you’re a member of`,
+            notFound: (descriptor: string) =>
+                `No component matching “${descriptor}” in projects/styleguides you’re a member of`,
+            formatNotValid: "Zeplin component ids must be exactly 24 characters long and hexadecimal.",
             moreItems: (count: number) => `${count} more`
         },
         common: {
