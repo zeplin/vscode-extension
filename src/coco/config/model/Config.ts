@@ -1,11 +1,12 @@
 import BarrelType from "../../../common/domain/barrel/BarrelType";
 import Component from "../../component/model/Component";
-import { flatten } from "../../../common/general/arrayUtil";
+import { flatten, isFirstOccurence } from "../../../common/general/arrayUtil";
 import Repository from "../../repository/model/Repository";
 import RepositoryType from "../../repository/model/RepositoryType";
 import Plugin from "../../plugin/model/Plugin";
 import Link from "../../link/model/Link";
 import ZeplinComponentDescriptors from "../../../common/domain/zeplinComponent/model/ZeplinComponentDescriptors";
+import { isBarrelIdFormatValid } from "../../../common/domain/barrel/util/barrelUtil";
 
 export class Config {
     [key: string]: unknown; // This index signature is defined to be able to delete properties by string keys
@@ -44,10 +45,12 @@ export class Config {
         return this.styleguides || [];
     }
 
-    public getBarrelsWithTypes(): { id: string; type: BarrelType }[] {
+    public getValidBarrelsWithTypes(): { id: string; type: BarrelType }[] {
         return [
-            ...this.getProjects().map(id => ({ id, type: BarrelType.Project })),
-            ...this.getStyleguides().map(id => ({ id, type: BarrelType.Styleguide }))
+            ...this.getProjects().filter(isFirstOccurence).filter(isBarrelIdFormatValid)
+                .map(id => ({ id, type: BarrelType.Project })),
+            ...this.getStyleguides().filter(isFirstOccurence).filter(isBarrelIdFormatValid)
+                .map(id => ({ id, type: BarrelType.Styleguide }))
         ];
     }
 

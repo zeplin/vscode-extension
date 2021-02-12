@@ -57,7 +57,7 @@ export default class ZeplinComponentStore implements Store<ZeplinComponentData[]
 
     public get = async (): Promise<Result<ZeplinComponentData[], BaseError>> => {
         const config = getConfig(this.configPath);
-        const barrels = config.getBarrelsWithTypes();
+        const barrels = config.getValidBarrelsWithTypes();
         const configComponentNames = config.getAllZeplinComponentNames();
         const moreSpecificMatchers = this.filterMoreSpecificMatchers(configComponentNames);
 
