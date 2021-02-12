@@ -131,9 +131,12 @@ function containsZeplinComponent(component: ZeplinComponentDescriptors, zeplinCo
         !!component.zeplinNames?.includes(zeplinComponent.name);
 }
 
-function addZeplinComponents(configPath: string, componentRelativePath: string, zeplinComponents: ZeplinComponent[]) {
+function addZeplinComponents(
+    configPath: string, componentRelativePath: string, zeplinComponents: ZeplinComponent[], preferIds?: boolean
+) {
     const config = getConfig(configPath);
-    if (config.isZeplinComponentIdsPreferred()) {
+    const addToIds = preferIds ?? config.isZeplinComponentIdsPreferred();
+    if (addToIds) {
         config.addZeplinComponentIds(componentRelativePath, zeplinComponents.map(({ _id }) => _id));
     } else {
         config.addZeplinComponentNames(componentRelativePath, zeplinComponents.map(({ name }) => `${name}`));

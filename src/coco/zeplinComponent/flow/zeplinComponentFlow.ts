@@ -15,7 +15,7 @@ import MessageBuilder from "../../../common/vscode/message/MessageBuilder";
 import MessageType from "../../../common/vscode/message/MessageType";
 import BarrelType from "../../../common/domain/barrel/BarrelType";
 
-async function startAddZeplinComponentsFlow(componentIndex?: number) {
+async function startAddZeplinComponentsFlow(componentIndex?: number, preferIds?: boolean) {
     // Validate login and select config, fail if a modifiable config is not selected
     const configPath = await selectAndValidateConfig(localization.coco.zeplinComponent.connect);
     if (!configPath) {
@@ -109,7 +109,7 @@ async function startAddZeplinComponentsFlow(componentIndex?: number) {
     }
 
     // Add Zeplin component
-    configUtil.addZeplinComponents(configPath, component.path, zeplinComponents);
+    configUtil.addZeplinComponents(configPath, component.path, zeplinComponents, preferIds);
     showInEditor(configPath);
     MessageBuilder
         .with(localization.coco.zeplinComponent.connected(zeplinComponents.length))
