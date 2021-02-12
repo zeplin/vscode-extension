@@ -360,6 +360,11 @@
                 "category": "Zeplin"
             },
             {
+                "command": "zeplin.migrateZeplinComponents",
+                "title": "Migrate Zeplin Component names to ids in Configuration",
+                "category": "Zeplin"
+            },
+            {
                 "command": "zeplin.addRepository",
                 "title": "Add Repository to Zeplin Configuration",
                 "category": "Zeplin"

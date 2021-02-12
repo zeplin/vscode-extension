@@ -32,6 +32,7 @@ import AddStyleguideCommand from "../../../coco/barrel/command/AddStyleguideComm
 import AddComponentCommand from "../../../coco/component/command/AddComponentCommand";
 import AddComponentsCommand from "../../../coco/component/command/AddComponentsCommand";
 import AddZeplinComponentsCommand from "../../../coco/zeplinComponent/command/AddZeplinComponentsCommand";
+import MigrateZeplinComponentsCommand from "../../../coco/zeplinComponent/command/MigrateZeplinComponentsCommand";
 import AddRepositoryCommand from "../../../coco/repository/command/AddRepositoryCommand";
 import AddPluginCommand from "../../../coco/plugin/command/AddPluginCommand";
 import AddLinkCommand from "../../../coco/link/command/AddLinkCommand";
@@ -87,6 +88,7 @@ export async function activate(context: vscode.ExtensionContext) {
         AddComponentCommand,
         AddComponentsCommand,
         AddZeplinComponentsCommand,
+        MigrateZeplinComponentsCommand,
         AddRepositoryCommand,
         AddPluginCommand,
         AddLinkCommand,
