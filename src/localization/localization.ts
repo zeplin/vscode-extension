@@ -35,6 +35,7 @@ const localization = {
                 "List of components in the codebase with their design counterparts—this is where the magic happens.",
             propNameInfo: "Custom name for the component to be displayed in Zeplin.",
             propPathInfo: "The file path for the component file.",
+            propZeplinIdsInfo: "Ids of the components in Zeplin to connect to, either one or more.",
             propZeplinNamesInfo: "Names of the components in Zeplin to connect to, either one or more.",
             propCustomLinkTitle: "Custom link type you defined under `links`",
             propCustomLinkInfo: "`type` of the custom link type you defined.",
