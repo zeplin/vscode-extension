@@ -131,6 +131,7 @@ const localization = {
             connect: "Connect to Zeplin components",
             askMigration: "Would you like to migrate zeplinNames on your configuration to zeplinIds?",
             migrate: "Migrate Zeplin component names to ids",
+            migrationInProgress: "Getting components data for migration…",
             noBarrelFoundForMigration: "No project or styleguide found on configuration file.",
             noComponentFoundForMigration: "No component found on configuration file.",
             noNameFoundForMigration: "No Zeplin component name found on configuration file.",

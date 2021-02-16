@@ -1,3 +1,4 @@
+import * as vscode from "vscode";
 import { showInEditor } from "../../../common/vscode/editor/editorUtil";
 import MessageBuilder from "../../../common/vscode/message/MessageBuilder";
 import MessageType from "../../../common/vscode/message/MessageType";
@@ -74,9 +75,22 @@ async function startMigrateZeplinComponentsFlow(selectedConfigPath?: string) {
         return;
     }
 
+    const zeplinComponentsResult = await vscode.window.withProgress({
+        location: vscode.ProgressLocation.Notification,
+        title: localization.coco.zeplinComponent.migrationInProgress,
+        cancellable: true
+    }, async (_, cancellationToken) => {
+        const result = await new ConfigZeplinComponentsStore(configPath).get();
+        return cancellationToken.isCancellationRequested ? null : result;
+    });
+
+    // Fail if operation canceled by user
+    if (!zeplinComponentsResult) {
+        return;
+    }
+
+    const { data: allZeplinComponents = [], errors: zeplinComponentsDataError } = zeplinComponentsResult;
     // Check if any Zeplin components found on the barrels of the config, fail if not so
-    const { data: allZeplinComponents = [], errors: zeplinComponentsDataError } =
-        await new ConfigZeplinComponentsStore(configPath).get();
     if (!allZeplinComponents.length) {
         const errorMessage = zeplinComponentsDataError
             ? localization.coco.zeplinComponent.barrelErrorForMigration
