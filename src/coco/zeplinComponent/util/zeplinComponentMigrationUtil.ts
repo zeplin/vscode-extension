@@ -1,6 +1,40 @@
+import ContextProvider from "../../../common/vscode/extension/ContextProvider";
 import ZeplinComponent from "../../../common/domain/zeplinComponent/model/ZeplinComponent";
 import { getConfig, saveConfig } from "../../config/util/configUtil";
 import { flatten } from "../../../common/general/arrayUtil";
+
+const KEY_ASKED = "askedZeplinComponentMigrationQuestion";
+const KEY_ANSWERED = "answeredZeplinComponentMigrationQuestion";
+
+function getStateList(stateKey: string): string[] {
+    return ContextProvider.get().globalState.get(stateKey) ?? [];
+}
+
+function addToStateList(configPath: string, stateKey: string) {
+    const savedPaths = getStateList(stateKey);
+    ContextProvider.get().globalState.update(stateKey, [...savedPaths, configPath]);
+}
+
+function isInStateList(configPath: string, stateKey: string): boolean {
+    const savedPaths = getStateList(stateKey);
+    return savedPaths.includes(configPath);
+}
+
+function askedZeplinComponentMigrationQuestion(configPath: string) {
+    addToStateList(configPath, KEY_ASKED);
+}
+
+function isZeplinComponentMigrationQuestionAsked(configPath: string): boolean {
+    return isInStateList(configPath, KEY_ASKED)
+}
+
+function answeredZeplinComponentMigrationQuestion(configPath: string) {
+    addToStateList(configPath, KEY_ANSWERED);
+}
+
+function isZeplinComponentMigrationQuestionAnswered(configPath: string): boolean {
+    return isInStateList(configPath, KEY_ANSWERED)
+}
 
 function containsExplicitZeplinNames(configPath: string): boolean {
     return getConfig(configPath).getAllZeplinComponentNames().some(name => !name.includes("*"));
@@ -42,6 +76,10 @@ function migrateZeplinComponents(configPath: string, allZeplinComponents: Zeplin
 }
 
 export {
+    askedZeplinComponentMigrationQuestion,
+    isZeplinComponentMigrationQuestionAsked,
+    answeredZeplinComponentMigrationQuestion,
+    isZeplinComponentMigrationQuestionAnswered,
     containsExplicitZeplinNames,
     migrateZeplinComponents
 };

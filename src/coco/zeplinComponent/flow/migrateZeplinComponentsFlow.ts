@@ -6,6 +6,44 @@ import { selectAndValidateConfig } from "../../common/flow/commonFlow";
 import * as configUtil from "../../config/util/configUtil";
 import * as zeplinComponentMigrationUtil from "../../zeplinComponent/util/zeplinComponentMigrationUtil";
 import ConfigZeplinComponentsStore from "../data/ConfigZeplinComponentsStore";
+import ZeplinComponentMigrationResult from "../model/ZeplinComponentMigrationResult";
+
+async function askZeplinComponentMigrationIfNeeded(configPath: string, forceSelection: boolean):
+    Promise<ZeplinComponentMigrationResult> {
+    if (!forceSelection && zeplinComponentMigrationUtil.isZeplinComponentMigrationQuestionAsked(configPath)) {
+        return ZeplinComponentMigrationResult.NotMigrated;
+    }
+
+    if (forceSelection && zeplinComponentMigrationUtil.isZeplinComponentMigrationQuestionAnswered(configPath)) {
+        return ZeplinComponentMigrationResult.NotMigrated;
+    }
+
+    if (!zeplinComponentMigrationUtil.containsExplicitZeplinNames(configPath)) {
+        return ZeplinComponentMigrationResult.NotMigrated;
+    }
+
+    zeplinComponentMigrationUtil.askedZeplinComponentMigrationQuestion(configPath);
+
+    const answer = await MessageBuilder
+        .with(localization.coco.zeplinComponent.askMigration)
+        .addOption(localization.common.yes)
+        .addOption(localization.common.no)
+        .setModal(forceSelection)
+        .setType(MessageType.Warning)
+        .show();
+
+    switch (answer) {
+        case localization.common.yes:
+            zeplinComponentMigrationUtil.answeredZeplinComponentMigrationQuestion(configPath);
+            await startMigrateZeplinComponentsFlow(configPath);
+            return ZeplinComponentMigrationResult.Migrated;
+        case localization.common.no:
+            zeplinComponentMigrationUtil.answeredZeplinComponentMigrationQuestion(configPath);
+            return ZeplinComponentMigrationResult.NotMigrated;
+        default:
+            return ZeplinComponentMigrationResult.Canceled;
+    }
+}
 
 async function startMigrateZeplinComponentsFlow(selectedConfigPath?: string) {
     // Validate login and select config, fail if a modifiable config is not selected
@@ -67,5 +105,6 @@ async function startMigrateZeplinComponentsFlow(selectedConfigPath?: string) {
 }
 
 export {
+    askZeplinComponentMigrationIfNeeded,
     startMigrateZeplinComponentsFlow
 };
