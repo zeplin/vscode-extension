@@ -7,9 +7,9 @@ import * as configUtil from "../../config/util/configUtil";
 import * as zeplinComponentMigrationUtil from "../../zeplinComponent/util/zeplinComponentMigrationUtil";
 import ConfigZeplinComponentsStore from "../data/ConfigZeplinComponentsStore";
 
-async function startMigrateZeplinComponentsFlow() {
+async function startMigrateZeplinComponentsFlow(selectedConfigPath?: string) {
     // Validate login and select config, fail if a modifiable config is not selected
-    const configPath = await selectAndValidateConfig(localization.coco.zeplinComponent.migrate);
+    const configPath = selectedConfigPath ?? await selectAndValidateConfig(localization.coco.zeplinComponent.migrate);
     if (!configPath) {
         return;
     }

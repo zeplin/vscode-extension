@@ -2,6 +2,10 @@ import ZeplinComponent from "../../../common/domain/zeplinComponent/model/Zeplin
 import { getConfig, saveConfig } from "../../config/util/configUtil";
 import { flatten } from "../../../common/general/arrayUtil";
 
+function containsExplicitZeplinNames(configPath: string): boolean {
+    return getConfig(configPath).getAllZeplinComponentNames().some(name => !name.includes("*"));
+}
+
 function migrateZeplinComponents(configPath: string, allZeplinComponents: ZeplinComponent[]):
     { migratedZeplinNameCount: number; nonMigratedZeplinNameCount: number; } {
     const config = getConfig(configPath);
@@ -38,5 +42,6 @@ function migrateZeplinComponents(configPath: string, allZeplinComponents: Zeplin
 }
 
 export {
+    containsExplicitZeplinNames,
     migrateZeplinComponents
 };
