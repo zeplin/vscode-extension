@@ -51,6 +51,7 @@ import ConfigDiagnosticsProvider from "../../../coco/config/diagnostic/ConfigDia
 import BarrelTreeDataProvider from "../../../sidebar/barrel/tree/BarrelTreeDataProvider";
 import PinTreeDataProvider from "../../../sidebar/pin/tree/PinTreeDataProvider";
 import ActivityTreeDataProvider from "../../../sidebar/activity/tree/ActivityTreeDataProvider";
+import { askZeplinComponentMigrationOnConfigOpen } from "../../../coco/zeplinComponent/fileOperation/askZeplinComponentMigrationUtil";
 
 export async function activate(context: vscode.ExtensionContext) {
     ContextProvider.initialize(context);
@@ -108,6 +109,7 @@ export async function activate(context: vscode.ExtensionContext) {
         context.subscriptions.push(vscode.workspace.onWillRenameFiles(updatePathOnCustomConfigRename));
         context.subscriptions.push(vscode.workspace.onWillDeleteFiles(removePathOnCustomConfigDelete));
     }
+    context.subscriptions.push(vscode.workspace.onDidOpenTextDocument(askZeplinComponentMigrationOnConfigOpen));
     context.subscriptions.push(vscode.window.registerUriHandler(UriHandler));
     codeLensProviders.forEach(
         provider => context.subscriptions.push(
