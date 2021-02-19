@@ -47,6 +47,8 @@ function migrateZeplinComponents(configPath: string, allZeplinComponents: Zeplin
     const preMigrationZeplinNameCount = flatten(components.map(({ zeplinNames }) => zeplinNames)).length;
 
     for (const component of components) {
+        component.zeplinIds ??= [];
+
         for (const zeplinName of component.zeplinNames ?? []) {
             const correspondingIds = allZeplinComponents
                 .filter(({ name }) => zeplinName === name)
@@ -54,25 +56,37 @@ function migrateZeplinComponents(configPath: string, allZeplinComponents: Zeplin
             if (correspondingIds.length) {
                 component.zeplinNames = component.zeplinNames!.filter(current => current !== zeplinName);
                 const idsToAdd = correspondingIds.filter(id => !component.zeplinIds?.includes(id));
-                (component.zeplinIds ??= []).push(...idsToAdd);
+                component.zeplinIds.push(...idsToAdd);
             }
         }
 
-        if (!component.zeplinNames?.length && component.zeplinIds?.length) {
+        if (!component.zeplinNames?.length) {
             component.zeplinNames = undefined;
         }
     }
-    const nonMigratedZeplinNameCount = flatten(components.map(({ zeplinNames }) => zeplinNames)).length;
-    const migratedZeplinNameCount = preMigrationZeplinNameCount - nonMigratedZeplinNameCount;
 
-    if (migratedZeplinNameCount) {
-        saveConfig(configPath, config);
-    }
+    saveConfig(configPath, config);
+
+    const remainingZeplinNames = flatten(components.map(({ zeplinNames }) => zeplinNames));
+    const migratedZeplinNameCount = preMigrationZeplinNameCount - remainingZeplinNames.length;
+    const nonMigratedZeplinNameCount = remainingZeplinNames.filter(name => !name.includes("*")).length;
 
     return {
         migratedZeplinNameCount,
         nonMigratedZeplinNameCount
     };
+}
+
+function removeEmptyZeplinNamesAndAddZeplinIds(configPath: string) {
+    const config = getConfig(configPath);
+    const components = config.getComponents();
+    for (const component of components) {
+        component.zeplinIds ??= [];
+        if (!component.zeplinNames?.length) {
+            component.zeplinNames = undefined;
+        }
+    }
+    saveConfig(configPath, config);
 }
 
 export {
@@ -81,5 +95,6 @@ export {
     answeredZeplinComponentMigrationQuestion,
     isZeplinComponentMigrationQuestionAnswered,
     containsExplicitZeplinNames,
-    migrateZeplinComponents
+    migrateZeplinComponents,
+    removeEmptyZeplinNamesAndAddZeplinIds
 };

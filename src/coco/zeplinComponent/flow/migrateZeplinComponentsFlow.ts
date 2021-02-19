@@ -70,6 +70,7 @@ async function startMigrateZeplinComponentsFlow(selectedConfigPath?: string) {
 
     // Check if config has any Zeplin component names, fail if not so
     if (!config.getAllZeplinComponentNames().length) {
+        zeplinComponentMigrationUtil.removeEmptyZeplinNamesAndAddZeplinIds(configPath);
         showInEditor(configPath);
         MessageBuilder.with(localization.coco.zeplinComponent.noNameFoundForMigration).show();
         return;
