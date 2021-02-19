@@ -1,4 +1,15 @@
+const INDEX_NOT_FOUND = -1;
 type empty = undefined | null;
+
+function findLastIndex<T>(array: T[], predicate: (value: T, index: number, obj: T[]) => unknown): number {
+    for (let index = array.length - 1; index >= 0; index--) {
+        if (predicate(array[index], index, array)) {
+            return index;
+        }
+    }
+
+    return INDEX_NOT_FOUND;
+}
 
 /**
  * Determines whether a value and an index mark the first occurence in an array.
@@ -63,6 +74,7 @@ function getActiveItem<T>(items: T[]): T | undefined {
 }
 
 export {
+    findLastIndex,
     isFirstOccurence,
     flatten,
     sum,

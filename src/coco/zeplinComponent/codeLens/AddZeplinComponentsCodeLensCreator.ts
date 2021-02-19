@@ -6,6 +6,7 @@ import AddZeplinComponentsCommand from "../command/AddZeplinComponentsCommand";
 import localization from "../../../localization";
 import { createCodeLens } from "../../../common/vscode/codeLens/codeLensUtil";
 import { getConfig } from "../../config/util/configUtil";
+import { findLastIndex } from "../../../common/general/arrayUtil";
 
 const KEY_COMPONENTS = "components";
 const KEY_PATH = "path";
@@ -72,7 +73,7 @@ class AddZeplinComponentsCodeLensCreator implements CodeLensCreator {
                 preferIds,
                 // This is the index of the "path" which current "zeplinIds" or "zeplinNames" corresponds to.
                 // As "path" is mandatory, it gives the correct index to new component to.
-                index: pathPositions.findIndex(pathPosition => pathPosition.isAfter(position)) - 1
+                index: findLastIndex(pathPositions, pathPosition => pathPosition.isBefore(position))
             }))
             .filter(({ index }) => index >= 0 && index < componentCount);
     }
