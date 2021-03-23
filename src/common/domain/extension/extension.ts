@@ -32,6 +32,7 @@ import AddStyleguideCommand from "../../../coco/barrel/command/AddStyleguideComm
 import AddComponentCommand from "../../../coco/component/command/AddComponentCommand";
 import AddComponentsCommand from "../../../coco/component/command/AddComponentsCommand";
 import AddZeplinComponentsCommand from "../../../coco/zeplinComponent/command/AddZeplinComponentsCommand";
+import MigrateZeplinComponentsCommand from "../../../coco/zeplinComponent/command/MigrateZeplinComponentsCommand";
 import AddRepositoryCommand from "../../../coco/repository/command/AddRepositoryCommand";
 import AddPluginCommand from "../../../coco/plugin/command/AddPluginCommand";
 import AddLinkCommand from "../../../coco/link/command/AddLinkCommand";
@@ -50,6 +51,7 @@ import ConfigDiagnosticsProvider from "../../../coco/config/diagnostic/ConfigDia
 import BarrelTreeDataProvider from "../../../sidebar/barrel/tree/BarrelTreeDataProvider";
 import PinTreeDataProvider from "../../../sidebar/pin/tree/PinTreeDataProvider";
 import ActivityTreeDataProvider from "../../../sidebar/activity/tree/ActivityTreeDataProvider";
+import { askZeplinComponentMigrationOnConfigOpen } from "../../../coco/zeplinComponent/fileOperation/askZeplinComponentMigrationUtil";
 
 export async function activate(context: vscode.ExtensionContext) {
     ContextProvider.initialize(context);
@@ -87,6 +89,7 @@ export async function activate(context: vscode.ExtensionContext) {
         AddComponentCommand,
         AddComponentsCommand,
         AddZeplinComponentsCommand,
+        MigrateZeplinComponentsCommand,
         AddRepositoryCommand,
         AddPluginCommand,
         AddLinkCommand,
@@ -106,6 +109,7 @@ export async function activate(context: vscode.ExtensionContext) {
         context.subscriptions.push(vscode.workspace.onWillRenameFiles(updatePathOnCustomConfigRename));
         context.subscriptions.push(vscode.workspace.onWillDeleteFiles(removePathOnCustomConfigDelete));
     }
+    context.subscriptions.push(vscode.workspace.onDidOpenTextDocument(askZeplinComponentMigrationOnConfigOpen));
     context.subscriptions.push(vscode.window.registerUriHandler(UriHandler));
     codeLensProviders.forEach(
         provider => context.subscriptions.push(

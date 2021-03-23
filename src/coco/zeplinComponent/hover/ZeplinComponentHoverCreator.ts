@@ -12,6 +12,7 @@ import ClearCacheCommand from "../../../session/command/ClearCacheCommand";
 import localization from "../../../localization";
 import OpenInZeplinCommand from "../../../common/domain/openInZeplin/command/OpenInZeplinCommand";
 import ZeplinLinkType from "../../../common/domain/openInZeplin/model/ZeplinLinkType";
+import { isZeplinComponentIdFormatValid } from "../../../common/domain/zeplinComponent/util/zeplinComponentUtil";
 
 const MAX_DESCRIPTION_LENGTH = 100;
 const MAX_THUMBNAIL_HEIGHT = 80;
@@ -19,11 +20,14 @@ const MAX_ELEMENTS_TO_DISPLAY = 5;
 
 class ZeplinComponentHoverCreator implements ConfigHoverCreator {
     public isApplicable(configPath: string, word: string): boolean {
-        return getConfig(configPath).getAllZeplinComponentNames().includes(word);
+        const { zeplinIds, zeplinNames } = getConfig(configPath).getAllZeplinComponentDescriptors();
+        return zeplinNames.includes(word) || (zeplinIds.includes(word) && isZeplinComponentIdFormatValid(word));
     }
 
     public async create(configPath: string, word: string): Promise<vscode.Hover> {
-        const { data, errors } = await new ZeplinComponentStore(word, configPath).get();
+        const byName = getConfig(configPath).getAllZeplinComponentNames().includes(word);
+        const createComponentStore = byName ? ZeplinComponentStore.byName : ZeplinComponentStore.byId;
+        const { data, errors } = await createComponentStore(word, configPath).get();
 
         const builder = new HoverBuilder();
 

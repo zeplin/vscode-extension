@@ -12,7 +12,7 @@ const localization = {
             added: (type: BarrelType) => `Added ${barrelLower(type)} to configuration file.`,
             notFound: (type: BarrelType) => `${barrel(type)} not found, make sure the identifier is correct`,
             formatNotValid: (type: BarrelType) =>
-                `${barrel(type)} ids must be exactly 24 characters long and hexadecimal.`,
+                `${barrel(type)} IDs must be exactly 24 characters long and hexadecimal.`,
             propInfo: (type: BarrelType) => `${barrel(type)} identifiers that you want to use components from`,
             propExtraInfo: (type: BarrelType) =>
                 `You can find the identifier of a ${barrelLower(type)} in the URL once you open it in the Web app.`
@@ -35,6 +35,7 @@ const localization = {
                 "List of components in the codebase with their design counterparts—this is where the magic happens.",
             propNameInfo: "Custom name for the component to be displayed in Zeplin.",
             propPathInfo: "The file path for the component file.",
+            propZeplinIdsInfo: "Component IDs in Zeplin to connect to, either one or more.",
             propZeplinNamesInfo: "Names of the components in Zeplin to connect to, either one or more.",
             propCustomLinkTitle: "Custom link type you defined under `links`",
             propCustomLinkInfo: "`type` of the custom link type you defined.",
@@ -127,7 +128,19 @@ const localization = {
             join: "Join",
             connected: (count: number) => `Connected to ${pluralize(count, "Zeplin Component")}.`,
             connect: "Connect to Zeplin components",
-            notFound: (name: string) => `No component matching “${name}” in projects/styleguides you’re a member of`,
+            askMigration: "Migrate zeplinNames on configuration file to zeplinIds?",
+            migrate: "Migrate Zeplin component names to IDs",
+            migrationInProgress: "Getting components data for migration…",
+            noBarrelFoundForMigration: "No project or styleguide found on configuration file.",
+            noComponentFoundForMigration: "No component found on configuration file.",
+            noNameFoundForMigration: "No Zeplin component name found on configuration file.",
+            barrelErrorForMigration: "Zeplin components data could not be fetched. Please check your projects and styleguides on configuration file.",
+            noZeplinComponentFoundOnBarrelsForMigration: "No Zeplin components found. Please check your projects and styleguides on configuration file whether they have any components or not.",
+            migrated: (count: number) => `Migrated ${pluralize(count, "Zeplin component name")}.`,
+            migrationErrors: (count: number) => `${pluralize(count, "Zeplin component name")} can not be migrated because matching Zeplin component IDs can not be found. Please check whether component names still exist on Zeplin or not.`,
+            notFound: (descriptor: string) =>
+                `No component matching “${descriptor}” in projects or styleguides you’re a member of`,
+            formatNotValid: "Zeplin component IDs must be exactly 24 characters long and hexadecimal.",
             moreItems: (count: number) => `${count} more`
         },
         common: {
@@ -236,6 +249,8 @@ const localization = {
         },
         ok: "OK",
         cancel: "Cancel",
+        yes: "Yes",
+        no: "No",
         wrongUri: "Handling URI failed.",
         selectFolder: "Select a Zeplin configuration file",
         defaultError: "We're experiencing a problem here, please try again in a little while.",

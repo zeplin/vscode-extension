@@ -14,8 +14,10 @@ import { startAddComponentFlow } from "../../component/flow/componentFlow";
 import MessageBuilder from "../../../common/vscode/message/MessageBuilder";
 import MessageType from "../../../common/vscode/message/MessageType";
 import BarrelType from "../../../common/domain/barrel/BarrelType";
+import ZeplinComponentMigrationResult from "../model/ZeplinComponentMigrationResult";
+import { askZeplinComponentMigrationIfNeeded } from "./migrateZeplinComponentsFlow";
 
-async function startAddZeplinComponentsFlow(componentIndex?: number) {
+async function startAddZeplinComponentsFlow(componentIndex?: number, preferIds?: boolean) {
     // Validate login and select config, fail if a modifiable config is not selected
     const configPath = await selectAndValidateConfig(localization.coco.zeplinComponent.connect);
     if (!configPath) {
@@ -108,10 +110,17 @@ async function startAddZeplinComponentsFlow(componentIndex?: number) {
         return;
     }
 
+    // If migration question not answered before, ask migration
+    const migrationResult = await askZeplinComponentMigrationIfNeeded(configPath, true);
+    // Fail if operation is canceled on migration question
+    if (migrationResult === ZeplinComponentMigrationResult.Canceled) {
+        return;
+    }
+
+    const migrated = migrationResult === ZeplinComponentMigrationResult.Migrated;
+
     // Add Zeplin component
-    configUtil.addZeplinComponents(
-        configPath, component.path, zeplinComponents.map(zeplinComponent => zeplinComponent.name)
-    );
+    configUtil.addZeplinComponents(configPath, component.path, zeplinComponents, migrated || preferIds);
     showInEditor(configPath);
     MessageBuilder
         .with(localization.coco.zeplinComponent.connected(zeplinComponents.length))

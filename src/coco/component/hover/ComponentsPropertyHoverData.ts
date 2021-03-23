@@ -18,7 +18,11 @@ class ComponentsPropertyHoverData implements ConfigPropertyHoverData {
         }, {
             key: "zeplinNames",
             info: localization.coco.component.propZeplinNamesInfo,
-            optional: false
+            optional: true
+        }, {
+            key: "zeplinIds",
+            info: localization.coco.component.propZeplinIdsInfo,
+            optional: true
         }, {
             title: localization.coco.component.propCustomLinkTitle,
             info: localization.coco.component.propCustomLinkInfo,

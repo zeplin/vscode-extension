@@ -126,11 +126,13 @@ class Logger {
                 const componentCount = config.getComponents().length;
                 const validComponentCount =
                     config.getComponents().filter(current => doesComponentExist(rootFolderPath, current.path)).length;
+                const zeplinComponentDescriptors = config.getAllZeplinComponentDescriptors();
                 logHeaders.push(
                     `Project count: ${validProjectCount}/${projectCount}`,
                     `Styleguide count: ${validStyleguideCount}/${styleguideCount}`,
                     `Component count: ${validComponentCount}/${componentCount}`,
-                    `Zeplin Component count: ${config.getAllZeplinComponentNames().length}`,
+                    `Zeplin Component id count: ${zeplinComponentDescriptors.zeplinIds?.length ?? 0}`,
+                    `Zeplin Component name count: ${zeplinComponentDescriptors.zeplinNames?.length ?? 0}`,
                     `Has GitHub: ${config.hasRepository(RepositoryType.Github)}`,
                     `Has GitLab: ${config.hasRepository(RepositoryType.Gitlab)}`,
                     `Has Bitbucket: ${config.hasRepository(RepositoryType.Bitbucket)}`,

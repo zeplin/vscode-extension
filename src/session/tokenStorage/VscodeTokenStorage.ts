@@ -14,7 +14,7 @@ export default class VscodeTokenStorage implements TokenStorage {
         this.memento = ContextProvider.get().globalState;
     }
 
-    public get(): Promise<string | null> {
+    public get(): Promise<string | undefined> {
         return new Promise(resolve => resolve(this.memento.get(KEY_TOKEN)));
     }
 

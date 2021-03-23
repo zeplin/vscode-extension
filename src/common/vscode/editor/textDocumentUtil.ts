@@ -10,6 +10,25 @@ function toProperty(text: string): string {
 }
 
 /**
+ * Returns first position of a text on a text document.
+ * @param text A text to get position of.
+ * @param document A text document to search on.
+ */
+function getPositionOf(text: string, document: vscode.TextDocument): vscode.Position | null {
+    const index = document.getText().indexOf(text);
+    return index < 0 ? null : document.positionAt(index);
+}
+
+/**
+ * Returns first position of a property on a text document.
+ * @param propertyName Name of a property to get position of.
+ * @param document A text document to search on.
+ */
+function getPositionOfProperty(propertyName: string, document: vscode.TextDocument): vscode.Position | null {
+    return getPositionOf(toProperty(propertyName), document);
+}
+
+/**
  * Returns positions of a text on a text document.
  * @param text A text to get positions of.
  * @param document A text document to search on.
@@ -111,6 +130,8 @@ export {
     getRangeOfProperty,
     getRangesOf,
     getRangesOfProperty,
+    getPositionOf,
+    getPositionOfProperty,
     getPositionsOf,
     getPositionsOfProperty,
     narrowRangeForProperty,

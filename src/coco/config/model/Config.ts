@@ -1,10 +1,12 @@
 import BarrelType from "../../../common/domain/barrel/BarrelType";
 import Component from "../../component/model/Component";
-import { flatten } from "../../../common/general/arrayUtil";
+import { flatten, isFirstOccurence } from "../../../common/general/arrayUtil";
 import Repository from "../../repository/model/Repository";
 import RepositoryType from "../../repository/model/RepositoryType";
 import Plugin from "../../plugin/model/Plugin";
 import Link from "../../link/model/Link";
+import ZeplinComponentDescriptors from "../../../common/domain/zeplinComponent/model/ZeplinComponentDescriptors";
+import { isBarrelIdFormatValid } from "../../../common/domain/barrel/util/barrelUtil";
 
 export class Config {
     [key: string]: unknown; // This index signature is defined to be able to delete properties by string keys
@@ -43,10 +45,12 @@ export class Config {
         return this.styleguides || [];
     }
 
-    public getBarrelsWithTypes(): { id: string; type: BarrelType }[] {
+    public getValidBarrelsWithTypes(): { id: string; type: BarrelType }[] {
         return [
-            ...this.getProjects().map(id => ({ id, type: BarrelType.Project })),
-            ...this.getStyleguides().map(id => ({ id, type: BarrelType.Styleguide }))
+            ...this.getProjects().filter(isFirstOccurence).filter(isBarrelIdFormatValid)
+                .map(id => ({ id, type: BarrelType.Project })),
+            ...this.getStyleguides().filter(isFirstOccurence).filter(isBarrelIdFormatValid)
+                .map(id => ({ id, type: BarrelType.Styleguide }))
         ];
     }
 
@@ -79,9 +83,11 @@ export class Config {
     }
 
     public addComponentWithRelativePath(relativePath: string) {
+        const idsPreferred = this.isZeplinComponentIdsPreferred();
         this.addComponent({
             path: relativePath,
-            zeplinNames: []
+            zeplinIds: idsPreferred ? [] : undefined,
+            zeplinNames: idsPreferred ? undefined : []
         });
     }
 
@@ -89,13 +95,31 @@ export class Config {
         this.components = this.getComponents().filter(current => current !== component);
     }
 
-    public addZeplinComponent(componentRelativePath: string, zeplinComponentName: string) {
+    public isZeplinComponentIdsPreferred() {
+        const { zeplinIds = [], zeplinNames = [] } = this.getAllZeplinComponentDescriptors();
+        return zeplinIds.length || !zeplinNames.length;
+    }
+
+    public addZeplinComponentIds(componentRelativePath: string, ids: string[]) {
         const component = this.getComponents().find(current => current.path === componentRelativePath)!;
-        component.zeplinNames.push(zeplinComponentName);
+        component.zeplinIds = [...component.zeplinIds ?? [], ...ids];
+    }
+
+    public addZeplinComponentNames(componentRelativePath: string, names: string[]) {
+        const component = this.getComponents().find(current => current.path === componentRelativePath)!;
+        component.zeplinNames = [...component.zeplinNames ?? [], ...names];
     }
 
     public getAllZeplinComponentNames(): string[] {
         return flatten(this.getComponents().map(component => component.zeplinNames));
+    }
+
+    public getAllZeplinComponentDescriptors(): Required<ZeplinComponentDescriptors> {
+        const components = this.getComponents();
+        return {
+            zeplinIds: flatten(components.map(({ zeplinIds }) => zeplinIds)),
+            zeplinNames: flatten(components.map(({ zeplinNames }) => zeplinNames))
+        };
     }
 
     public hasRepository(type: RepositoryType): boolean {

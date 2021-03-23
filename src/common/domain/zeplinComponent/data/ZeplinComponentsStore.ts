@@ -5,9 +5,15 @@ import BarrelDetailsStoreProvider from "./BarrelDetailsStoreProvider";
 import BarrelDetails from "../model/BarrelDetails";
 import Result from "../../store/Result";
 import BarrelError from "../model/BarrelError";
+import ZeplinComponentDescriptors from "../model/ZeplinComponentDescriptors";
+import { containsZeplinComponent } from "../../../../coco/config/util/configUtil";
 
 export default class ZeplinComponentsStore implements Store<ZeplinComponent[], BarrelError> {
-    public constructor(private barrelId: string, private barrelType: BarrelType, private excludeList: string[] = []) { }
+    public constructor(
+        private barrelId: string,
+        private barrelType: BarrelType,
+        private excludeList?: ZeplinComponentDescriptors
+    ) { }
 
     public get = async (): Promise<Result<ZeplinComponent[], BarrelError>> => {
         const leafId = this.barrelId;
@@ -32,9 +38,10 @@ export default class ZeplinComponentsStore implements Store<ZeplinComponent[], B
             }
 
             if (data) {
-                accumulatedResult.data!.push(
-                    ...data.components.filter(component => !this.excludeList.includes(component.name))
-                );
+                const includedComponents = this.excludeList
+                    ? data.components.filter(component => !containsZeplinComponent(this.excludeList!, component))
+                    : data.components;
+                accumulatedResult.data!.push(...includedComponents);
                 currentId = data.parentId; // eslint-disable-line require-atomic-updates
                 currentType = BarrelType.Styleguide; // eslint-disable-line require-atomic-updates
             }
