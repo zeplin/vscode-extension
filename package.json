@@ -361,7 +361,7 @@
             },
             {
                 "command": "zeplin.migrateZeplinComponents",
-                "title": "Migrate Zeplin Component names to ids in Configuration",
+                "title": "Migrate Zeplin Component names to IDs in Configuration",
                 "category": "Zeplin"
             },
             {
