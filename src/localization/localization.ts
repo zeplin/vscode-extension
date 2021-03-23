@@ -21,7 +21,6 @@ const localization = {
             writeFileName: "Start typing component file name to add",
             configNotFound: (folderName: string) => `Please create Zeplin configuration file first for ${folderName}`,
             configsNotFound: `Please create Zeplin configuration file first for required workspace folders`,
-            notInWorkspace: "Selected file is not in your workspace",
             createConfigAndAdd: "Create Config and Add component",
             createConfigsAndAdd: "Create Configs and Add components",
             alreadyAdded: "Selected component file is already added.",
@@ -49,13 +48,32 @@ const localization = {
             propStorybookStoriesInfo: "Names of stories defined under `.stories.js` of a component."
         },
         config: {
+            custom: {
+                setConfig: "Set as Zeplin configuration file",
+                noFileSelected: "No file selected.",
+                alreadySet: "Selected file is already a configuration file.",
+                fileNotSaved: "Selected file is not saved, please save it before continuing.",
+                fileNotValid: "Selected file is not a valid Zeplin configuration file, please review it before continuing.",
+                set: "File set as Zeplin configuration file. Change root folder?",
+                defaultConfigRootCannotBeChanged: "It's not possible to change default Zeplin configuration file's root folder.",
+                nonConfigSelected: "Selected file is not a Zeplin configuration file.",
+                currentRoot: (path: string) => `Zeplin root: ${path}`,
+                setRoot: "Set root folder for Zeplin configuration file",
+                defaultConfigCannotBeUnset: "It's not possible to unset the default Zeplin configuration file.",
+                rootSet: "Folder set as root for Zeplin configuration file.",
+                unset: "File unset as Zeplin configuration."
+            },
+            update: {
+                moved: "Zeplin configuration file moved.",
+                removed: "Zeplin configuration file removed."
+            },
             create: {
                 selectFolder: "Select folder to create Zeplin configuration file",
                 noWorkspaceFound: "Please open a workspace first to create a Zeplin configuration file.",
                 allFoldersHaveConfig: "All folders already have a Zeplin configuration file."
             },
             open: {
-                selectFolder: "Select folder to open Zeplin configuration file",
+                selectConfig: "Select Zeplin configuration file to open",
                 noWorkspaceFound: "Please open a workspace first to open a Zeplin configuration file."
             },
             info: {
@@ -114,6 +132,7 @@ const localization = {
         },
         common: {
             noConfigFound: "Please create a Zeplin configuration file first.",
+            notInWorkspace: "Selected file is not in the same root folder as Zeplin configuration file",
             createConfig: "Create Config",
             configInvalid: "Zeplin configuration file is invalid, please review it before continuing.",
             configsInvalid: "Some of the Zeplin configuration files are invalid, please review them before continuing.",

@@ -1,11 +1,12 @@
 import * as vscode from "vscode";
 import CodeLensCreator from "../../../common/vscode/codeLens/CodeLensCreator";
-import { getConfig, isConfigValid, isConfigDirty } from "../util/configUtil";
+import { getConfig, isConfigValid } from "../util/configUtil";
+import { isFileDirty } from "../../../common/vscode/editor/textDocumentUtil";
 import localization from "../../../localization";
 
 class ConfigStatisticsCodeLensCreator implements CodeLensCreator {
     public create(document: vscode.TextDocument): vscode.CodeLens[] {
-        if (isConfigDirty(document.uri.fsPath)) {
+        if (isFileDirty(document.uri.fsPath)) {
             return [this.getLens(localization.coco.config.info.dirty)];
         }
 

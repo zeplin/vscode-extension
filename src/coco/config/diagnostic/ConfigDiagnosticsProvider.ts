@@ -1,11 +1,13 @@
 import * as vscode from "vscode";
-import { isConfigPath, isConfigDirty, isConfigValid } from "../util/configUtil";
+import { isConfigValid } from "../util/configUtil";
+import { isFileDirty } from "../../../common/vscode/editor/textDocumentUtil";
 import { flatten } from "../../../common/general/arrayUtil";
 import DiagnosticCreator from "../../../common/vscode/diagnostic/DiagnosticCreator";
 import BarrelDiagnosticCreator from "../../barrel/diagnostic/BarrelDiagnosticCreator";
 import ComponentDiagnosticCreator from "../../component/diagnostic/ComponentDiagnosticCreator";
 import ZeplinComponentDiagnosticCreator from "../../zeplinComponent/diagnostic/ZeplinComponentDiagnosticCreator";
 import Refresher from "../../../session/util/Refresher";
+import ConfigPaths from "../util/ConfigPaths";
 
 const KEY = "zeplinConfig";
 const SOURCE = "Zeplin";
@@ -37,7 +39,7 @@ class ConfigDiagnosticsProvider {
         const path = uri.fsPath;
         this.diagnosticCollection.delete(uri);
 
-        if (!isConfigPath(path) || isConfigDirty(path) || !isConfigValid(path)) {
+        if (!ConfigPaths.include(path) || isFileDirty(path) || !isConfigValid(path)) {
             return;
         }
 

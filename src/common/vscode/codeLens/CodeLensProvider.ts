@@ -30,14 +30,14 @@ export default abstract class CodeLensProvider implements vscode.CodeLensProvide
     /**
      * Returns Code Lens creators that this provider provides.
      */
-    protected abstract getCodeLensCreators(): CodeLensCreator[];
+    protected abstract getCodeLensCreators(document: vscode.TextDocument): CodeLensCreator[];
 
     /**
      * Returns Code Lenses that are this provider create via its Code Lens creators.
      * @param document A text document to create Code Lenses on.
      */
     public provideCodeLenses(document: vscode.TextDocument): vscode.CodeLens[] {
-        const codeLensArrays: vscode.CodeLens[][] = this.getCodeLensCreators().map(
+        const codeLensArrays: vscode.CodeLens[][] = this.getCodeLensCreators(document).map(
             creator => wrapWithLogs(
                 () => creator.create(document),
                 `Code Lens "${creator.constructor.name}"`,

@@ -1,9 +1,7 @@
 import localization from "../../../localization";
 import * as configUtil from "../../config/util/configUtil";
 import { getActiveFilePath, showInEditor } from "../../../common/vscode/editor/editorUtil";
-import {
-    getRootFolderForFile, getRootFolderPathForFile, getRelativePathToRootFolder, isInWorkspace
-} from "../../../common/vscode/workspace/workspaceUtil";
+import { getRootFolderForFile, getRootFolderPathForFile, isInWorkspace } from "../../../common/vscode/workspace/workspaceUtil";
 import QuickPickProvider from "../../../common/vscode/quickPick/QuickPickerProvider";
 import ComponentPathStore from "../data/ComponentPathStore";
 import { createConfig } from "../../config/flow/configFlow";
@@ -11,17 +9,20 @@ import { showNoConfigError } from "../../../common/domain/error/errorUi";
 import MessageBuilder from "../../../common/vscode/message/MessageBuilder";
 import { isFirstOccurence } from "../../../common/general/arrayUtil";
 import MessageType from "../../../common/vscode/message/MessageType";
+import { isFileDirty } from "../../../common/vscode/editor/textDocumentUtil";
+import ConfigPaths from "../../config/util/ConfigPaths";
+import ConfigFolderPaths from "../../config/util/ConfigFolderPaths";
 
 async function startAddComponentFlow(selectedFilePath: string | undefined = undefined) {
     // Check if there are no configs to add component to, fail if so
-    if (!configUtil.areThereAnyConfigs()) {
+    if (!ConfigPaths.any()) {
         showNoConfigError();
         return;
     }
 
     // Check if there is an active non-config file, else show file picker
     let filePath = selectedFilePath ?? getActiveFilePath();
-    if (!filePath || configUtil.isConfigPath(filePath)) {
+    if (!filePath || ConfigPaths.include(filePath)) {
         const filePathQuickPickProvider = new QuickPickProvider(
             ComponentPathStore,
             component => ({
@@ -41,12 +42,12 @@ async function startAddComponentFlow(selectedFilePath: string | undefined = unde
 
     // Fail if the file is not in the workspace
     if (!isInWorkspace(filePath)) {
-        MessageBuilder.with(localization.coco.component.notInWorkspace).show();
+        MessageBuilder.with(localization.coco.common.notInWorkspace).show();
         return;
     }
 
     // Ask to create one, if the config that the file should be added to is not created
-    if (!configUtil.hasConfigForFile(filePath)) {
+    if (!ConfigPaths.hasForItem(filePath)) {
         MessageBuilder
             .with(localization.coco.component.configNotFound(getRootFolderForFile(filePath).name))
             .addOption(localization.coco.component.createConfigAndAdd, () => {
@@ -58,10 +59,10 @@ async function startAddComponentFlow(selectedFilePath: string | undefined = unde
         return;
     }
 
-    const configPath = configUtil.getConfigPathForFile(filePath);
+    const configPath = ConfigPaths.getForItem(filePath);
 
     // Check if selected config file is saved, fail if not so
-    if (configUtil.isConfigDirty(configPath)) {
+    if (isFileDirty(configPath)) {
         MessageBuilder.with(localization.coco.common.configNotSaved).show();
         showInEditor(configPath);
         return;
@@ -76,13 +77,13 @@ async function startAddComponentFlow(selectedFilePath: string | undefined = unde
 
     // Add component
     configUtil.addComponentWithPath(filePath);
-    showInEditor(configPath, { text: getRelativePathToRootFolder(filePath), onAdd: true });
+    showInEditor(configPath, { text: ConfigFolderPaths.getRelativePathOf(filePath), onAdd: true });
     MessageBuilder.with(localization.coco.component.added).setType(MessageType.Info).show();
 }
 
 async function startAddComponentsFlow(selectedFilePaths: string[] | undefined = undefined) {
     // Check if there are no configs to add component to, fail if so
-    if (!configUtil.areThereAnyConfigs()) {
+    if (!ConfigPaths.any()) {
         showNoConfigError();
         return;
     }
@@ -108,9 +109,9 @@ async function startAddComponentsFlow(selectedFilePaths: string[] | undefined = 
     }
 
     const rootPaths = filePaths
-        .map(getRootFolderPathForFile)
+        .map(filePath => ConfigFolderPaths.get(filePath))
         .filter(isFirstOccurence);
-    const rootPathsWithNoConfig = rootPaths.filter(path => !configUtil.hasConfigForFile(path));
+    const rootPathsWithNoConfig = rootPaths.filter(path => !ConfigPaths.hasForItem(path));
 
     // Ask to create, if some of the configs that the files should be added to are not created
     if (rootPathsWithNoConfig.length) {
@@ -125,10 +126,10 @@ async function startAddComponentsFlow(selectedFilePaths: string[] | undefined = 
         return;
     }
 
-    const configPaths = rootPaths.map(configUtil.getConfigPathForFile);
+    const configPaths = rootPaths.map(rootPath => ConfigPaths.getForItem(rootPath));
 
     // Check if selected config files are saved, fail if not so
-    const dirtyConfigPaths = configPaths.filter(configUtil.isConfigDirty);
+    const dirtyConfigPaths = configPaths.filter(isFileDirty);
     if (dirtyConfigPaths.length) {
         MessageBuilder.with(localization.coco.common.configsNotSaved).show();
         dirtyConfigPaths.forEach(path => showInEditor(path));
@@ -150,8 +151,8 @@ async function startAddComponentsFlow(selectedFilePaths: string[] | undefined = 
 }
 
 function showComponentInConfig(filePath: string) {
-    const configPath = configUtil.getConfigPathForFile(filePath);
-    const relativeFilePath = getRelativePathToRootFolder(filePath);
+    const configPath = ConfigPaths.getForItem(filePath);
+    const relativeFilePath = ConfigFolderPaths.getRelativePathOf(filePath);
 
     showInEditor(configPath, { text: relativeFilePath });
 }

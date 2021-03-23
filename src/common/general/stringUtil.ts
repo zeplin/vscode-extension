@@ -46,8 +46,13 @@ function uppercaseFirst(str: string) {
     return !str.length ? str : str.charAt(0).toUpperCase() + str.substring(1);
 }
 
+function compareLength(str1: string, str2: string): number {
+    return str2.length - str1.length;
+}
+
 export {
     replaceAll,
     allIndicesOf,
-    snakeCaseToPascalCase
+    snakeCaseToPascalCase,
+    compareLength
 };

@@ -5,11 +5,13 @@ import Session from "../../../session/Session";
 import localization from "../../../localization";
 import { showNotLoggedInError, showNoConfigError } from "../../../common/domain/error/errorUi";
 import MessageBuilder from "../../../common/vscode/message/MessageBuilder";
+import { isFileDirty } from "../../../common/vscode/editor/textDocumentUtil";
+import ConfigPaths from "../../config/util/ConfigPaths";
 
 async function selectAndValidateConfig(pickerTitle: string, loginRequired = true):
     Promise<string | undefined> {
     // Check if there are any configs, fail if not so
-    if (!configUtil.areThereAnyConfigs()) {
+    if (!ConfigPaths.any()) {
         showNoConfigError();
         return;
     }
@@ -21,13 +23,13 @@ async function selectAndValidateConfig(pickerTitle: string, loginRequired = true
     }
 
     // Get active config or ask the user to do so, fail if none selected
-    const configPath = configUtil.getActiveConfigPath() ?? await showConfigPicker(pickerTitle);
+    const configPath = ConfigPaths.getActive() ?? await showConfigPicker(pickerTitle);
     if (!configPath) {
         return;
     }
 
     // Check if selected config file is saved, fail if not so
-    if (configUtil.isConfigDirty(configPath)) {
+    if (isFileDirty(configPath)) {
         MessageBuilder.with(localization.coco.common.configNotSaved).show();
         showInEditor(configPath);
         return;
@@ -48,7 +50,7 @@ async function selectAndValidateConfig(pickerTitle: string, loginRequired = true
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function showConfigPicker(pickerTitle: string): Thenable<string | undefined> {
     return vscode.window.showQuickPick(
-        configUtil.getConfigPaths(),
+        ConfigPaths.getAll(),
         { placeHolder: localization.common.selectFolder }
     );
 }

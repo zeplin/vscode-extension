@@ -19,6 +19,9 @@ import PinScreenToSidebarCommand from "../../../sidebar/pin/command/PinScreenToS
 import PinComponentToSidebarCommand from "../../../sidebar/pin/command/PinComponentToSidebarCommand";
 import UnpinAllFromSidebarCommand from "../../../sidebar/pin/command/UnpinAllFromSidebarCommand";
 import CreateConfigCommand from "../../../coco/config/command/CreateConfigCommand";
+import SetConfigCommand from "../../../coco/config/command/SetConfigCommand";
+import SetConfigRootCommand from "../../../coco/config/command/SetConfigRootCommand";
+import UnsetConfigCommand from "../../../coco/config/command/UnsetConfigCommand";
 import OpenConfigCommand from "../../../coco/config/command/OpenConfigCommand";
 import LoginCommand from "../../../session/command/LoginCommand";
 import ManualLoginCommand from "../../../session/command/ManualLoginCommand";
@@ -36,9 +39,11 @@ import SaveLogsCommand from "../../../log/command/SaveLogsCommand";
 import ShowComponentInConfigCommand from "../../../coco/component/command/ShowComponentInConfigCommand";
 import UriHandler from "../uri/UriHandler";
 import ConfigCodeLensProvider from "../../../coco/config/codeLens/ConfigCodeLensProvider";
+import CustomConfigCodeLensProvider from "../../../coco/config/codeLens/CustomConfigCodeLensProvider";
 import ComponentCodeLensProvider from "../../../coco/component/codeLens/ComponentCodeLensProvider";
 import HoverProvider from "../../vscode/hover/HoverProvider";
 import { updateConfigOnComponentRename } from "../../../coco/component/fileChange/componentRenameUtil";
+import { updatePathOnCustomConfigRename, removePathOnCustomConfigDelete } from "../../../coco/config/fileChange/configRenameUtil";
 import { registerCommand } from "../../vscode/extension/extensionUtil";
 import ComponentLinkProvider from "../../../coco/component/documentLink/ComponentLinkProvider";
 import ConfigDiagnosticsProvider from "../../../coco/config/diagnostic/ConfigDiagnosticsProvider";
@@ -70,6 +75,9 @@ export async function activate(context: vscode.ExtensionContext) {
         UnpinAllFromSidebarCommand,
         CreateConfigCommand,
         OpenConfigCommand,
+        SetConfigCommand,
+        SetConfigRootCommand,
+        UnsetConfigCommand,
         LoginCommand,
         ManualLoginCommand,
         LogoutCommand,
@@ -87,6 +95,7 @@ export async function activate(context: vscode.ExtensionContext) {
     ];
     const codeLensProviders = [
         ConfigCodeLensProvider,
+        CustomConfigCodeLensProvider,
         ComponentCodeLensProvider
     ];
 
@@ -94,6 +103,8 @@ export async function activate(context: vscode.ExtensionContext) {
 
     if (vscode.workspace.onDidRenameFiles) { // This feature requires VS Code v1.41 and up.
         context.subscriptions.push(vscode.workspace.onDidRenameFiles(updateConfigOnComponentRename));
+        context.subscriptions.push(vscode.workspace.onWillRenameFiles(updatePathOnCustomConfigRename));
+        context.subscriptions.push(vscode.workspace.onWillDeleteFiles(removePathOnCustomConfigDelete));
     }
     context.subscriptions.push(vscode.window.registerUriHandler(UriHandler));
     codeLensProviders.forEach(
@@ -102,6 +113,7 @@ export async function activate(context: vscode.ExtensionContext) {
         )
     );
     context.subscriptions.push(ConfigCodeLensProvider.createWatcher());
+    context.subscriptions.push(CustomConfigCodeLensProvider.createWatcher());
     context.subscriptions.push(
         vscode.languages.registerHoverProvider(HoverProvider.getDocumentSelector(), HoverProvider)
     );
